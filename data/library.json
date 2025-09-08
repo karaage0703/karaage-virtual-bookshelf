@@ -1,5 +1,5 @@
 {
-  "exportDate": "2025-09-08T13:15:58.110Z",
+  "exportDate": "2025-09-08T13:17:15.482Z",
   "books": {
     "4065412382": {
       "title": "PythonではじめるMCP開発入門 (KS情報科学専門書)",
@@ -26636,9 +26636,9 @@
     "showHighlights": true,
     "currentBookshelf": "all",
     "theme": "light",
-    "booksPerPage": "all",
+    "booksPerPage": "50",
     "showImagesInOverview": true,
-    "coverSize": "small"
+    "coverSize": "medium"
   },
   "bookOrder": {
     "all": [
