@@ -463,6 +463,41 @@ body {
     padding-top: 3rem;
 }
 
+/* Book Detail Styles */
+.book-detail-header {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    align-items: flex-start;
+}
+
+.book-detail-cover {
+    width: 120px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    flex-shrink: 0;
+}
+
+.book-detail-cover-placeholder {
+    width: 120px;
+    height: 180px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: #6c757d;
+    flex-shrink: 0;
+}
+
+.book-detail-info {
+    flex: 1;
+    min-width: 0;
+}
+
 /* Pagination */
 .pagination {
     display: flex;

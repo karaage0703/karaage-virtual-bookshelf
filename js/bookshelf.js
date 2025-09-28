@@ -293,6 +293,27 @@ class VirtualBookshelf {
         document.getElementById('clear-library').addEventListener('click', () => {
             this.clearLibrary();
         });
+
+        // Event delegation for modal content
+        document.addEventListener('click', (e) => {
+            // 編集モード切り替え
+            if (e.target.classList.contains('edit-mode-btn')) {
+                const asin = e.target.dataset.asin;
+                const book = this.books.find(b => b.asin === asin);
+                if (book) {
+                    this.showBookDetail(book, true);
+                }
+            }
+
+            // 編集キャンセル
+            if (e.target.classList.contains('cancel-edit-btn')) {
+                const asin = e.target.dataset.asin;
+                const book = this.books.find(b => b.asin === asin);
+                if (book) {
+                    this.showBookDetail(book, false);
+                }
+            }
+        });
     }
 
     setView(view) {
@@ -678,14 +699,14 @@ class VirtualBookshelf {
         this.updateDisplay();
     }
 
-    showBookDetail(book) {
+    showBookDetail(book, isEditMode = false) {
         const modal = document.getElementById('book-modal');
         const modalBody = document.getElementById('modal-body');
-        
+
         const isHidden = this.userData.hiddenBooks && this.userData.hiddenBooks.includes(book.asin);
         const userNote = this.userData.notes[book.asin] || { memo: '', rating: 0 };
         const amazonUrl = this.bookManager.getAmazonUrl(book, this.userData.settings.affiliateId);
-        
+
         modalBody.innerHTML = `
             <div class="book-detail">
                 <div class="book-detail-header">
@@ -694,7 +715,17 @@ class VirtualBookshelf {
                         '<div class="book-detail-cover-placeholder">📖</div>'
                     }
                     <div class="book-detail-info">
-                        <div class="book-edit-section">
+                        <div class="book-info-section" ${isEditMode ? 'style="display: none;"' : ''}>
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                                <h2 style="margin: 0; color: #2c3e50; flex: 1;">${book.title}</h2>
+                                <button class="btn btn-primary edit-mode-btn" data-asin="${book.asin}" style="margin-left: 1rem; padding: 0.5rem 1rem; font-size: 0.9rem;">✏️ 編集</button>
+                            </div>
+                            <p style="margin: 0 0 0.5rem 0; color: #7f8c8d;"><strong>著者:</strong> ${book.authors}</p>
+                            <p style="margin: 0 0 0.5rem 0; color: #7f8c8d;"><strong>購入日:</strong> ${new Date(book.acquiredTime).toLocaleDateString('ja-JP')}</p>
+                            <p style="margin: 0 0 0.5rem 0; color: #7f8c8d;"><strong>ASIN:</strong> ${book.asin}</p>
+                            ${book.updatedAsin ? `<p style="margin: 0 0 0.5rem 0; color: #7f8c8d;"><strong>変更後ASIN:</strong> ${book.updatedAsin}</p>` : ''}
+                        </div>
+                        <div class="book-edit-section" ${!isEditMode ? 'style="display: none;"' : ''}>
                             <div class="edit-field">
                                 <label>📖 タイトル</label>
                                 <input type="text" class="edit-title" data-asin="${book.asin}" value="${book.title}" />
@@ -717,21 +748,23 @@ class VirtualBookshelf {
                                 <input type="text" class="edit-updated-asin" data-asin="${book.asin}" value="${book.updatedAsin || ''}" placeholder="新しいASINがある場合のみ入力" maxlength="10" pattern="[A-Z0-9]{10}" />
                                 <small class="field-help">※ Amazonで商品のASINが変更された場合の新しいASINを入力</small>
                             </div>
-                            <button class="btn btn-small save-book-changes" data-asin="${book.asin}">💾 変更を保存</button>
+                            <div class="edit-actions" style="margin-top: 1rem; display: flex; gap: 0.5rem;">
+                                <button class="btn btn-small save-book-changes" data-asin="${book.asin}">💾 変更を保存</button>
+                                <button class="btn btn-small btn-secondary cancel-edit-btn" data-asin="${book.asin}">❌ キャンセル</button>
+                            </div>
                         </div>
-                        <p>購入日: ${new Date(book.acquiredTime).toLocaleDateString('ja-JP')}</p>
 
                         
                         <div class="book-actions">
                             <a class="amazon-link" href="${amazonUrl}" target="_blank" rel="noopener">
                                 📚 Amazonで見る
                             </a>
-                            <button class="btn btn-danger delete-btn" data-asin="${book.asin}">
+                            <button class="btn btn-danger delete-btn" data-asin="${book.asin}" style="${isEditMode ? '' : 'display: none;'}">
                                 🗑️ 本を削除
                             </button>
                         </div>
                         
-                        <div class="bookshelf-actions" style="margin-top: 1rem;">
+                        <div class="bookshelf-actions" style="margin-top: 1rem; ${isEditMode ? '' : 'display: none;'}">
                             <div style="margin-bottom: 1rem;">
                                 <label for="bookshelf-select-${book.asin}">📚 本棚に追加:</label>
                                 <select id="bookshelf-select-${book.asin}" class="bookshelf-select">
@@ -767,16 +800,19 @@ class VirtualBookshelf {
                     </div>
                 </div>
                 
-                <div class="book-notes-section">
+                <div class="book-notes-section" style="${!isEditMode && !userNote.memo ? 'display: none;' : ''}">
                     <h3>📝 個人メモ</h3>
-                    <textarea class="note-textarea large-textarea" data-asin="${book.asin}" rows="6" placeholder="この本についてのメモやおすすめポイントを記入...&#10;&#10;改行も使えます。">${userNote.memo || ''}</textarea>
-                    <div class="note-preview" style="display: none;">
+                    ${!isEditMode && userNote.memo ? `
+                        <div class="note-display" style="background: #f8f9fa; padding: 1rem; border-radius: 8px; border-left: 4px solid #007bff;">${this.convertMarkdownLinksToHtml(userNote.memo)}</div>
+                    ` : ''}
+                    <textarea class="note-textarea large-textarea" data-asin="${book.asin}" rows="6" placeholder="この本についてのメモやおすすめポイントを記入...&#10;&#10;改行も使えます。" style="${isEditMode ? '' : 'display: none;'}">${userNote.memo || ''}</textarea>
+                    <div class="note-preview" style="${isEditMode ? (userNote.memo ? 'display: block;' : 'display: none;') : 'display: none;'}">
                         <h4>📄 プレビュー</h4>
-                        <div class="note-preview-content"></div>
+                        <div class="note-preview-content">${isEditMode && userNote.memo ? this.convertMarkdownLinksToHtml(userNote.memo) : ''}</div>
                     </div>
-                    <p class="note-help">💡 メモを記入すると自動的に公開されます • 改行は表示に反映されます</p>
-                    
-                    <div class="rating-section">
+                    <p class="note-help" style="${isEditMode ? '' : 'display: none;'}">💡 メモを記入すると自動的に公開されます • 改行は表示に反映されます</p>
+
+                    <div class="rating-section" style="${isEditMode ? '' : 'display: none;'}">
                         <h4>⭐ 星評価</h4>
                         <div class="star-rating" data-asin="${book.asin}" data-current-rating="${userNote.rating || 0}">
                             ${this.generateStarRating(userNote.rating || 0)}
@@ -793,13 +829,24 @@ class VirtualBookshelf {
         `;
         
         // Setup modal event listeners
-        modalBody.querySelector('.note-textarea').addEventListener('blur', (e) => {
+        const noteTextarea = modalBody.querySelector('.note-textarea');
+        noteTextarea.addEventListener('blur', (e) => {
             this.saveNote(e.target.dataset.asin, e.target.value);
         });
+
+        // リアルタイムプレビュー（編集モードの時のみ）
+        if (isEditMode) {
+            noteTextarea.addEventListener('input', (e) => {
+                this.updateMemoPreview(e.target);
+            });
+        }
         
-        modalBody.querySelector('.add-to-bookshelf').addEventListener('click', (e) => {
-            this.addBookToBookshelf(e.target.dataset.asin);
-        });
+        const addToBookshelfBtn = modalBody.querySelector('.add-to-bookshelf');
+        if (addToBookshelfBtn) {
+            addToBookshelfBtn.addEventListener('click', (e) => {
+                this.addBookToBookshelf(e.target.dataset.asin);
+            });
+        }
         
         // Remove from bookshelf buttons
         modalBody.querySelectorAll('.remove-from-bookshelf').forEach(button => {
@@ -811,37 +858,42 @@ class VirtualBookshelf {
         });
         
         // Rating reset button
-        modalBody.querySelector('.rating-reset').addEventListener('click', (e) => {
-            const asin = e.target.dataset.asin;
-            console.log(`🔄 評価リセット: ASIN: ${asin}`);
-            this.saveRating(asin, 0);
-            
-            // Update star display in modal
-            const starRating = modalBody.querySelector('.star-rating');
-            starRating.dataset.currentRating = 0;
-            const stars = starRating.querySelectorAll('.star');
-            stars.forEach(star => {
-                star.classList.remove('active');
+        const ratingResetBtn = modalBody.querySelector('.rating-reset');
+        if (ratingResetBtn) {
+            ratingResetBtn.addEventListener('click', (e) => {
+                const asin = e.target.dataset.asin;
+                console.log(`🔄 評価リセット: ASIN: ${asin}`);
+                this.saveRating(asin, 0);
+
+                // Update star display in modal
+                const starRating = modalBody.querySelector('.star-rating');
+                starRating.dataset.currentRating = 0;
+                const stars = starRating.querySelectorAll('.star');
+                stars.forEach(star => {
+                    star.classList.remove('active');
+                });
+
+                // Update display in main bookshelf
+                this.updateDisplay();
+                this.updateStats();
             });
-            
-            // Update display in main bookshelf
-            this.updateDisplay();
-            this.updateStats();
-        });
-        
-        modalBody.querySelector('.delete-btn').addEventListener('click', (e) => {
-            this.deleteBook(e.target.dataset.asin);
-        });
+        }
+
+        const deleteBtn = modalBody.querySelector('.delete-btn');
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', (e) => {
+                this.deleteBook(e.target.dataset.asin);
+            });
+        }
         
         // Add book edit functionality
-        modalBody.querySelector('.save-book-changes').addEventListener('click', (e) => {
-            this.saveBookChanges(e.target.dataset.asin);
-        });
+        const saveChangesBtn = modalBody.querySelector('.save-book-changes');
+        if (saveChangesBtn) {
+            saveChangesBtn.addEventListener('click', (e) => {
+                this.saveBookChanges(e.target.dataset.asin);
+            });
+        }
         
-        // Add memo preview functionality
-        modalBody.querySelector('.note-textarea').addEventListener('input', (e) => {
-            this.updateMemoPreview(e.target);
-        });
         
         // Add star rating functionality
         const starRating = modalBody.querySelector('.star-rating');
@@ -1584,15 +1636,15 @@ class VirtualBookshelf {
 
                 alert('✅ 本の情報を更新しました');
 
-                // モーダルを閉じる（ASINが変更されたため）
+                // 編集モードから表示モードに戻る
                 if (newOriginalAsin !== asin) {
+                    // ASINが変更された場合はモーダルを閉じる
                     this.closeModal();
                 } else {
-                    // モーダルのタイトルも更新
-                    const modal = document.getElementById('book-modal');
+                    // 表示モードで再表示
                     const book = this.books.find(b => b.asin === newOriginalAsin);
                     if (book) {
-                        this.showBookDetail(book);
+                        this.showBookDetail(book, false);
                     }
                 }
             }
