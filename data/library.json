@@ -1,5 +1,5 @@
 {
-  "exportDate": "2025-09-28T12:49:30.527Z",
+  "exportDate": "2025-09-28T14:01:38.018Z",
   "books": {
     "4065412382": {
       "title": "PythonではじめるMCP開発入門 (KS情報科学専門書)",
@@ -25988,11 +25988,12 @@
       "authors": "田中修治",
       "acquiredTime": 1543190400000,
       "readStatus": "UNKNOWN",
-      "productImage": "https://images-na.ssl-images-amazon.com/images/P/B0816DC5PZ.01.L.jpg",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/4344033507.01.L.jpg",
       "source": "manual_add",
       "addedDate": 1757123638326,
       "memo": "[「破天荒フェニックス」読んでオンデーズ行ったら思わずメガネ2本作ってしまいました](https://karaage.hatenadiary.jp/entry/2019/08/16/073000)",
-      "rating": 4
+      "rating": 4,
+      "updatedAsin": "4344033507"
     },
     "B08XQ7LWKD": {
       "title": "ハロー・ワールド",
