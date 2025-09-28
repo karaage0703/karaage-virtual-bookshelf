@@ -317,22 +317,16 @@ class BookManager {
             throw new Error('この本は既に蔵書に追加されています');
         }
 
-        const effectiveAsin = bookData.updatedAsin || asin;
         const newBook = {
             asin: asin,
             title: bookData.title || 'タイトル未設定',
             authors: bookData.authors || '著者未設定',
             acquiredTime: bookData.acquiredTime || Date.now(),
             readStatus: bookData.readStatus || 'UNKNOWN',
-            productImage: bookData.productImage || `https://images-na.ssl-images-amazon.com/images/P/${effectiveAsin}.01.L.jpg`,
+            productImage: bookData.productImage || `https://images-na.ssl-images-amazon.com/images/P/${asin}.01.L.jpg`,
             source: 'manual_add',
             addedDate: Date.now()
         };
-
-        // オプションの変更後ASINがある場合のみ追加
-        if (bookData.updatedAsin && bookData.updatedAsin !== asin) {
-            newBook.updatedAsin = bookData.updatedAsin;
-        }
 
         this.library.books.push(newBook);
         this.library.metadata.totalBooks = this.library.books.length;

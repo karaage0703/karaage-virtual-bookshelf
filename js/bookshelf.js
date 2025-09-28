@@ -1792,9 +1792,6 @@ class VirtualBookshelf {
 
         const manualAuthors = document.getElementById('manual-authors');
         if (manualAuthors) manualAuthors.value = '';
-
-        const manualUpdatedAsin = document.getElementById('manual-updated-asin');
-        if (manualUpdatedAsin) manualUpdatedAsin.value = '';
         
 
         
@@ -1857,7 +1854,6 @@ class VirtualBookshelf {
         const asin = document.getElementById('manual-asin').value.trim();
         const title = document.getElementById('manual-title').value.trim();
         const authors = document.getElementById('manual-authors').value.trim();
-        const updatedAsin = document.getElementById('manual-updated-asin').value.trim();
 
         if (!asin) {
             alert('📝 ASINを入力してください');
@@ -1869,12 +1865,6 @@ class VirtualBookshelf {
             return;
         }
 
-        // 変更後ASINの妥当性チェック
-        if (updatedAsin && !this.bookManager.isValidASIN(updatedAsin)) {
-            alert('🔗 変更後ASINは10桁の英数字で入力してください（例: B07ABC1234）');
-            return;
-        }
-
         try {
             const bookData = {
                 asin: asin,
@@ -1883,11 +1873,6 @@ class VirtualBookshelf {
                 readStatus: 'UNKNOWN',
                 acquiredTime: Date.now()
             };
-
-            // 変更後ASINがある場合は追加
-            if (updatedAsin) {
-                bookData.updatedAsin = updatedAsin;
-            }
 
             const newBook = await this.bookManager.addBookManually(bookData);
             this.showAddBookSuccess(newBook);
