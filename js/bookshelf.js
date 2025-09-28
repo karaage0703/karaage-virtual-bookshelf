@@ -1541,23 +1541,43 @@ class VirtualBookshelf {
     showBookSelectionForImport(books, source) {
         this.pendingImportBooks = books;
         this.importSource = source;
-        
+
         // インポートオプションを非表示にして選択UIを表示
         document.querySelector('.import-options').style.display = 'none';
         const selectionDiv = document.getElementById('book-selection');
         selectionDiv.style.display = 'block';
-        
-        // 本のリストを生成
-        const bookList = document.getElementById('book-list');
-        bookList.innerHTML = '';
-        
+
         // 既存の本を取得（重複チェック用）
         const existingASINs = new Set(this.bookManager.getAllBooks().map(book => book.asin));
-        
+
+        // 本のリストを生成（フィルター機能付き）
+        this.renderBookList(books, existingASINs);
+
+        // イベントリスナーを追加
+        this.setupBookSelectionListeners();
+        this.updateSelectedCount();
+    }
+
+    renderBookList(books, existingASINs) {
+        const bookList = document.getElementById('book-list');
+        bookList.innerHTML = '';
+
+        // フィルター設定を取得
+        const hideExisting = document.getElementById('hide-existing-books').checked;
+
+        let visibleCount = 0;
         books.forEach((book, index) => {
             const isExisting = existingASINs.has(book.asin);
+
+            // フィルター適用: インポート済みを非表示にする場合はスキップ
+            if (hideExisting && isExisting) {
+                return;
+            }
+
+            visibleCount++;
             const bookItem = document.createElement('div');
-            bookItem.className = 'book-selection-item';
+            bookItem.className = `book-selection-item ${isExisting ? 'existing-book' : ''}`;
+            bookItem.dataset.bookIndex = index;
             bookItem.innerHTML = `
                 <input type="checkbox" id="book-${index}" value="${index}" ${isExisting ? 'disabled' : ''}>
                 <div class="book-selection-info">
@@ -1568,37 +1588,59 @@ class VirtualBookshelf {
             `;
             bookList.appendChild(bookItem);
         });
-        
-        // イベントリスナーを追加
-        this.setupBookSelectionListeners();
-        this.updateSelectedCount();
+
+        // 表示件数を更新
+        this.updateBookListStats(books.length, visibleCount, existingASINs.size);
+    }
+
+    updateBookListStats(totalBooks, visibleBooks, existingBooks) {
+        // 統計情報を表示する要素を追加/更新
+        let statsElement = document.getElementById('book-list-stats');
+        if (!statsElement) {
+            statsElement = document.createElement('div');
+            statsElement.id = 'book-list-stats';
+            statsElement.style.cssText = 'margin-bottom: 1rem; padding: 0.5rem; background: #f8f9fa; border-radius: 4px; font-size: 0.9rem; color: #6c757d;';
+            document.getElementById('book-list').parentNode.insertBefore(statsElement, document.getElementById('book-list'));
+        }
+
+        const newBooks = totalBooks - existingBooks;
+        statsElement.innerHTML = `
+            📊 総数: ${totalBooks}冊 | 新規: ${newBooks}冊 | インポート済み: ${existingBooks}冊 | 表示中: ${visibleBooks}冊
+        `;
     }
     
     setupBookSelectionListeners() {
+        // フィルター変更時にリストを再描画
+        document.getElementById('hide-existing-books').addEventListener('change', () => {
+            const existingASINs = new Set(this.bookManager.getAllBooks().map(book => book.asin));
+            this.renderBookList(this.pendingImportBooks, existingASINs);
+            this.updateSelectedCount();
+        });
+
         // 全て選択
         document.getElementById('select-all-books').addEventListener('click', () => {
             const checkboxes = document.querySelectorAll('#book-list input[type="checkbox"]:not([disabled])');
             checkboxes.forEach(cb => cb.checked = true);
             this.updateSelectedCount();
         });
-        
+
         // 全て解除
         document.getElementById('deselect-all-books').addEventListener('click', () => {
             const checkboxes = document.querySelectorAll('#book-list input[type="checkbox"]');
             checkboxes.forEach(cb => cb.checked = false);
             this.updateSelectedCount();
         });
-        
+
         // チェックボックス変更時
         document.getElementById('book-list').addEventListener('change', () => {
             this.updateSelectedCount();
         });
-        
+
         // 選択した本をインポート
         document.getElementById('import-selected-books').addEventListener('click', () => {
             this.importSelectedBooks();
         });
-        
+
         // キャンセル
         document.getElementById('cancel-import').addEventListener('click', () => {
             this.cancelImport();

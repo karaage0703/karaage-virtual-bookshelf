@@ -126,8 +126,8 @@
                     <div class="library-management">
                         <h3>蔵書管理</h3>
                         <div class="management-buttons">
-                            <button id="import-kindle" class="btn btn-secondary">📥 Kindleインポート</button>
                             <button id="add-book-manually" class="btn btn-secondary">➕ 手動追加</button>
+                            <button id="import-kindle" class="btn btn-secondary">📥 Kindleインポート</button>
                             <button id="export-unified" class="btn btn-secondary">💾 データエクスポート</button>
                             <button id="clear-library" class="btn btn-danger">🗑️ 蔵書をクリア</button>
                         </div>
@@ -282,6 +282,12 @@
                 <div id="book-selection" class="book-selection" style="display: none;">
                     <h3>📚 インポートする本を選択</h3>
                     <div class="selection-controls">
+                        <div class="filter-options" style="margin-bottom: 1rem;">
+                            <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="checkbox" id="hide-existing-books" checked>
+                                <span>📚 インポート済みの本を非表示にする</span>
+                            </label>
+                        </div>
                         <button id="select-all-books" class="btn btn-small">全て選択</button>
                         <button id="deselect-all-books" class="btn btn-small">全て解除</button>
                         <span class="selected-count">選択: <span id="selected-count">0</span>冊</span>
