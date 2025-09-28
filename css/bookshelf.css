@@ -498,6 +498,59 @@ body {
     min-width: 0;
 }
 
+/* Book Links Styles */
+.book-links {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.book-link {
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    text-decoration: none;
+    font-size: 0.7rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid;
+    text-align: center;
+    width: fit-content;
+}
+
+.book-links .book-link.amazon-link {
+    background-color: #ff9500;
+    color: white;
+    border-color: #ff9500;
+    padding: 0.15rem 0.5rem !important;
+    border-radius: 3px !important;
+    margin: 0 !important;
+    font-weight: 500 !important;
+}
+
+.book-links .book-link.amazon-link:hover {
+    background-color: #e6850e;
+    border-color: #e6850e;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.book-link.detail-link {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+
+.book-link.detail-link:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.book-cover-link {
+    display: block;
+    text-decoration: none;
+}
+
 /* Pagination */
 .pagination {
     display: flex;

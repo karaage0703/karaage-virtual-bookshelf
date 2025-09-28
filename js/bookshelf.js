@@ -537,34 +537,47 @@ class VirtualBookshelf {
         const userNote = this.userData.notes[book.asin];
         
         if (displayType === 'cover' || displayType === 'covers') {
+            const amazonUrl = this.bookManager.getAmazonUrl(book, this.userData.settings.affiliateId);
             bookElement.innerHTML = `
                 <div class="book-cover-container">
                     <div class="drag-handle">⋮⋮</div>
-                    ${book.productImage ?
-                        `<img class="book-cover lazy" data-src="${this.escapeHtml(this.bookManager.getProductImageUrl(book))}" alt="${this.escapeHtml(book.title)}">` :
-                        `<div class="book-cover-placeholder">${this.escapeHtml(book.title)}</div>`
-                    }
-
+                    <a href="${amazonUrl}" target="_blank" rel="noopener noreferrer" class="book-cover-link">
+                        ${book.productImage ?
+                            `<img class="book-cover lazy" data-src="${this.escapeHtml(this.bookManager.getProductImageUrl(book))}" alt="${this.escapeHtml(book.title)}">` :
+                            `<div class="book-cover-placeholder">${this.escapeHtml(book.title)}</div>`
+                        }
+                    </a>
                 </div>
                 <div class="book-info">
                     <div class="book-title">${this.escapeHtml(book.title)}</div>
                     <div class="book-author">${this.escapeHtml(book.authors)}</div>
+                    <div class="book-links">
+                        <a href="${amazonUrl}" target="_blank" rel="noopener noreferrer" class="book-link amazon-link">Amazon</a>
+                        <a href="#" class="book-link detail-link" data-asin="${book.asin}">詳細</a>
+                    </div>
                     ${userNote && userNote.memo ? `<div class="book-memo">📝 ${this.formatMemoForDisplay(userNote.memo, 300)}</div>` : ''}
                     ${this.displayStarRating(userNote?.rating)}
                 </div>
             `;
         } else {
+            const amazonUrl = this.bookManager.getAmazonUrl(book, this.userData.settings.affiliateId);
             bookElement.innerHTML = `
                 <div class="book-cover-container">
                     <div class="drag-handle">⋮⋮</div>
-                    ${book.productImage ?
-                        `<img class="book-cover lazy" data-src="${this.escapeHtml(this.bookManager.getProductImageUrl(book))}" alt="${this.escapeHtml(book.title)}">` :
-                        '<div class="book-cover-placeholder">📖</div>'
-                    }
+                    <a href="${amazonUrl}" target="_blank" rel="noopener noreferrer" class="book-cover-link">
+                        ${book.productImage ?
+                            `<img class="book-cover lazy" data-src="${this.escapeHtml(this.bookManager.getProductImageUrl(book))}" alt="${this.escapeHtml(book.title)}">` :
+                            '<div class="book-cover-placeholder">📖</div>'
+                        }
+                    </a>
                 </div>
                 <div class="book-info">
                     <div class="book-title">${book.title}</div>
                     <div class="book-author">${book.authors}</div>
+                    <div class="book-links">
+                        <a href="${amazonUrl}" target="_blank" rel="noopener noreferrer" class="book-link amazon-link">Amazon</a>
+                        <a href="#" class="book-link detail-link" data-asin="${book.asin}">詳細</a>
+                    </div>
                     ${userNote && userNote.memo ? `<div class="book-memo">📝 ${this.formatMemoForDisplay(userNote.memo, 400)}</div>` : ''}
                     ${this.displayStarRating(userNote?.rating)}
 
@@ -585,7 +598,20 @@ class VirtualBookshelf {
                 e.stopPropagation();
                 return;
             }
-            this.showBookDetail(book);
+
+            // Only show detail if clicking the detail link
+            if (e.target.classList.contains('detail-link')) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.showBookDetail(book);
+                return;
+            }
+
+            // Prevent default click behavior for other elements
+            if (!e.target.closest('a')) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
         });
         
         return bookElement;
