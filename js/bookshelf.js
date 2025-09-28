@@ -1257,6 +1257,19 @@ class VirtualBookshelf {
             const isPublic = bookshelf.isPublic || false;
             const publicBadge = isPublic ? '<span class="public-badge">📤 公開中</span>' : '';
 
+            // 静的ページ公開情報を表示
+            const staticPageInfo = bookshelf.staticPageInfo;
+            const publicUrlInfo = staticPageInfo ? `
+                <div class="public-url-info" style="margin-top: 0.5rem; padding: 0.5rem; background: #f8f9fa; border-radius: 4px; font-size: 0.9rem;">
+                    <strong>🌐 公開URL:</strong>
+                    <a href="${staticPageInfo.url}" target="_blank" style="color: #007bff; text-decoration: none;">${staticPageInfo.url}</a>
+                    <button class="btn-copy-url" onclick="navigator.clipboard.writeText('${staticPageInfo.url}'); this.textContent='✅ コピー済み'; setTimeout(() => this.textContent='📋', 2000)" style="margin-left: 0.5rem; padding: 0.2rem 0.5rem; font-size: 0.8rem; border: 1px solid #007bff; background: white; color: #007bff; border-radius: 3px; cursor: pointer;">📋</button>
+                    <div style="margin-top: 0.3rem; color: #6c757d; font-size: 0.8rem;">
+                        最終更新: ${new Date(staticPageInfo.lastGenerated).toLocaleDateString('ja-JP')}
+                    </div>
+                </div>
+            ` : '';
+
             html += `
                 <div class="bookshelf-item" data-id="${bookshelf.id}" draggable="true">
                     <div class="bookshelf-drag-handle">⋮⋮</div>
@@ -1264,6 +1277,7 @@ class VirtualBookshelf {
                         <h4>${bookshelf.emoji || '📚'} ${bookshelf.name} ${publicBadge}</h4>
                         <p>${bookshelf.description || ''}</p>
                         <span class="book-count">${bookCount}冊</span>
+                        ${isPublic ? publicUrlInfo : ''}
                     </div>
                     <div class="bookshelf-actions">
                         <button class="btn btn-secondary edit-bookshelf" data-id="${bookshelf.id}">編集</button>
@@ -1527,23 +1541,43 @@ class VirtualBookshelf {
     showBookSelectionForImport(books, source) {
         this.pendingImportBooks = books;
         this.importSource = source;
-        
+
         // インポートオプションを非表示にして選択UIを表示
         document.querySelector('.import-options').style.display = 'none';
         const selectionDiv = document.getElementById('book-selection');
         selectionDiv.style.display = 'block';
-        
-        // 本のリストを生成
-        const bookList = document.getElementById('book-list');
-        bookList.innerHTML = '';
-        
+
         // 既存の本を取得（重複チェック用）
         const existingASINs = new Set(this.bookManager.getAllBooks().map(book => book.asin));
-        
+
+        // 本のリストを生成（フィルター機能付き）
+        this.renderBookList(books, existingASINs);
+
+        // イベントリスナーを追加
+        this.setupBookSelectionListeners();
+        this.updateSelectedCount();
+    }
+
+    renderBookList(books, existingASINs) {
+        const bookList = document.getElementById('book-list');
+        bookList.innerHTML = '';
+
+        // フィルター設定を取得
+        const hideExisting = document.getElementById('hide-existing-books').checked;
+
+        let visibleCount = 0;
         books.forEach((book, index) => {
             const isExisting = existingASINs.has(book.asin);
+
+            // フィルター適用: インポート済みを非表示にする場合はスキップ
+            if (hideExisting && isExisting) {
+                return;
+            }
+
+            visibleCount++;
             const bookItem = document.createElement('div');
-            bookItem.className = 'book-selection-item';
+            bookItem.className = `book-selection-item ${isExisting ? 'existing-book' : ''}`;
+            bookItem.dataset.bookIndex = index;
             bookItem.innerHTML = `
                 <input type="checkbox" id="book-${index}" value="${index}" ${isExisting ? 'disabled' : ''}>
                 <div class="book-selection-info">
@@ -1554,37 +1588,59 @@ class VirtualBookshelf {
             `;
             bookList.appendChild(bookItem);
         });
-        
-        // イベントリスナーを追加
-        this.setupBookSelectionListeners();
-        this.updateSelectedCount();
+
+        // 表示件数を更新
+        this.updateBookListStats(books.length, visibleCount, existingASINs.size);
+    }
+
+    updateBookListStats(totalBooks, visibleBooks, existingBooks) {
+        // 統計情報を表示する要素を追加/更新
+        let statsElement = document.getElementById('book-list-stats');
+        if (!statsElement) {
+            statsElement = document.createElement('div');
+            statsElement.id = 'book-list-stats';
+            statsElement.style.cssText = 'margin-bottom: 1rem; padding: 0.5rem; background: #f8f9fa; border-radius: 4px; font-size: 0.9rem; color: #6c757d;';
+            document.getElementById('book-list').parentNode.insertBefore(statsElement, document.getElementById('book-list'));
+        }
+
+        const newBooks = totalBooks - existingBooks;
+        statsElement.innerHTML = `
+            📊 総数: ${totalBooks}冊 | 新規: ${newBooks}冊 | インポート済み: ${existingBooks}冊 | 表示中: ${visibleBooks}冊
+        `;
     }
     
     setupBookSelectionListeners() {
+        // フィルター変更時にリストを再描画
+        document.getElementById('hide-existing-books').addEventListener('change', () => {
+            const existingASINs = new Set(this.bookManager.getAllBooks().map(book => book.asin));
+            this.renderBookList(this.pendingImportBooks, existingASINs);
+            this.updateSelectedCount();
+        });
+
         // 全て選択
         document.getElementById('select-all-books').addEventListener('click', () => {
             const checkboxes = document.querySelectorAll('#book-list input[type="checkbox"]:not([disabled])');
             checkboxes.forEach(cb => cb.checked = true);
             this.updateSelectedCount();
         });
-        
+
         // 全て解除
         document.getElementById('deselect-all-books').addEventListener('click', () => {
             const checkboxes = document.querySelectorAll('#book-list input[type="checkbox"]');
             checkboxes.forEach(cb => cb.checked = false);
             this.updateSelectedCount();
         });
-        
+
         // チェックボックス変更時
         document.getElementById('book-list').addEventListener('change', () => {
             this.updateSelectedCount();
         });
-        
+
         // 選択した本をインポート
         document.getElementById('import-selected-books').addEventListener('click', () => {
             this.importSelectedBooks();
         });
-        
+
         // キャンセル
         document.getElementById('cancel-import').addEventListener('click', () => {
             this.cancelImport();
@@ -2155,7 +2211,9 @@ class VirtualBookshelf {
                         source: book.source || 'unknown',
                         addedDate: book.addedDate || Date.now(),
                         memo: this.userData.notes?.[asin]?.memo || '',
-                        rating: this.userData.notes?.[asin]?.rating || 0
+                        rating: this.userData.notes?.[asin]?.rating || 0,
+                        // updatedAsinフィールドも含める
+                        ...(book.updatedAsin && book.updatedAsin.trim() !== '' && { updatedAsin: book.updatedAsin })
                     };
                 }
             });
@@ -2280,6 +2338,18 @@ class VirtualBookshelf {
             const isPublic = bookshelf.isPublic || false;
             const publicBadge = isPublic ? '<span class="public-badge">📤 公開中</span>' : '';
 
+            // 静的ページ公開情報を表示
+            const staticPageInfo = bookshelf.staticPageInfo;
+            const publicUrlDisplay = staticPageInfo ? `
+                <div class="public-url-preview" style="margin-top: 0.5rem; padding: 0.5rem; background: #e8f5e8; border: 1px solid #4caf50; border-radius: 4px; font-size: 0.9rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="color: #4caf50; font-weight: bold;">🌐 公開中:</span>
+                        <a href="${staticPageInfo.url}" target="_blank" style="color: #4caf50; text-decoration: none; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${staticPageInfo.url}</a>
+                        <button onclick="navigator.clipboard.writeText('${staticPageInfo.url}'); this.textContent='✅'; setTimeout(() => this.textContent='📋', 2000)" style="padding: 0.2rem 0.4rem; font-size: 0.8rem; border: 1px solid #4caf50; background: white; color: #4caf50; border-radius: 3px; cursor: pointer;">📋</button>
+                    </div>
+                </div>
+            ` : '';
+
             html += `
                 <div class="bookshelf-preview ${textOnlyClass}" data-bookshelf-id="${bookshelf.id}">
                     <div class="bookshelf-preview-header">
@@ -2290,6 +2360,7 @@ class VirtualBookshelf {
                         </div>
                     </div>
                     <p>${bookshelf.description || ''}</p>
+                    ${isPublic ? publicUrlDisplay : ''}
                     <p class="book-count">${bookCount}冊</p>
                     <div class="bookshelf-preview-books">
                         ${previewBooks.map(asin => {
@@ -2545,6 +2616,16 @@ class VirtualBookshelf {
             );
 
             if (result.success) {
+                // 本棚データに公開情報を保存
+                this.currentShareBookshelf.staticPageInfo = {
+                    filename: result.filename,
+                    lastGenerated: new Date().toISOString(),
+                    ownerName: ownerNameInput.value.trim() || '本棚の所有者',
+                    // GitHub Pages URLを生成（リポジトリ名から推測）
+                    url: `https://karaage0703.github.io/karaage-virtual-bookshelf/${result.filename}`
+                };
+                this.saveUserData();
+
                 // 成功時の表示
                 resultsContent.innerHTML = `
                     <div class="success-message">
@@ -2553,10 +2634,12 @@ class VirtualBookshelf {
                             <p><strong>本棚:</strong> ${result.bookshelf.emoji} ${result.bookshelf.name}</p>
                             <p><strong>書籍数:</strong> ${result.totalBooks}冊</p>
                             <p><strong>ファイル名:</strong> ${result.filename}</p>
+                            <p><strong>公開URL:</strong> <a href="${this.currentShareBookshelf.staticPageInfo.url}" target="_blank">${this.currentShareBookshelf.staticPageInfo.url}</a></p>
                             <p><strong>注意:</strong> GitHubにpushした後にURLが有効になります</p>
                         </div>
 
                         <div class="form-actions">
+                            <button class="btn btn-primary" onclick="navigator.clipboard.writeText('${this.currentShareBookshelf.staticPageInfo.url}')">📋 URLをコピー</button>
                             <button class="btn btn-secondary" onclick="window.bookshelf.closeStaticShareModal()">閉じる</button>
                         </div>
                     </div>
