@@ -1,5 +1,5 @@
 {
-  "exportDate": "2025-09-08T13:17:15.482Z",
+  "exportDate": "2025-09-28T12:49:30.527Z",
   "books": {
     "4065412382": {
       "title": "PythonではじめるMCP開発入門 (KS情報科学専門書)",
@@ -25983,7 +25983,7 @@
       "memo": "",
       "rating": 4
     },
-    "B0816DC5PZ": {
+    "B07G32RG74": {
       "title": "破天荒フェニックス",
       "authors": "田中修治",
       "acquiredTime": 1543190400000,
@@ -26136,6 +26136,336 @@
       "addedDate": 1757336463134,
       "memo": "短編集で、どれもよいですが「花」が特によいです",
       "rating": 5
+    },
+    "B06X191J7Q": {
+      "title": "エスパー魔美（１） (てんとう虫コミックス)",
+      "authors": "藤子・Ｆ・不二雄",
+      "acquiredTime": 1758963135368,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51iXZSVxa8L.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B009HOCBVG": {
+      "title": "並木橋通りアオバ自転車店　3巻 (ヤングキングコミックス)",
+      "authors": "宮尾岳",
+      "acquiredTime": 1758962719355,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://m.media-amazon.com/images/I/613nRRiNQ+L.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B009HOCAYE": {
+      "title": "並木橋通りアオバ自転車店　2巻 (ヤングキングコミックス)",
+      "authors": "宮尾岳",
+      "acquiredTime": 1758902399388,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/61E4GkmU+JL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0CB67HRZ1": {
+      "title": "BLOODY MONDAY【極！単行本シリーズ】2巻",
+      "authors": "龍門諒, 恵広史",
+      "acquiredTime": 1758549694029,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51xd4zDpg1L.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0CB66KLC6": {
+      "title": "BLOODY MONDAY【極！単行本シリーズ】7巻",
+      "authors": "龍門諒, 恵広史",
+      "acquiredTime": 1758549694015,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51GYwSxf3hL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0CB684MW4": {
+      "title": "BLOODY MONDAY【極！単行本シリーズ】1巻",
+      "authors": "龍門諒, 恵広史",
+      "acquiredTime": 1758549694007,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51PbiTGBj4L.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0CB686YF9": {
+      "title": "BLOODY MONDAY【極！単行本シリーズ】9巻",
+      "authors": "龍門諒, 恵広史",
+      "acquiredTime": 1758549693797,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/516jSsfXHDL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0CB67B7HB": {
+      "title": "BLOODY MONDAY【極！単行本シリーズ】10巻",
+      "authors": "龍門諒, 恵広史",
+      "acquiredTime": 1758549693784,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51gMEVkxnLL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0CB69Z8M7": {
+      "title": "BLOODY MONDAY【極！単行本シリーズ】8巻",
+      "authors": "龍門諒, 恵広史",
+      "acquiredTime": 1758549693783,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/513bKRWRGXL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0CB67KLN4": {
+      "title": "BLOODY MONDAY【極！単行本シリーズ】3巻",
+      "authors": "龍門諒, 恵広史",
+      "acquiredTime": 1758549693778,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51CICcsEzCL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0CB66JN89": {
+      "title": "BLOODY MONDAY【極！単行本シリーズ】11巻",
+      "authors": "龍門諒, 恵広史",
+      "acquiredTime": 1758549693563,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51kKvoJevdL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0CB677VNN": {
+      "title": "BLOODY MONDAY【極！単行本シリーズ】5巻",
+      "authors": "龍門諒, 恵広史",
+      "acquiredTime": 1758549693557,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51aHhkYZHuL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0CB67D5V2": {
+      "title": "BLOODY MONDAY【極！単行本シリーズ】4巻",
+      "authors": "龍門諒, 恵広史",
+      "acquiredTime": 1758549693553,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51BqbZovZLL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0CB688M26": {
+      "title": "BLOODY MONDAY【極！単行本シリーズ】6巻",
+      "authors": "龍門諒, 恵広史",
+      "acquiredTime": 1758549693552,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51D0PNPNt0L.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B009HOCALW": {
+      "title": "並木橋通りアオバ自転車店　1巻 (ヤングキングコミックス)",
+      "authors": "宮尾岳",
+      "acquiredTime": 1758468105075,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/518hStJefrL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B01N0Q9QEC": {
+      "title": "中年スーパーマン左江内氏 (てんとう虫コミックススペシャル)",
+      "authors": "藤子・Ｆ・不二雄",
+      "acquiredTime": 1758176439014,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://m.media-amazon.com/images/I/51x2aNicmhL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B07VV2N2YQ": {
+      "title": "偽史山人伝 (ビームコミックス)",
+      "authors": "詩野  うら",
+      "acquiredTime": 1758176310511,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://m.media-amazon.com/images/I/61YKdquNZAL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0FB8Z95TR": {
+      "title": "横山光輝生誕90周年記念電子出版「Selected Works」　伊賀の影丸（1）　若葉城の秘密（1）",
+      "authors": "横山 光輝",
+      "acquiredTime": 1758158372780,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51+xCXg5xlL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B00DMUJNH6": {
+      "title": "信長の忍び 1 (ジェッツコミックス)",
+      "authors": "重野なおき",
+      "acquiredTime": 1758158282348,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51uYk6rtu+L.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0DF5MRM7W": {
+      "title": "テクノロジーって何だろう？　 〈未完了相〉で出会い直すための手引き",
+      "authors": "小林 茂",
+      "acquiredTime": 1758158222350,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://m.media-amazon.com/images/I/41u3cpahn9L.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B00MAZDDD4": {
+      "title": "散歩もの (扶桑社コミックス)",
+      "authors": "久住 昌之, 谷口 ジロー",
+      "acquiredTime": 1758147976868,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51SVNCgiNiL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0FHBBX24W": {
+      "title": "目標という幻想　未知なる成果をもたらす、〈オープンエンド〉なアプローチ",
+      "authors": "ケネス・スタンリー, ジョエル・リーマン, 岡 瑞起（監修）",
+      "acquiredTime": 1757646071973,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://m.media-amazon.com/images/I/51LPtn8wnpL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0FM7QPW78": {
+      "title": "技術広報の教科書──人事・広報・エンジニアが兼務から始める",
+      "authors": "河又 涼",
+      "acquiredTime": 1757548356377,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51me8HGIbCL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0DTP6Y3S6": {
+      "title": "殺っちゃえ！！ 宇喜多さん （2） (SPコミックス)",
+      "authors": "重野なおき",
+      "acquiredTime": 1757503130048,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51CU6euE4LL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B07QK8MD49": {
+      "title": "ユダヤの商法(新装版) (ワニの本)",
+      "authors": "藤田田",
+      "acquiredTime": 1757146060016,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://m.media-amazon.com/images/I/51eBVJkZleL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0DYPHS21W": {
+      "title": "横山光輝生誕90周年記念電子出版「Selected Works」　史記（15）",
+      "authors": "横山 光輝",
+      "acquiredTime": 1756999428034,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://m.media-amazon.com/images/I/51v+eL-XSFL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0DYPGW3WP": {
+      "title": "横山光輝生誕90周年記念電子出版「Selected Works」　史記列伝",
+      "authors": "横山 光輝",
+      "acquiredTime": 1756999428032,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://m.media-amazon.com/images/I/51+FKGBCgsL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0DYPK3Q2N": {
+      "title": "横山光輝生誕90周年記念電子出版「Selected Works」　史記（13）",
+      "authors": "横山 光輝",
+      "acquiredTime": 1756999428031,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://m.media-amazon.com/images/I/51-8Kc63WuL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0DYPHDL8X": {
+      "title": "横山光輝生誕90周年記念電子出版「Selected Works」　史記（14）",
+      "authors": "横山 光輝",
+      "acquiredTime": 1756999428030,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://m.media-amazon.com/images/I/51Jb31W7ENL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
+    },
+    "B0DYR8V66S": {
+      "title": "横山光輝生誕90周年記念電子出版「Selected Works」　史記（12）",
+      "authors": "横山 光輝",
+      "acquiredTime": 1756999412705,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://m.media-amazon.com/images/I/513YMFHsYkL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1759063655445,
+      "memo": "",
+      "rating": 0
     }
   },
   "bookshelves": [
@@ -26287,7 +26617,7 @@
         "B00D6D1DV8",
         "B074FS2QLZ",
         "B00DMUG8VK",
-        "B0816DC5PZ",
+        "B07G32RG74",
         "4484881047",
         "B00E5XATVS",
         "B084SP5PLQ",
@@ -26348,7 +26678,7 @@
         "B07J28P6GN",
         "B01I3589FQ",
         "B01MYF4SD7",
-        "B0816DC5PZ",
+        "B07G32RG74",
         "B0BX3XHCQG",
         "B00B42SX70",
         "B084SP5PLQ",
@@ -26427,7 +26757,7 @@
         "B00YTLRISI",
         "B074FS2QLZ",
         "B00DMUG8VK",
-        "B0816DC5PZ",
+        "B07G32RG74",
         "4484881047",
         "B0813DY5CT",
         "B00E5XATVS",
@@ -27003,7 +27333,7 @@
     ]
   },
   "stats": {
-    "totalBooks": 2376,
+    "totalBooks": 2406,
     "notesCount": 209
   },
   "version": "2.0"

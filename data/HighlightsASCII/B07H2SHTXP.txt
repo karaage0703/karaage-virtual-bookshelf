@@ -4,9 +4,9 @@ kindle-sync:
   title: マルチ・ポテンシャライト 好きなことを次々と仕事にして、一生食っていく方法
   author: エミリー・ワプニック、長澤 あかね
   asin: B07H2SHTXP
-  lastAnnotatedDate: '2025-09-04'
+  lastAnnotatedDate: '2025-09-23'
   bookImageUrl: 'https://m.media-amazon.com/images/I/81GVfgqb5ML._SY160.jpg'
-  highlightsCount: 4
+  highlightsCount: 12
 ---
 # マルチ・ポテンシャライト 好きなことを次々と仕事にして、一生食っていく方法
 ## Metadata
@@ -26,5 +26,30 @@ kindle-sync:
 
 ---
 てんでばらばらな３つの収入源を持つモーガンは、ＮＰＯの職員／フリーランスのマーケター／パフォーマーだ。そう、肩書きにスラッシュ（／）が入っている。 — location: [1400](kindle://book?action=open&asin=B07H2SHTXP&location=1400) ^ref-48377
+
+---
+
+戦略②　新しいネットワークを広げる — location: [2005](kindle://book?action=open&asin=B07H2SHTXP&location=2005) ^ref-4721
+
+---
+戦略③　ボランティア活動をする — location: [2018](kindle://book?action=open&asin=B07H2SHTXP&location=2018) ^ref-63662
+
+---
+戦略④　無償でいいから働いてみる — location: [2023](kindle://book?action=open&asin=B07H2SHTXP&location=2023) ^ref-31252
+
+---
+●申し出が具体的でないか、私が今求めているものではない — location: [2039](kindle://book?action=open&asin=B07H2SHTXP&location=2039) ^ref-62913
+
+---
+●私がしなくてはならない作業が多すぎるか、こちらでその人を訓練しなくてはならない — location: [2041](kindle://book?action=open&asin=B07H2SHTXP&location=2041) ^ref-27508
+
+---
+●私がその人を知らない — location: [2045](kindle://book?action=open&asin=B07H2SHTXP&location=2045) ^ref-2446
+
+---
+【セルフチェック――フェニックス・アプローチが合うか、試してみる】 — location: [2083](kindle://book?action=open&asin=B07H2SHTXP&location=2083) ^ref-16512
+
+---
+シンプルライフを提唱するブロガー、レオ・バボータの著書『Focus（仮邦題：フォーカス）』で、「３つの『Ｃ』」について学んで以来、私はたびたびこの概念に立ち返る。基本的な考え方は次の通りだ。私たちの活動の大半は、３つのカテゴリー（つくる／Creating、つながる／Connecting、吸収する／Consuming）に分かれる。「つくる（Creating）」は、新しい何かを生み出すこと。「つながる（Connecting）」は、ほかの人たちに働きかけること。メールに返信する、ソーシャルメディアに投稿する、といった活動も含まれる。「吸収する（Consuming）」は、研究や学びのような活動のこと。本や記事を読んだり、映画を観たり、ポッドキャストを聴いたり、といった活動もそうだ。 — location: [2503](kindle://book?action=open&asin=B07H2SHTXP&location=2503) ^ref-27339
 
 ---

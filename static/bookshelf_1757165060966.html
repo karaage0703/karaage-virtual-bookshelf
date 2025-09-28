@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お気に入り100冊 - Virtual Bookshelf</title>
+    <meta name="description" content="お気に入りの本100冊">
+
+    <!-- Open Graph for SNS sharing -->
+    <meta property="og:title" content="お気に入り100冊 - Virtual Bookshelf">
+    <meta property="og:description" content="お気に入りの本100冊">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://karaage0703.github.io/karaage-virtual-bookshelf/static/bookshelf_1757165060966.html">
+    <meta property="og:image" content="https://images-na.ssl-images-amazon.com/images/P/B01N6HD4O4.01.L.jpg">
+    <meta property="og:site_name" content="Virtual Bookshelf">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="お気に入り100冊 - Virtual Bookshelf">
+    <meta name="twitter:description" content="お気に入りの本100冊">
+    <meta name="twitter:image" content="https://images-na.ssl-images-amazon.com/images/P/B01N6HD4O4.01.L.jpg">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+    <link rel="stylesheet" href="../css/bookshelf.css">
+    <style>
+        /* Static bookshelf specific styles */
+        .static-bookshelf {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .bookshelf-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .bookshelf-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .bookshelf-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .bookshelf-stat {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .static-book-item {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        .static-book-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .static-book-cover {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+
+        .static-book-info {
+            padding: 1rem;
+        }
+
+        .static-book-title {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .static-book-author {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .static-book-rating {
+            margin-top: 0.5rem;
+        }
+
+        .static-book-memo {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #555;
+            line-height: 1.4;
+            font-style: italic;
+        }
+
+        .static-book-memo a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .static-book-memo a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-info {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .share-btn:hover {
+            opacity: 0.8;
+        }
+
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267B2; }
+        .share-line { background: #00B900; }
+        .share-copy {
+            background: #343a40;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="static-bookshelf">
+        <header class="bookshelf-header">
+            <h1 class="bookshelf-title">📚 お気に入り100冊</h1>
+            <p class="bookshelf-description">お気に入りの本100冊</p>
+            <div class="bookshelf-meta">
+                <div class="bookshelf-stat">📚 81冊</div>
+                <div class="bookshelf-stat">📅 2025年9月28日</div>
+                <div class="bookshelf-stat">👤 からあげ</div>
+            </div>
+        </header>
+
+        <main class="books-grid">
+            
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B01N6HD4O4?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B01N6HD4O4.01.L.jpg"
+                             alt="妖怪ハンター 1 地の巻 (ヤングジャンプコミックスDIGITAL)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">妖怪ハンター 1 地の巻 (ヤングジャンプコミックスDIGITAL)</div>
+                        <div class="static-book-author">諸星大二郎</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo">諸星大二郎先生最高
+<a href="https://karaage.hatenadiary.jp/entry/2017/10/25/073000" target="_blank" rel="noopener noreferrer">諸星大二郎先生の「妖怪ハンター」が傑作でした</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00JPXEAV8?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00JPXEAV8.01.L.jpg"
+                             alt="火の鳥　1"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">火の鳥　1</div>
+                        <div class="static-book-author">手塚治虫</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2015/05/05/090000" target="_blank" rel="noopener noreferrer">漫画の巨匠（ゴッド）の名作のススメ</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0F5WTM2TH?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0F5WTM2TH.01.L.jpg"
+                             alt="横山光輝生誕90周年記念電子出版「Selected Works」　項羽と劉邦ー若き獅子たちー（1） 始皇帝暗殺"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">横山光輝生誕90周年記念電子出版「Selected Works」　項羽と劉邦ー若き獅子たちー（1） 始皇帝暗殺</div>
+                        <div class="static-book-author">横山 光輝</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2025/08/14/073000" target="_blank" rel="noopener noreferrer">横山光輝先生の漫画「項羽と劉邦」を読みました</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00B8EX7YI?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00B8EX7YI.01.L.jpg"
+                             alt="東周英雄伝（１） (モーニングコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">東周英雄伝（１） (モーニングコミックス)</div>
+                        <div class="static-book-author">鄭問</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2022/08/15/073000" target="_blank" rel="noopener noreferrer">中国の春秋戦国時代を描いた漫画が面白い</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B01N11SMHQ?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B01N11SMHQ.01.L.jpg"
+                             alt="映像研には手を出すな！（１） (ビッグコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">映像研には手を出すな！（１） (ビッグコミックス)</div>
+                        <div class="static-book-author">大童澄瞳</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo">映像研最高ですね。アニメもよかったけど、漫画もよいです
+
+<a href="https://karaage.hatenadiary.jp/entry/2025/01/30/073000" target="_blank" rel="noopener noreferrer">「映像研には手を出すな!」はアニメも漫画も作者も面白い</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0183G2JZQ?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0183G2JZQ.01.L.jpg"
+                             alt="やなせたかし 明日をひらく言葉 PHP文庫"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">やなせたかし 明日をひらく言葉 PHP文庫</div>
+                        <div class="static-book-author">PHP研究所</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2024/08/26/073000" target="_blank" rel="noopener noreferrer">アンパンマンで知る「生きるよころびと続ける勇気」</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0DB1LN8X6?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0DB1LN8X6.01.L.jpg"
+                             alt="なぜあの人は好きなことだけやって年収1000万円なのか？　異端の経営学者と学ぶ「そこそこ起業」 (集英社ノンフィクション)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">なぜあの人は好きなことだけやって年収1000万円なのか？　異端の経営学者と学ぶ「そこそこ起業」 (集英社ノンフィクション)</div>
+                        <div class="static-book-author">高橋勅徳</div>
+                        
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2024/08/19/073000" target="_blank" rel="noopener noreferrer">「なぜあの人は好きなことだけやって年収1000万円なのか？」を読んで起業について考える</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B09T2MQ6GL?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B09T2MQ6GL.01.L.jpg"
+                             alt="政治学者、ＰＴＡ会長になる"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">政治学者、ＰＴＡ会長になる</div>
+                        <div class="static-book-author">岡田 憲治</div>
+                        
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2024/11/17/073000" target="_blank" rel="noopener noreferrer">積読サロンのイベント 「いま令和ですよ！！」 ”全員善人”のはずなのに、なぜかヤバくなってしまうPTAの世界 & サロンメンバー交流会に参加しました</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00YV3XDBK?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00YV3XDBK.01.L.jpg"
+                             alt="シティーハンター １巻 (ゼノンコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">シティーハンター １巻 (ゼノンコミックス)</div>
+                        <div class="static-book-author">北条司</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2024/10/14/073000" target="_blank" rel="noopener noreferrer">週刊少年ジャンプ史上自分に最も影響を与えたマンガ21選</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00YV447N2?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00YV447N2.01.L.jpg"
+                             alt="花の慶次 ―雲のかなたに― １巻 (ゼノンコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">花の慶次 ―雲のかなたに― １巻 (ゼノンコミックス)</div>
+                        <div class="static-book-author">隆慶一郎, 原哲夫, 麻生未央</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2018/10/12/073000" target="_blank" rel="noopener noreferrer">花の慶次こと「前田慶次」最強設定を作った「隆慶一郎」先生のおすすめ作品</a>
+
+<a href="https://karaage.hatenadiary.jp/entry/2016/09/07/073000" target="_blank" rel="noopener noreferrer">懐かし漫画を名シーンで振り返る「利いたふうな口をきくな〜〜〜〜！！」「だが、それがいい」＠花の慶次 〜雲の彼方に〜</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0099FLF56?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0099FLF56.01.L.jpg"
+                             alt="一夢庵風流記（新潮文庫）"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">一夢庵風流記（新潮文庫）</div>
+                        <div class="static-book-author">隆 慶一郎</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2018/10/12/073000" target="_blank" rel="noopener noreferrer">花の慶次こと「前田慶次」最強設定を作った「隆慶一郎」先生のおすすめ作品</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0CW1B581M?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0CW1B581M.01.L.jpg"
+                             alt="まんが版 こんにちはマイコン（１） (てんとう虫コミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">まんが版 こんにちはマイコン（１） (てんとう虫コミックス)</div>
+                        <div class="static-book-author">すがやみつる</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2024/05/10/073000" target="_blank" rel="noopener noreferrer">こんにちはマイコンに感動してYouTube LiveでBASICのライブコーディングを配信しました</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0BLV21VPF?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0BLV21VPF.01.L.jpg"
+                             alt="職業としての小説家（新潮文庫）"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">職業としての小説家（新潮文庫）</div>
+                        <div class="static-book-author">村上春樹</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2024/02/01/073000" target="_blank" rel="noopener noreferrer">未だにうまく文章が書けない</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0BPY77S96?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0BPY77S96.01.L.jpg"
+                             alt="数理モデル思考で紐解くRULE DESIGN -組織と人の行動を科学する-"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">数理モデル思考で紐解くRULE DESIGN -組織と人の行動を科学する-</div>
+                        <div class="static-book-author">江崎貴裕</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2024/01/20/170350" target="_blank" rel="noopener noreferrer">法典からAIまで「RULE DESIGN」で学ぶルールの科学</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0CB25TNF2?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0CB25TNF2.01.L.jpg"
+                             alt="大規模言語モデルは新たな知能か――ChatGPTが変えた世界 (岩波科学ライブラリー)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">大規模言語モデルは新たな知能か――ChatGPTが変えた世界 (岩波科学ライブラリー)</div>
+                        <div class="static-book-author">岡野原 大輔</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2023/06/29/073000" target="_blank" rel="noopener noreferrer">書評: 「大規模言語モデルは新たな知能か」- AIと「理解」の新たな地平</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B01I0VBDII?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B01I0VBDII.01.L.jpg"
+                             alt="金の国 水の国 (フラワーコミックススペシャル)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">金の国 水の国 (フラワーコミックススペシャル)</div>
+                        <div class="static-book-author">岩本ナオ</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2023/01/20/073000" target="_blank" rel="noopener noreferrer">冬休みに読んだ漫画</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0922JLQBF?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0922JLQBF.01.L.jpg"
+                             alt="エリア88　1 (マンガの金字塔)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">エリア88　1 (マンガの金字塔)</div>
+                        <div class="static-book-author">新谷 かおる</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2023/01/20/073000" target="_blank" rel="noopener noreferrer">冬休みに読んだ漫画</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00QIWPQ2Q?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00QIWPQ2Q.01.L.jpg"
+                             alt="弱虫ペダル　SPARE BIKE　1 (少年チャンピオン・コミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">弱虫ペダル　SPARE BIKE　1 (少年チャンピオン・コミックス)</div>
+                        <div class="static-book-author">渡辺航</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2023/01/20/073000" target="_blank" rel="noopener noreferrer">冬休みに読んだ漫画</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00AQY7FMQ?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00AQY7FMQ.01.L.jpg"
+                             alt="弱虫ペダル　1 (少年チャンピオン・コミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">弱虫ペダル　1 (少年チャンピオン・コミックス)</div>
+                        <div class="static-book-author">渡辺航</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B076V68B29?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B076V68B29.01.L.jpg"
+                             alt="ショート・ピース（１） (ビッグコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">ショート・ピース（１） (ビッグコミックス)</div>
+                        <div class="static-book-author">小林有吾</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2023/01/16/073000" target="_blank" rel="noopener noreferrer">クリエイターの情熱と狂気を描くモノづくり漫画</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B074NSW7TS?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B074NSW7TS.01.L.jpg"
+                             alt="映画大好きポンポさん (MFC　ジーンピクシブシリーズ)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">映画大好きポンポさん (MFC　ジーンピクシブシリーズ)</div>
+                        <div class="static-book-author">杉谷 庄吾【人間プラモ】</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2023/01/16/073000" target="_blank" rel="noopener noreferrer">クリエイターの情熱と狂気を描くモノづくり漫画</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B079TP9GDQ?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B079TP9GDQ.01.L.jpg"
+                             alt="藤子・F・不二雄SF短編＜PERFECT版＞（１）ミノタウロスの皿 (ビッグコミックススペシャル)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">藤子・F・不二雄SF短編＜PERFECT版＞（１）ミノタウロスの皿 (ビッグコミックススペシャル)</div>
+                        <div class="static-book-author">藤子・Ｆ・不二雄</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2022/06/08/073000" target="_blank" rel="noopener noreferrer">藤子・F・不二雄SF短編＜PERFECT版＞は何度も読み返したくなる名作揃い</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B07FSH8G7Z?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B07FSH8G7Z.01.L.jpg"
+                             alt="21エモン（１） (てんとう虫コミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">21エモン（１） (てんとう虫コミックス)</div>
+                        <div class="static-book-author">藤子・Ｆ・不二雄</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B09CGRZVLL?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B09CGRZVLL.01.L.jpg"
+                             alt="キテレツ大百科（１） 藤子・Ｆ・不二雄大全集 (てんとう虫コミックススペシャル)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">キテレツ大百科（１） 藤子・Ｆ・不二雄大全集 (てんとう虫コミックススペシャル)</div>
+                        <div class="static-book-author">藤子・Ｆ・不二雄</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B09JKCCQTV?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B09JKCCQTV.01.L.jpg"
+                             alt="T・Pぼん（１） 藤子・Ｆ・不二雄大全集 (てんとう虫コミックススペシャル)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">T・Pぼん（１） 藤子・Ｆ・不二雄大全集 (てんとう虫コミックススペシャル)</div>
+                        <div class="static-book-author">藤子・Ｆ・不二雄</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo">名作です</div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0197UVMHI?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0197UVMHI.01.L.jpg"
+                             alt="大長編ドラえもん６ のび太の宇宙小戦争 (てんとう虫コミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">大長編ドラえもん６ のび太の宇宙小戦争 (てんとう虫コミックス)</div>
+                        <div class="static-book-author">藤子・Ｆ・不二雄</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B019O020J0?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B019O020J0.01.L.jpg"
+                             alt="大長編ドラえもん７ のび太と鉄人兵団 (てんとう虫コミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">大長編ドラえもん７ のび太と鉄人兵団 (てんとう虫コミックス)</div>
+                        <div class="static-book-author">藤子・Ｆ・不二雄</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B09JKGKWRT?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B09JKGKWRT.01.L.jpg"
+                             alt="大長編ドラえもん（１） 藤子・Ｆ・不二雄大全集 (てんとう虫コミックススペシャル)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">大長編ドラえもん（１） 藤子・Ｆ・不二雄大全集 (てんとう虫コミックススペシャル)</div>
+                        <div class="static-book-author">藤子・Ｆ・不二雄</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2022/03/23/073000" target="_blank" rel="noopener noreferrer">大長編ドラえもん全24巻から学ぶストーリー作り</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B08PY1TD6Z?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B08PY1TD6Z.01.L.jpg"
+                             alt="松かげに憩う　1 (ヤングチャンピオン・コミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">松かげに憩う　1 (ヤングチャンピオン・コミックス)</div>
+                        <div class="static-book-author">雨瀬シオリ</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2022/04/29/073000" target="_blank" rel="noopener noreferrer">漫画やラジオで学ぶ「吉田松陰」</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B09R3L4N63?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B09R3L4N63.01.L.jpg"
+                             alt="世界史を俯瞰して、思い込みから自分を解放する 歴史思考"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">世界史を俯瞰して、思い込みから自分を解放する 歴史思考</div>
+                        <div class="static-book-author">深井 龍之介</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0BVM6W823?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0BVM6W823.01.L.jpg"
+                             alt="田宮模型の仕事 (文春文庫)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">田宮模型の仕事 (文春文庫)</div>
+                        <div class="static-book-author">田宮 俊作</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2022/02/14/073000" target="_blank" rel="noopener noreferrer">世界のTAMIYAを作った田宮俊作氏の自叙伝かつビジネス本「田宮模型の仕事」</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B009GXMFHI?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B009GXMFHI.01.L.jpg"
+                             alt="すべてがＦになる　THE PERFECT INSIDER Ｓ＆Ｍシリーズ (講談社文庫)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">すべてがＦになる　THE PERFECT INSIDER Ｓ＆Ｍシリーズ (講談社文庫)</div>
+                        <div class="static-book-author">森博嗣</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2014/11/04/073000" target="_blank" rel="noopener noreferrer">ドラマ「すべてがFになる」からの森博嗣入門</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B018FT9OLI?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B018FT9OLI.01.L.jpg"
+                             alt="作家の収支 (幻冬舎新書)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">作家の収支 (幻冬舎新書)</div>
+                        <div class="static-book-author">森博嗣</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00J8DTRW2?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00J8DTRW2.01.L.jpg"
+                             alt="小説家という職業 (集英社新書)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">小説家という職業 (集英社新書)</div>
+                        <div class="static-book-author">森博嗣</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2021/07/14/073000" target="_blank" rel="noopener noreferrer">20年以上ネットに文章を書き続けた上で文章術の本をたくさん読んで分かった「文章を書く方法」</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00APR9D7Y?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00APR9D7Y.01.L.jpg"
+                             alt="私とは何か　「個人」から「分人」へ (講談社現代新書)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">私とは何か　「個人」から「分人」へ (講談社現代新書)</div>
+                        <div class="static-book-author">平野啓一郎</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2021/09/10/073000" target="_blank" rel="noopener noreferrer">分人という考え方『私とは何か――「個人」から「分人」へ』書評</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00D6D1DV8?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00D6D1DV8.01.L.jpg"
+                             alt="任天堂“驚き”を生む方程式 (日本経済新聞出版)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">任天堂“驚き”を生む方程式 (日本経済新聞出版)</div>
+                        <div class="static-book-author">井上理</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2018/09/26/073000" target="_blank" rel="noopener noreferrer">任天堂 横井軍平さんの「枯れた技術の水平思考」とイノベーション</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B074FS2QLZ?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B074FS2QLZ.01.L.jpg"
+                             alt="世界№１プレゼン術"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">世界№１プレゼン術</div>
+                        <div class="static-book-author">澤 円</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2019/01/28/073000" target="_blank" rel="noopener noreferrer">澤円さんの「世界No.1プレゼン術」で突然数百人の前でプレゼンする事態を乗り切りました</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00DMUG8VK?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00DMUG8VK.01.L.jpg"
+                             alt="まるいち的風景 1 (白泉社文庫)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">まるいち的風景 1 (白泉社文庫)</div>
+                        <div class="static-book-author">柳原望</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2019/03/06/073000" target="_blank" rel="noopener noreferrer">「まるいち的風景」が近未来のロボットと人間の関係を示唆していて面白い</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0816DC5PZ?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0816DC5PZ.01.L.jpg"
+                             alt="破天荒フェニックス"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">破天荒フェニックス</div>
+                        <div class="static-book-author">田中修治</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2019/08/16/073000" target="_blank" rel="noopener noreferrer">「破天荒フェニックス」読んでオンデーズ行ったら思わずメガネ2本作ってしまいました</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/4484881047?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/4484881047.01.L.jpg"
+                             alt="アイデアのつくり方"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">アイデアのつくり方</div>
+                        <div class="static-book-author">ジェームス W.ヤング</div>
+                        
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2020/02/21/073000" target="_blank" rel="noopener noreferrer">名著「アイデアのつくり方」はやっぱり名著だった</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00E5XATVS?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00E5XATVS.01.L.jpg"
+                             alt="思考の整理学 (ちくま文庫)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">思考の整理学 (ちくま文庫)</div>
+                        <div class="static-book-author">外山滋比古</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2020/02/21/073000" target="_blank" rel="noopener noreferrer">名著「アイデアのつくり方」はやっぱり名著だった</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B084SP5PLQ?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B084SP5PLQ.01.L.jpg"
+                             alt="シン・ニホン AI×データ時代における日本の再生と人材育成 (NewsPicksパブリッシング)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">シン・ニホン AI×データ時代における日本の再生と人材育成 (NewsPicksパブリッシング)</div>
+                        <div class="static-book-author">安宅和人</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2020/04/08/073000" target="_blank" rel="noopener noreferrer">日本版ファクトフルネス「シン・ニホン」は沈みゆく日本を照らす光となるか？</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B085SZLB2Q?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B085SZLB2Q.01.L.jpg"
+                             alt="Learn or Die 死ぬ気で学べ　プリファードネットワークスの挑戦"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">Learn or Die 死ぬ気で学べ　プリファードネットワークスの挑戦</div>
+                        <div class="static-book-author">西川 徹, 岡野原 大輔</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2020/04/15/073000" target="_blank" rel="noopener noreferrer">家庭用ロボットは実現するか？天才集団PFNの「Learn or Die」と夢想家集団の「ドラえもんを本気でつくる」を読んだ感想</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B08BTRPMYC?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B08BTRPMYC.01.L.jpg"
+                             alt="なぜ台湾は新型コロナウイルスを防げたのか (扶桑社ＢＯＯＫＳ新書)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">なぜ台湾は新型コロナウイルスを防げたのか (扶桑社ＢＯＯＫＳ新書)</div>
+                        <div class="static-book-author">野嶋剛</div>
+                        
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2020/08/07/073000" target="_blank" rel="noopener noreferrer">「なぜ台湾は新型コロナウイルスを防げたのか」で考える新型コロナの理想の対策</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B088LV7TV6?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B088LV7TV6.01.L.jpg"
+                             alt="ミライをつくろう！ VRで紡ぐバーチャル創世記"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">ミライをつくろう！ VRで紡ぐバーチャル創世記</div>
+                        <div class="static-book-author">GOROman, 西田 宗千佳</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B08VDYWGXQ?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B08VDYWGXQ.01.L.jpg"
+                             alt="マレーシアにきて８年で子どもはどう変わったか (サウスイーストプレス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">マレーシアにきて８年で子どもはどう変わったか (サウスイーストプレス)</div>
+                        <div class="static-book-author">野本響子</div>
+                        
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2021/03/12/073000" target="_blank" rel="noopener noreferrer">「マレーシアにきて８年で子どもはどう変わったか」を読んで結構価値観が揺さぶられた</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B08Z3MNR9J?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B08Z3MNR9J.01.L.jpg"
+                             alt="ゼロからのOS自作入門"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">ゼロからのOS自作入門</div>
+                        <div class="static-book-author">内田公太</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2021/04/02/073000" target="_blank" rel="noopener noreferrer">「ゼロからのOS自作入門」で自作OSにハマる</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B079PPSQWN?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B079PPSQWN.01.L.jpg"
+                             alt="独創はひらめかない―「素人発想、玄人実行」の法則 (日本経済新聞出版)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">独創はひらめかない―「素人発想、玄人実行」の法則 (日本経済新聞出版)</div>
+                        <div class="static-book-author">金出武雄</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2021/04/23/073000" target="_blank" rel="noopener noreferrer">「素人発想、素人実行」から「素人発想、玄人実行」へ</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B009IXHOJU?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B009IXHOJU.01.L.jpg"
+                             alt="名人伝"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">名人伝</div>
+                        <div class="static-book-author">中島 敦</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2021/05/28/073000" target="_blank" rel="noopener noreferrer">名人たる者かくあるべし</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B073PSGZZV?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B073PSGZZV.01.L.jpg"
+                             alt="解体屋ゲン 1巻"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">解体屋ゲン 1巻</div>
+                        <div class="static-book-author">石井さだよし, 星野茂樹</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2021/07/02/073000" target="_blank" rel="noopener noreferrer">令和のこち亀「解体屋ゲン」が面白い</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B01ASX39NS?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B01ASX39NS.01.L.jpg"
+                             alt="人を動かす　文庫版"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">人を動かす　文庫版</div>
+                        <div class="static-book-author">Ｄ・カーネギー</div>
+                        <div class="static-book-rating">⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2021/06/16/073000" target="_blank" rel="noopener noreferrer">積ん読していた名著と名高いカーネギーの「人を動かす」をようやく読破しました、漫画で</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B014GUVMLA?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B014GUVMLA.01.L.jpg"
+                             alt="マンガで読み解く 人を動かす"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">マンガで読み解く 人を動かす</div>
+                        <div class="static-book-author">Ｄ・カーネギー, 歩川 友紀</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2021/06/16/073000" target="_blank" rel="noopener noreferrer">積ん読していた名著と名高いカーネギーの「人を動かす」をようやく読破しました、漫画で</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B009KWUID8?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B009KWUID8.01.L.jpg"
+                             alt="寄生獣（１） (アフタヌーンコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">寄生獣（１） (アフタヌーンコミックス)</div>
+                        <div class="static-book-author">岩明均</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B079TMHCGZ?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B079TMHCGZ.01.L.jpg"
+                             alt="スティーブズ 1 (コルク)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">スティーブズ 1 (コルク)</div>
+                        <div class="static-book-author">うめ（小沢高広・妹尾朝子）, 松永肇一</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2021/04/14/073000" target="_blank" rel="noopener noreferrer">印象深い大企業・ベンチャーの経営理念・社是・Values</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0DBH95SGW?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0DBH95SGW.01.L.jpg"
+                             alt="方舟"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">方舟</div>
+                        <div class="static-book-author">夕木春央</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2023/06/07/073000" target="_blank" rel="noopener noreferrer">久しぶりに読んだミステリー小説「方舟」で読了後ひっくり返りました</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00ARAH2CW?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00ARAH2CW.01.L.jpg"
+                             alt="深く美しきアジア（１） (アフタヌーンコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">深く美しきアジア（１） (アフタヌーンコミックス)</div>
+                        <div class="static-book-author">鄭問</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo">謎の勢いがある漫画。怪作です。好みは分かれるかもしれません</div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B009GZIU4S?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B009GZIU4S.01.L.jpg"
+                             alt="LIAR GAME 1 (ヤングジャンプコミックスDIGITAL)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">LIAR GAME 1 (ヤングジャンプコミックスDIGITAL)</div>
+                        <div class="static-book-author">甲斐谷忍</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo">最後の方は、段々ゲームの内容がよくわからなくなってくるけど、人間ドラマが面白いですね（そんな楽しみ方している人いる？？）</div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00BKR03PY?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00BKR03PY.01.L.jpg"
+                             alt="海街diary 1 蝉時雨のやむ頃 (flowers コミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">海街diary 1 蝉時雨のやむ頃 (flowers コミックス)</div>
+                        <div class="static-book-author">吉田秋生</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo">BANANA FISHの吉田秋生先生、こんな漫画も書いていたんですね。</div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B07DCM9FWZ?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B07DCM9FWZ.01.L.jpg"
+                             alt="東大教授がおしえる やばい日本史"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">東大教授がおしえる やばい日本史</div>
+                        <div class="static-book-author">本郷 和人, 滝乃 みわこ, 和田 ラヂヲ, 横山 了一</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/409863015X?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/409863015X.01.L.jpg"
+                             alt="ありす、宇宙までも (1) (ビッグコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">ありす、宇宙までも (1) (ビッグコミックス)</div>
+                        <div class="static-book-author">売野 機子</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo">最近の宇宙飛行士ものの中では最高の漫画</div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B009JZH7K8?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B009JZH7K8.01.L.jpg"
+                             alt="ピンポン（１） (ビッグコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">ピンポン（１） (ビッグコミックス)</div>
+                        <div class="static-book-author">松本大洋</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo">最高</div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0CRTFVKT9?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0CRTFVKT9.01.L.jpg"
+                             alt="流浪地球 (角川文庫)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">流浪地球 (角川文庫)</div>
+                        <div class="static-book-author">劉 慈欣, 大森 望, 古市 雅子</div>
+                        
+                        <div class="static-book-memo">三体の劉 慈欣先生の短編集。どれも面白いです。</div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B08491KV9Z?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B08491KV9Z.01.L.jpg"
+                             alt="「自分だけの答え」が見つかる 13歳からのアート思考"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">「自分だけの答え」が見つかる 13歳からのアート思考</div>
+                        <div class="static-book-author">末永 幸歩</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B09BDZ5RSJ?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B09BDZ5RSJ.01.L.jpg"
+                             alt="ルックバック (ジャンプコミックスDIGITAL)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">ルックバック (ジャンプコミックスDIGITAL)</div>
+                        <div class="static-book-author">藤本タツキ</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00B42SX70?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00B42SX70.01.L.jpg"
+                             alt="採用基準"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">採用基準</div>
+                        <div class="static-book-author">伊賀 泰代</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2024/08/26/073000" target="_blank" rel="noopener noreferrer">今年読んでよかった本【2024年版】</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B009KYCHCG?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B009KYCHCG.01.L.jpg"
+                             alt="ヒストリエ（１） (アフタヌーンコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">ヒストリエ（１） (アフタヌーンコミックス)</div>
+                        <div class="static-book-author">岩明均</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00N2QXB00?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00N2QXB00.01.L.jpg"
+                             alt="半神 (フラワーコミックスα)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">半神 (フラワーコミックスα)</div>
+                        <div class="static-book-author">萩尾望都</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00U5DBVKA?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00U5DBVKA.01.L.jpg"
+                             alt="七夕の国（１） (ビッグコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">七夕の国（１） (ビッグコミックス)</div>
+                        <div class="static-book-author">岩明均</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00MORJOR2?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00MORJOR2.01.L.jpg"
+                             alt="11人いる！ (フラワーコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">11人いる！ (フラワーコミックス)</div>
+                        <div class="static-book-author">萩尾望都</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo">もはや古典の名作SF</div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B07L4MWMZY?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B07L4MWMZY.01.L.jpg"
+                             alt="彼方のアストラ 全巻合本版 (ジャンプコミックスDIGITAL)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">彼方のアストラ 全巻合本版 (ジャンプコミックスDIGITAL)</div>
+                        <div class="static-book-author">篠原健太</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2018/01/05/073000" target="_blank" rel="noopener noreferrer">宇宙飛行士の出てくる漫画が大好きです</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00G9S9IV4?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00G9S9IV4.01.L.jpg"
+                             alt="重版出来！（１） (ビッグコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">重版出来！（１） (ビッグコミックス)</div>
+                        <div class="static-book-author">松田奈緒子</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0891S9D46?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0891S9D46.01.L.jpg"
+                             alt="らーめん再遊記（１） (ビッグコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">らーめん再遊記（１） (ビッグコミックス)</div>
+                        <div class="static-book-author">久部緑郎, 河合単</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo">今一番熱いラーメン漫画。
+
+題材はラーメンですが、何かを作る人、ビジネスをしている人は何かしら得るものがあると思います。</div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B07CZY2M6J?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B07CZY2M6J.01.L.jpg"
+                             alt="惑星をつぐ者"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">惑星をつぐ者</div>
+                        <div class="static-book-author">戸田 尚伸</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo">名作</div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B079VNN2FX?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B079VNN2FX.01.L.jpg"
+                             alt="自分の中に毒を持て&lt;新装版&gt;"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">自分の中に毒を持て&lt;新装版&gt;</div>
+                        <div class="static-book-author">岡本 太郎</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B01IQL9YGU?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B01IQL9YGU.01.L.jpg"
+                             alt="さかなクンの一魚一会　～まいにち夢中な人生！～"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">さかなクンの一魚一会　～まいにち夢中な人生！～</div>
+                        <div class="static-book-author">さかなクン</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B08FDH57JT?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B08FDH57JT.01.L.jpg"
+                             alt="葬送のフリーレン（１） (少年サンデーコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">葬送のフリーレン（１） (少年サンデーコミックス)</div>
+                        <div class="static-book-author">山田鐘人, アベツカサ</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B078GL51L2?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B078GL51L2.01.L.jpg"
+                             alt="センチメントの行方 (1) (バーズコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">センチメントの行方 (1) (バーズコミックス)</div>
+                        <div class="static-book-author">榎本ナリコ</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00CA07JLG?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00CA07JLG.01.L.jpg"
+                             alt="けいおん！　1巻 (まんがタイムＫＲコミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">けいおん！　1巻 (まんがタイムＫＲコミックス)</div>
+                        <div class="static-book-author">かきふらい</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B01NGTCARO?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B01NGTCARO.01.L.jpg"
+                             alt="かりん歩　1 (MFコミックス　フラッパーシリーズ)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">かりん歩　1 (MFコミックス　フラッパーシリーズ)</div>
+                        <div class="static-book-author">柳原 望</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B073R6HCX9?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B073R6HCX9.01.L.jpg"
+                             alt="地球へ…[カラーイラスト完全版デジタルエディション] 1巻"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">地球へ…[カラーイラスト完全版デジタルエディション] 1巻</div>
+                        <div class="static-book-author">竹宮 惠子</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B08FBQPF6L?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B08FBQPF6L.01.L.jpg"
+                             alt="対話篇"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">対話篇</div>
+                        <div class="static-book-author">金城 一紀</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo">短編集で、どれもよいですが「花」が特によいです</div>
+                    </div>
+                </div>
+            
+        </main>
+
+        <footer class="footer-info">
+            <h3>📤 この本棚をシェア</h3>
+            <div class="share-buttons">
+                <a href="https://twitter.com/intent/tweet?text=%E3%81%8A%E6%B0%97%E3%81%AB%E5%85%A5%E3%82%8A100%E5%86%8A%20%23vbshelf%20https%3A%2F%2Fkaraage0703.github.io%2Fkaraage-virtual-bookshelf%2Fstatic%2Fbookshelf_1757165060966.html"
+                   target="_blank" class="share-btn share-twitter">🐦 Twitter</a>
+                <button onclick="copyToClipboard('お気に入り100冊 #vbshelf https://karaage0703.github.io/karaage-virtual-bookshelf/static/bookshelf_1757165060966.html')" class="share-btn share-copy">📋 テキストコピー</button>
+            </div>
+
+            <p style="margin-top: 2rem; color: #666;">
+                Powered by <a href="../index.html" style="color: #667eea;">Virtual Bookshelf</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('URLをクリップボードにコピーしました！');
+            }).catch(() => {
+                // フォールバック
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('URLをクリップボードにコピーしました！');
+            });
+        }
+    </script>
+</body>
+</html>
