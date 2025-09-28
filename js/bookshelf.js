@@ -519,8 +519,8 @@ class VirtualBookshelf {
             bookElement.innerHTML = `
                 <div class="book-cover-container">
                     <div class="drag-handle">⋮⋮</div>
-                    ${book.productImage ? 
-                        `<img class="book-cover lazy" data-src="${this.escapeHtml(book.productImage)}" alt="${this.escapeHtml(book.title)}">` :
+                    ${book.productImage ?
+                        `<img class="book-cover lazy" data-src="${this.escapeHtml(this.bookManager.getProductImageUrl(book))}" alt="${this.escapeHtml(book.title)}">` :
                         `<div class="book-cover-placeholder">${this.escapeHtml(book.title)}</div>`
                     }
 
@@ -536,8 +536,8 @@ class VirtualBookshelf {
             bookElement.innerHTML = `
                 <div class="book-cover-container">
                     <div class="drag-handle">⋮⋮</div>
-                    ${book.productImage ? 
-                        `<img class="book-cover lazy" data-src="${this.escapeHtml(book.productImage)}" alt="${this.escapeHtml(book.title)}">` :
+                    ${book.productImage ?
+                        `<img class="book-cover lazy" data-src="${this.escapeHtml(this.bookManager.getProductImageUrl(book))}" alt="${this.escapeHtml(book.title)}">` :
                         '<div class="book-cover-placeholder">📖</div>'
                     }
                 </div>
@@ -684,13 +684,13 @@ class VirtualBookshelf {
         
         const isHidden = this.userData.hiddenBooks && this.userData.hiddenBooks.includes(book.asin);
         const userNote = this.userData.notes[book.asin] || { memo: '', rating: 0 };
-        const amazonUrl = `https://amazon.co.jp/dp/${book.asin}?tag=${this.userData.settings.affiliateId}`;
+        const amazonUrl = this.bookManager.getAmazonUrl(book, this.userData.settings.affiliateId);
         
         modalBody.innerHTML = `
             <div class="book-detail">
                 <div class="book-detail-header">
-                    ${book.productImage ? 
-                        `<img class="book-detail-cover" src="${book.productImage}" alt="${book.title}">` :
+                    ${book.productImage ?
+                        `<img class="book-detail-cover" src="${this.bookManager.getProductImageUrl(book)}" alt="${book.title}">` :
                         '<div class="book-detail-cover-placeholder">📖</div>'
                     }
                     <div class="book-detail-info">
@@ -706,6 +706,16 @@ class VirtualBookshelf {
                             <div class="edit-field">
                                 <label>📅 購入日</label>
                                 <input type="date" class="edit-acquired-time" data-asin="${book.asin}" value="${new Date(book.acquiredTime).toISOString().split('T')[0]}" />
+                            </div>
+                            <div class="edit-field">
+                                <label>🔖 オリジナルASIN</label>
+                                <input type="text" class="edit-original-asin" data-asin="${book.asin}" value="${book.asin}" maxlength="10" pattern="[A-Z0-9]{10}" />
+                                <small class="field-help">※ 元のASIN（通常は変更不要）</small>
+                            </div>
+                            <div class="edit-field">
+                                <label>🔗 変更後ASIN（オプション）</label>
+                                <input type="text" class="edit-updated-asin" data-asin="${book.asin}" value="${book.updatedAsin || ''}" placeholder="新しいASINがある場合のみ入力" maxlength="10" pattern="[A-Z0-9]{10}" />
+                                <small class="field-help">※ Amazonで商品のASINが変更された場合の新しいASINを入力</small>
                             </div>
                             <button class="btn btn-small save-book-changes" data-asin="${book.asin}">💾 変更を保存</button>
                         </div>
@@ -1496,51 +1506,133 @@ class VirtualBookshelf {
         const titleInput = document.querySelector(`.edit-title[data-asin="${asin}"]`);
         const authorsInput = document.querySelector(`.edit-authors[data-asin="${asin}"]`);
         const acquiredTimeInput = document.querySelector(`.edit-acquired-time[data-asin="${asin}"]`);
-        
+        const originalAsinInput = document.querySelector(`.edit-original-asin[data-asin="${asin}"]`);
+        const updatedAsinInput = document.querySelector(`.edit-updated-asin[data-asin="${asin}"]`);
+
         const newTitle = titleInput.value.trim();
         const newAuthors = authorsInput.value.trim();
         const newAcquiredTime = acquiredTimeInput.value;
-        
+        const newOriginalAsin = originalAsinInput.value.trim();
+        const newUpdatedAsin = updatedAsinInput.value.trim();
+
         if (!newTitle) {
             alert('📖 タイトルは必須です');
             return;
         }
-        
+
+        // オリジナルASINの妥当性チェック
+        if (!newOriginalAsin || !this.bookManager.isValidASIN(newOriginalAsin)) {
+            alert('🔖 オリジナルASINは10桁の英数字で入力してください（例: B07ABC1234）');
+            return;
+        }
+
+        // 変更後ASINの妥当性チェック
+        if (newUpdatedAsin && !this.bookManager.isValidASIN(newUpdatedAsin)) {
+            alert('🔗 変更後ASINは10桁の英数字で入力してください（例: B07ABC1234）');
+            return;
+        }
+
+        // オリジナルASINが変更された場合の重複チェック
+        if (newOriginalAsin !== asin) {
+            const existingBook = this.books.find(book => book.asin === newOriginalAsin);
+            if (existingBook) {
+                alert('🔖 このオリジナルASINは既に使用されています');
+                return;
+            }
+        }
+
         try {
             const updateData = {
                 title: newTitle,
                 authors: newAuthors || '著者未設定'
             };
-            
+
+            // オリジナルASINが変更された場合
+            if (newOriginalAsin !== asin) {
+                updateData.asin = newOriginalAsin;
+            }
+
             // 購入日が変更されている場合は更新
             if (newAcquiredTime) {
                 updateData.acquiredTime = new Date(newAcquiredTime).getTime();
             }
-            
+
+            // 変更後ASINの処理
+            if (newUpdatedAsin) {
+                updateData.updatedAsin = newUpdatedAsin;
+                // 新しいASINで画像URLも更新
+                updateData.productImage = `https://images-na.ssl-images-amazon.com/images/P/${newUpdatedAsin}.01.L.jpg`;
+            } else {
+                // 変更後ASINが削除された場合、プロパティを削除
+                updateData.updatedAsin = undefined;
+                // 元のASIN（変更された可能性がある）で画像URLを復元
+                updateData.productImage = `https://images-na.ssl-images-amazon.com/images/P/${newOriginalAsin}.01.L.jpg`;
+            }
+
             const success = await this.bookManager.updateBook(asin, updateData);
-            
+
             if (success) {
+                // オリジナルASINが変更された場合、ユーザーデータを移行
+                if (newOriginalAsin !== asin) {
+                    this.migrateUserData(asin, newOriginalAsin);
+                }
+
                 // 表示を更新
                 this.books = this.bookManager.getAllBooks();
                 this.applyFilters();
                 this.updateStats();
-                
+
                 alert('✅ 本の情報を更新しました');
-                
-                // モーダルのタイトルも更新
-                const modal = document.getElementById('book-modal');
-                const book = this.books.find(b => b.asin === asin);
-                if (book) {
-                    this.showBookDetail(book);
+
+                // モーダルを閉じる（ASINが変更されたため）
+                if (newOriginalAsin !== asin) {
+                    this.closeModal();
+                } else {
+                    // モーダルのタイトルも更新
+                    const modal = document.getElementById('book-modal');
+                    const book = this.books.find(b => b.asin === newOriginalAsin);
+                    if (book) {
+                        this.showBookDetail(book);
+                    }
                 }
             }
-            
+
         } catch (error) {
             console.error('本の更新エラー:', error);
             alert(`❌ 更新に失敗しました: ${error.message}`);
         }
     }
-    
+
+    /**
+     * オリジナルASIN変更時のユーザーデータ移行
+     */
+    migrateUserData(oldAsin, newAsin) {
+        // 星評価とメモを移行
+        if (this.userData.notes[oldAsin]) {
+            this.userData.notes[newAsin] = this.userData.notes[oldAsin];
+            delete this.userData.notes[oldAsin];
+        }
+
+        // 非表示設定を移行
+        if (this.userData.hiddenBooks && this.userData.hiddenBooks.includes(oldAsin)) {
+            const index = this.userData.hiddenBooks.indexOf(oldAsin);
+            this.userData.hiddenBooks[index] = newAsin;
+        }
+
+        // 本棚情報を移行
+        if (this.userData.bookshelves) {
+            Object.values(this.userData.bookshelves).forEach(bookshelf => {
+                if (bookshelf.books && bookshelf.books.includes(oldAsin)) {
+                    const index = bookshelf.books.indexOf(oldAsin);
+                    bookshelf.books[index] = newAsin;
+                }
+            });
+        }
+
+        // ユーザーデータを保存
+        this.saveUserData();
+    }
+
     updateMemoPreview(textarea) {
         const preview = textarea.parentElement.querySelector('.note-preview');
         const previewContent = preview.querySelector('.note-preview-content');
@@ -1694,12 +1786,15 @@ class VirtualBookshelf {
         
         const manualAsin = document.getElementById('manual-asin');
         if (manualAsin) manualAsin.value = '';
-        
+
         const manualTitle = document.getElementById('manual-title');
         if (manualTitle) manualTitle.value = '';
-        
+
         const manualAuthors = document.getElementById('manual-authors');
         if (manualAuthors) manualAuthors.value = '';
+
+        const manualUpdatedAsin = document.getElementById('manual-updated-asin');
+        if (manualUpdatedAsin) manualUpdatedAsin.value = '';
         
 
         
@@ -1762,7 +1857,7 @@ class VirtualBookshelf {
         const asin = document.getElementById('manual-asin').value.trim();
         const title = document.getElementById('manual-title').value.trim();
         const authors = document.getElementById('manual-authors').value.trim();
-
+        const updatedAsin = document.getElementById('manual-updated-asin').value.trim();
 
         if (!asin) {
             alert('📝 ASINを入力してください');
@@ -1774,6 +1869,12 @@ class VirtualBookshelf {
             return;
         }
 
+        // 変更後ASINの妥当性チェック
+        if (updatedAsin && !this.bookManager.isValidASIN(updatedAsin)) {
+            alert('🔗 変更後ASINは10桁の英数字で入力してください（例: B07ABC1234）');
+            return;
+        }
+
         try {
             const bookData = {
                 asin: asin,
@@ -1782,6 +1883,11 @@ class VirtualBookshelf {
                 readStatus: 'UNKNOWN',
                 acquiredTime: Date.now()
             };
+
+            // 変更後ASINがある場合は追加
+            if (updatedAsin) {
+                bookData.updatedAsin = updatedAsin;
+            }
 
             const newBook = await this.bookManager.addBookManually(bookData);
             this.showAddBookSuccess(newBook);
@@ -1986,7 +2092,7 @@ class VirtualBookshelf {
                         ${previewBooks.map(asin => {
                             const book = this.books.find(b => b.asin === asin);
                             if (book && book.productImage) {
-                                return `<div class="bookshelf-preview-book"><img src="${book.productImage}" alt="${book.title}"></div>`;
+                                return `<div class="bookshelf-preview-book"><img src="${this.bookManager.getProductImageUrl(book)}" alt="${book.title}"></div>`;
                             } else {
                                 return '<div class="bookshelf-preview-book bookshelf-preview-placeholder">📖</div>';
                             }

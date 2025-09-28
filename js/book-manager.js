@@ -226,28 +226,6 @@ class BookManager {
         };
     }
 
-    async updateBook(asin, updates) {
-        const bookIndex = this.library.books.findIndex(book => book.asin === asin);
-        
-        if (bookIndex === -1) {
-            throw new Error('指定された本が見つかりません');
-        }
-        
-        // 本の情報を更新
-        const book = this.library.books[bookIndex];
-        Object.assign(book, updates);
-        
-        // メタデータを更新
-        this.library.metadata.totalBooks = this.library.books.length;
-        this.library.metadata.manuallyAdded = this.library.books.filter(b => b.source === 'manual_add').length;
-        this.library.metadata.importedFromKindle = this.library.books.filter(b => b.source === 'kindle_import').length;
-        
-        // ライブラリを保存
-        await this.saveLibrary();
-        
-        console.log(`本を更新: ${book.title}`);
-        return true;
-    }
 
     /**
      * 書籍更新が必要かチェック
@@ -294,12 +272,42 @@ class BookManager {
         };
     }
 
+
+    /**
+     * 表示・リンク用の有効なASINを取得
+     */
+    getEffectiveASIN(book) {
+        return book.updatedAsin || book.asin;
+    }
+
+    /**
+     * Amazon商品画像URLを取得
+     */
+    getProductImageUrl(book) {
+        const effectiveAsin = this.getEffectiveASIN(book);
+        return `https://images-na.ssl-images-amazon.com/images/P/${effectiveAsin}.01.L.jpg`;
+    }
+
+    /**
+     * AmazonアフィリエイトリンクURLを生成
+     */
+    getAmazonUrl(book, affiliateId = null) {
+        const effectiveAsin = this.getEffectiveASIN(book);
+        let url = `https://www.amazon.co.jp/dp/${effectiveAsin}`;
+
+        if (affiliateId) {
+            url += `?tag=${affiliateId}`;
+        }
+
+        return url;
+    }
+
     /**
      * 手動で書籍を追加
      */
     async addBookManually(bookData) {
         const asin = bookData.asin;
-        
+
         if (!asin || !this.isValidASIN(asin)) {
             throw new Error('有効なASINが必要です');
         }
@@ -309,16 +317,22 @@ class BookManager {
             throw new Error('この本は既に蔵書に追加されています');
         }
 
+        const effectiveAsin = bookData.updatedAsin || asin;
         const newBook = {
             asin: asin,
             title: bookData.title || 'タイトル未設定',
             authors: bookData.authors || '著者未設定',
             acquiredTime: bookData.acquiredTime || Date.now(),
             readStatus: bookData.readStatus || 'UNKNOWN',
-            productImage: bookData.productImage || `https://images-na.ssl-images-amazon.com/images/P/${asin}.01.L.jpg`,
+            productImage: bookData.productImage || `https://images-na.ssl-images-amazon.com/images/P/${effectiveAsin}.01.L.jpg`,
             source: 'manual_add',
             addedDate: Date.now()
         };
+
+        // オプションの変更後ASINがある場合のみ追加
+        if (bookData.updatedAsin && bookData.updatedAsin !== asin) {
+            newBook.updatedAsin = bookData.updatedAsin;
+        }
 
         this.library.books.push(newBook);
         this.library.metadata.totalBooks = this.library.books.length;
@@ -386,12 +400,27 @@ class BookManager {
      * 書籍情報を更新
      */
     async updateBook(asin, updates) {
-        const book = this.library.books.find(book => book.asin === asin);
-        if (!book) {
+        const bookIndex = this.library.books.findIndex(book => book.asin === asin);
+        if (bookIndex === -1) {
             throw new Error('指定された書籍が見つかりません');
         }
 
-        Object.assign(book, updates);
+        const book = this.library.books[bookIndex];
+
+        // undefinedの場合はプロパティを削除
+        Object.keys(updates).forEach(key => {
+            if (updates[key] === undefined) {
+                delete book[key];
+            } else {
+                book[key] = updates[key];
+            }
+        });
+
+        // メタデータを更新
+        this.library.metadata.totalBooks = this.library.books.length;
+        this.library.metadata.manuallyAdded = this.library.books.filter(b => b.source === 'manual_add').length;
+        this.library.metadata.importedFromKindle = this.library.books.filter(b => b.source === 'kindle_import').length;
+
         await this.saveLibrary();
         return book;
     }
