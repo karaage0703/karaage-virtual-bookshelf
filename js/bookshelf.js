@@ -2155,7 +2155,9 @@ class VirtualBookshelf {
                         source: book.source || 'unknown',
                         addedDate: book.addedDate || Date.now(),
                         memo: this.userData.notes?.[asin]?.memo || '',
-                        rating: this.userData.notes?.[asin]?.rating || 0
+                        rating: this.userData.notes?.[asin]?.rating || 0,
+                        // updatedAsinフィールドも含める
+                        ...(book.updatedAsin && book.updatedAsin.trim() !== '' && { updatedAsin: book.updatedAsin })
                     };
                 }
             });

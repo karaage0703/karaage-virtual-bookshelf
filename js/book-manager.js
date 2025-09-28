@@ -37,15 +37,19 @@ class BookManager {
             const libraryData = await response.json();
             // 新しいデータ構造から古い形式に変換
             this.library = {
-                books: Object.values(libraryData.books).map(book => ({
+                books: Object.entries(libraryData.books).map(([asin, book]) => ({
                     title: book.title,
                     authors: book.authors,
                     acquiredTime: book.acquiredTime,
                     readStatus: book.readStatus,
-                    asin: Object.keys(libraryData.books).find(asin => libraryData.books[asin] === book),
+                    asin: asin,
                     productImage: book.productImage,
                     source: book.source,
-                    addedDate: book.addedDate
+                    addedDate: book.addedDate,
+                    // 追加フィールドも含める
+                    ...(book.memo && { memo: book.memo }),
+                    ...(book.rating && { rating: book.rating }),
+                    ...(book.updatedAsin && { updatedAsin: book.updatedAsin })
                 })),
                 metadata: {
                     totalBooks: libraryData.stats.totalBooks,
@@ -549,20 +553,6 @@ class BookManager {
         return this.library;
     }
 
-    /**
-     * ライブラリデータをJSONファイルとしてダウンロード
-     */
-    exportLibraryData() {
-        const dataStr = JSON.stringify(this.library, null, 2);
-        const dataBlob = new Blob([dataStr], { type: 'application/json' });
-        
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(dataBlob);
-        link.download = 'library.json';
-        link.click();
-        
-        URL.revokeObjectURL(link.href);
-    }
 
     /**
      * 統計情報を取得
