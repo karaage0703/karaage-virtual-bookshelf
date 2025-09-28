@@ -1,5 +1,5 @@
 {
-  "exportDate": "2025-09-28T14:51:33.794Z",
+  "exportDate": "2025-09-28T14:57:34.321Z",
   "books": {
     "4065412382": {
       "title": "PythonではじめるMCP開発入門 (KS情報科学専門書)",
@@ -25962,17 +25962,6 @@
       "rating": 4,
       "updatedAsin": "4344033507"
     },
-    "B08XQ7LWKD": {
-      "title": "ハロー・ワールド",
-      "authors": "藤井太洋",
-      "acquiredTime": 1575676800000,
-      "readStatus": "UNKNOWN",
-      "productImage": "https://images-na.ssl-images-amazon.com/images/P/B08XQ7LWKD.01.L.jpg",
-      "source": "manual_add",
-      "addedDate": 1757137890777,
-      "memo": "",
-      "rating": 4
-    },
     "B07W3TQ4RB": {
       "title": "岩田さん: 岩田聡はこんなことを話していた。 (ほぼ日ブックス)",
       "authors": "ほぼ日刊イトイ新聞",
@@ -26463,13 +26452,14 @@
     "B07J1L1V41": {
       "title": "ハロー・ワールド",
       "authors": "藤井太洋",
-      "acquiredTime": 1575694550030,
+      "acquiredTime": 1575676800000,
       "readStatus": "READ",
-      "productImage": "",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/B08XQ7LWKD.01.L.jpg",
       "source": "kindle_import",
       "addedDate": 1759069934295,
       "memo": "",
-      "rating": 0
+      "rating": 4,
+      "updatedAsin": "B08XQ7LWKD"
     },
     "B07K6J3T43": {
       "title": "森には森の風が吹く",
@@ -26593,7 +26583,13 @@
       ],
       "createdAt": "2025-09-06T00:53:51.680Z",
       "isPublic": true,
-      "lastUpdated": "2025-09-28T14:17:06.313Z"
+      "lastUpdated": "2025-09-28T14:17:06.313Z",
+      "staticPageInfo": {
+        "filename": "bookshelf_1757120031680.html",
+        "lastGenerated": "2025-09-28T14:51:46.145Z",
+        "ownerName": "からあげ",
+        "url": "https://karaage0703.github.io/karaage-virtual-bookshelf/bookshelf_1757120031680.html"
+      }
     },
     {
       "id": "bookshelf_1757165060966",
@@ -26686,7 +26682,13 @@
       ],
       "createdAt": "2025-09-06T13:24:20.966Z",
       "isPublic": true,
-      "lastUpdated": "2025-09-28T14:18:38.638Z"
+      "lastUpdated": "2025-09-28T14:18:38.638Z",
+      "staticPageInfo": {
+        "filename": "bookshelf_1757165060966.html",
+        "lastGenerated": "2025-09-28T14:51:53.743Z",
+        "ownerName": "からあげ",
+        "url": "https://karaage0703.github.io/karaage-virtual-bookshelf/bookshelf_1757165060966.html"
+      }
     },
     {
       "id": "bookshelf_1757120002170",
@@ -26805,7 +26807,6 @@
       "books": [
         "B00DOT529S",
         "B009IXHOJU",
-        "B08XQ7LWKD",
         "B081YHT19N",
         "B0BLV21VPF",
         "B09NBZLC7J",
@@ -26816,7 +26817,8 @@
         "B0CRTFVKT9",
         "B0CZBY35S3",
         "B01FRVHITM",
-        "B0CD79BB5C"
+        "B0CD79BB5C",
+        "B07J1L1V41"
       ],
       "createdAt": "2025-09-06T01:27:45.159Z"
     },
@@ -26863,7 +26865,8 @@
         "B0CRTFVKT9",
         "B0CZBY35S3",
         "B07CZY2M6J",
-        "B073R6HCX9"
+        "B073R6HCX9",
+        "B07J1L1V41"
       ],
       "createdAt": "2025-09-06T09:30:44.846Z"
     },
@@ -27358,7 +27361,7 @@
     ]
   },
   "stats": {
-    "totalBooks": 2407,
+    "totalBooks": 2406,
     "notesCount": 210
   },
   "version": "2.0"
