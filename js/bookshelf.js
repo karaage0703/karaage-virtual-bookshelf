@@ -54,7 +54,7 @@ class VirtualBookshelf {
         // Initialize BookManager
         this.bookManager = new BookManager();
         await this.bookManager.initialize();
-        
+
         // Get books from BookManager instead of direct kindle.json
         this.books = this.bookManager.getAllBooks();
         
@@ -143,6 +143,10 @@ class VirtualBookshelf {
             document.getElementById('books-per-page').value = this.userData.settings.booksPerPage;
         }
         this.showImagesInOverview = this.userData.settings.showImagesInOverview !== false; // Default true
+
+        // Initialize Static Bookshelf Generator after userData is fully loaded
+        this.staticGenerator = new StaticBookshelfGenerator(this.bookManager, this.userData);
+
         this.applyFilters();
     }
 
@@ -189,7 +193,14 @@ class VirtualBookshelf {
         // Bookshelf selector
         document.getElementById('bookshelf-selector').addEventListener('change', (e) => {
             this.switchBookshelf(e.target.value);
+            this.updateStaticPageButton(e.target.value);
         });
+
+        // Static page button
+        const viewStaticPageBtn = document.getElementById('view-static-page');
+        if (viewStaticPageBtn) {
+            viewStaticPageBtn.addEventListener('click', () => this.openStaticPage());
+        }
 
         // Export button
         document.getElementById('export-unified').addEventListener('click', () => {
@@ -310,6 +321,22 @@ class VirtualBookshelf {
         document.getElementById('clear-library').addEventListener('click', () => {
             this.clearLibrary();
         });
+
+        // Static share modal
+        const staticShareModalClose = document.getElementById('static-share-modal-close');
+        if (staticShareModalClose) {
+            staticShareModalClose.addEventListener('click', () => this.closeStaticShareModal());
+        }
+
+        const generateStaticPageBtn = document.getElementById('generate-static-page');
+        if (generateStaticPageBtn) {
+            generateStaticPageBtn.addEventListener('click', () => this.generateStaticPage());
+        }
+
+        const cancelStaticShareBtn = document.getElementById('cancel-static-share');
+        if (cancelStaticShareBtn) {
+            cancelStaticShareBtn.addEventListener('click', () => this.closeStaticShareModal());
+        }
 
         // Event delegation for modal content
         document.addEventListener('click', (e) => {
@@ -1203,6 +1230,7 @@ class VirtualBookshelf {
 
     switchBookshelf(bookshelfId) {
         this.currentBookshelf = bookshelfId;
+        this.updateStaticPageButton(bookshelfId);
         this.applyFilters();
     }
 
@@ -1226,16 +1254,20 @@ class VirtualBookshelf {
         let html = '';
         this.userData.bookshelves.forEach(bookshelf => {
             const bookCount = bookshelf.books ? bookshelf.books.length : 0;
+            const isPublic = bookshelf.isPublic || false;
+            const publicBadge = isPublic ? '<span class="public-badge">📤 公開中</span>' : '';
+
             html += `
                 <div class="bookshelf-item" data-id="${bookshelf.id}" draggable="true">
                     <div class="bookshelf-drag-handle">⋮⋮</div>
                     <div class="bookshelf-info">
-                        <h4>${bookshelf.emoji || '📚'} ${bookshelf.name}</h4>
+                        <h4>${bookshelf.emoji || '📚'} ${bookshelf.name} ${publicBadge}</h4>
                         <p>${bookshelf.description || ''}</p>
                         <span class="book-count">${bookCount}冊</span>
                     </div>
                     <div class="bookshelf-actions">
                         <button class="btn btn-secondary edit-bookshelf" data-id="${bookshelf.id}">編集</button>
+                        ${isPublic ? `<button class="btn btn-primary share-bookshelf" data-id="${bookshelf.id}">📤 共有ページ</button>` : ''}
                         <button class="btn btn-danger delete-bookshelf" data-id="${bookshelf.id}">削除</button>
                     </div>
                 </div>
@@ -1248,12 +1280,14 @@ class VirtualBookshelf {
         const oldContainer = container.cloneNode(true);
         container.parentNode.replaceChild(oldContainer, container);
         
-        // Add event listeners for edit/delete buttons
+        // Add event listeners for edit/delete/share buttons
         oldContainer.addEventListener('click', (e) => {
             if (e.target.classList.contains('edit-bookshelf')) {
                 this.editBookshelf(e.target.dataset.id);
             } else if (e.target.classList.contains('delete-bookshelf')) {
                 this.deleteBookshelf(e.target.dataset.id);
+            } else if (e.target.classList.contains('share-bookshelf')) {
+                this.showStaticShareModal(e.target.dataset.id);
             }
         });
 
@@ -1271,18 +1305,21 @@ class VirtualBookshelf {
         const nameInput = document.getElementById('bookshelf-name');
         const emojiInput = document.getElementById('bookshelf-emoji');
         const descriptionInput = document.getElementById('bookshelf-description');
-        
+        const isPublicInput = document.getElementById('bookshelf-is-public');
+
         // Set form title and populate fields for editing
         if (bookshelfToEdit) {
             title.textContent = '📚 本棚を編集';
             nameInput.value = bookshelfToEdit.name;
             emojiInput.value = bookshelfToEdit.emoji || '📚';
             descriptionInput.value = bookshelfToEdit.description || '';
+            isPublicInput.checked = bookshelfToEdit.isPublic || false;
         } else {
             title.textContent = '📚 新しい本棚';
             nameInput.value = '';
             emojiInput.value = '📚';
             descriptionInput.value = '';
+            isPublicInput.checked = false;
         }
         
         // Store current editing bookshelf
@@ -1302,7 +1339,8 @@ class VirtualBookshelf {
         const nameInput = document.getElementById('bookshelf-name');
         const emojiInput = document.getElementById('bookshelf-emoji');
         const descriptionInput = document.getElementById('bookshelf-description');
-        
+        const isPublicInput = document.getElementById('bookshelf-is-public');
+
         const name = nameInput.value.trim();
         if (!name) {
             alert('本棚の名前を入力してください');
@@ -1315,6 +1353,8 @@ class VirtualBookshelf {
             this.currentEditingBookshelf.name = name;
             this.currentEditingBookshelf.emoji = emojiInput.value.trim() || '📚';
             this.currentEditingBookshelf.description = descriptionInput.value.trim();
+            this.currentEditingBookshelf.isPublic = isPublicInput.checked;
+            this.currentEditingBookshelf.lastUpdated = new Date().toISOString();
         } else {
             // Create new bookshelf
             const newBookshelf = {
@@ -1322,6 +1362,7 @@ class VirtualBookshelf {
                 name: name,
                 emoji: emojiInput.value.trim() || '📚',
                 description: descriptionInput.value.trim(),
+                isPublic: isPublicInput.checked,
                 books: [],
                 createdAt: new Date().toISOString()
             };
@@ -2236,10 +2277,18 @@ class VirtualBookshelf {
             }
             
             const textOnlyClass = this.showImagesInOverview ? '' : 'text-only';
-            
+            const isPublic = bookshelf.isPublic || false;
+            const publicBadge = isPublic ? '<span class="public-badge">📤 公開中</span>' : '';
+
             html += `
                 <div class="bookshelf-preview ${textOnlyClass}" data-bookshelf-id="${bookshelf.id}">
-                    <h3>${bookshelf.emoji || '📚'} ${bookshelf.name}</h3>
+                    <div class="bookshelf-preview-header">
+                        <h3>${bookshelf.emoji || '📚'} ${bookshelf.name} ${publicBadge}</h3>
+                        <div class="bookshelf-preview-actions">
+                            <button class="btn btn-small btn-secondary select-bookshelf" data-bookshelf-id="${bookshelf.id}">📚 表示</button>
+                            ${isPublic ? `<button class="btn btn-small btn-primary open-static-page" data-bookshelf-id="${bookshelf.id}">🌐 静的ページ</button>` : ''}
+                        </div>
+                    </div>
                     <p>${bookshelf.description || ''}</p>
                     <p class="book-count">${bookCount}冊</p>
                     <div class="bookshelf-preview-books">
@@ -2258,13 +2307,47 @@ class VirtualBookshelf {
 
         grid.innerHTML = html;
         
-        // Add click handlers for bookshelf selection
+        // Add click handlers for bookshelf actions
         grid.addEventListener('click', (e) => {
-            const bookshelfPreview = e.target.closest('.bookshelf-preview');
-            if (bookshelfPreview) {
-                const bookshelfId = bookshelfPreview.dataset.bookshelfId;
+            if (e.target.classList.contains('select-bookshelf')) {
+                // 本棚選択ボタン
+                const bookshelfId = e.target.dataset.bookshelfId;
                 document.getElementById('bookshelf-selector').value = bookshelfId;
                 this.switchBookshelf(bookshelfId);
+
+                // 本が表示されているエリアにスムーズスクロール
+                setTimeout(() => {
+                    const bookshelf = document.getElementById('bookshelf');
+                    if (bookshelf) {
+                        bookshelf.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }, 100);
+            } else if (e.target.classList.contains('open-static-page')) {
+                // 静的ページボタン
+                const bookshelfId = e.target.dataset.bookshelfId;
+                this.openStaticPageById(bookshelfId);
+            } else {
+                // 本棚プレビューエリアをクリックした場合は本棚選択
+                const bookshelfPreview = e.target.closest('.bookshelf-preview');
+                if (bookshelfPreview && !e.target.closest('.bookshelf-preview-actions')) {
+                    const bookshelfId = bookshelfPreview.dataset.bookshelfId;
+                    document.getElementById('bookshelf-selector').value = bookshelfId;
+                    this.switchBookshelf(bookshelfId);
+
+                    // 本が表示されているエリアにスムーズスクロール
+                    setTimeout(() => {
+                        const bookshelf = document.getElementById('bookshelf');
+                        if (bookshelf) {
+                            bookshelf.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }, 100);
+                }
             }
         });
     }
@@ -2406,6 +2489,156 @@ class VirtualBookshelf {
             console.log(`📚 本棚「${draggedBookshelf.name}」を移動しました`);
         }
     }
+
+    /**
+     * 静的共有モーダルを表示
+     */
+    showStaticShareModal(bookshelfId) {
+        const bookshelf = this.userData.bookshelves.find(b => b.id === bookshelfId);
+        if (!bookshelf) return;
+
+        this.currentShareBookshelf = bookshelf;
+        const modal = document.getElementById('static-share-modal');
+        const form = document.getElementById('share-generation-form');
+        const results = document.getElementById('share-results');
+
+        // フォームを表示、結果を非表示
+        form.style.display = 'block';
+        results.style.display = 'none';
+
+        modal.classList.add('show');
+    }
+
+    /**
+     * 静的共有モーダルを閉じる
+     */
+    closeStaticShareModal() {
+        const modal = document.getElementById('static-share-modal');
+        modal.classList.remove('show');
+        this.currentShareBookshelf = null;
+    }
+
+    /**
+     * 静的ページを生成
+     */
+    async generateStaticPage() {
+        if (!this.currentShareBookshelf) return;
+
+        const ownerNameInput = document.getElementById('owner-name');
+        const generateBtn = document.getElementById('generate-static-page');
+        const form = document.getElementById('share-generation-form');
+        const results = document.getElementById('share-results');
+        const resultsContent = results.querySelector('.share-result-content');
+
+        // ローディング状態
+        generateBtn.disabled = true;
+        generateBtn.textContent = '生成中...';
+
+        try {
+            const options = {
+                ownerName: ownerNameInput.value.trim() || 'からあげ'
+            };
+
+            const result = await this.staticGenerator.generateStaticBookshelf(
+                this.currentShareBookshelf.id,
+                options
+            );
+
+            if (result.success) {
+                // 成功時の表示
+                resultsContent.innerHTML = `
+                    <div class="success-message">
+                        <h3>✅ 静的ページが生成されました！</h3>
+                        <div class="generation-info">
+                            <p><strong>本棚:</strong> ${result.bookshelf.emoji} ${result.bookshelf.name}</p>
+                            <p><strong>書籍数:</strong> ${result.totalBooks}冊</p>
+                            <p><strong>ファイル名:</strong> ${result.filename}</p>
+                            <p><strong>注意:</strong> GitHubにpushした後にURLが有効になります</p>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn btn-secondary" onclick="window.bookshelf.closeStaticShareModal()">閉じる</button>
+                        </div>
+                    </div>
+                `;
+
+                // フォームを隠して結果を表示
+                form.style.display = 'none';
+                results.style.display = 'block';
+
+            } else {
+                // エラー時の表示
+                resultsContent.innerHTML = `
+                    <div class="error-message">
+                        <h3>❌ 生成に失敗しました</h3>
+                        <p>エラー: ${result.error}</p>
+                        <button class="btn btn-secondary" onclick="document.getElementById('static-share-modal').querySelector('#share-generation-form').style.display='block'; document.getElementById('share-results').style.display='none';">再試行</button>
+                    </div>
+                `;
+                form.style.display = 'none';
+                results.style.display = 'block';
+            }
+
+        } catch (error) {
+            console.error('静的ページ生成エラー:', error);
+            resultsContent.innerHTML = `
+                <div class="error-message">
+                    <h3>❌ 生成中にエラーが発生しました</h3>
+                    <p>エラー: ${error.message}</p>
+                    <button class="btn btn-secondary" onclick="document.getElementById('static-share-modal').querySelector('#share-generation-form').style.display='block'; document.getElementById('share-results').style.display='none';">再試行</button>
+                </div>
+            `;
+            form.style.display = 'none';
+            results.style.display = 'block';
+        } finally {
+            // ボタンを元に戻す
+            generateBtn.disabled = false;
+            generateBtn.textContent = '📄 静的ページを生成';
+        }
+    }
+
+    /**
+     * 静的ページボタンの表示・非表示を制御
+     */
+    updateStaticPageButton(bookshelfId) {
+        const button = document.getElementById('view-static-page');
+        if (!button) return;
+
+        if (bookshelfId === 'all') {
+            button.style.display = 'none';
+        } else {
+            const bookshelf = this.userData.bookshelves?.find(b => b.id === bookshelfId);
+            if (bookshelf && bookshelf.isPublic) {
+                button.style.display = 'inline-block';
+            } else {
+                button.style.display = 'none';
+            }
+        }
+    }
+
+    /**
+     * 現在選択中の本棚の静的ページを開く
+     */
+    openStaticPage() {
+        const currentBookshelfId = document.getElementById('bookshelf-selector').value;
+        if (currentBookshelfId === 'all') return;
+
+        this.openStaticPageById(currentBookshelfId);
+    }
+
+    /**
+     * 指定IDの本棚の静的ページを開く
+     */
+    openStaticPageById(bookshelfId) {
+        const bookshelf = this.userData.bookshelves?.find(b => b.id === bookshelfId);
+        if (!bookshelf || !bookshelf.isPublic) {
+            alert('この本棚は公開されていません');
+            return;
+        }
+
+        const staticUrl = `${window.location.origin}${window.location.pathname.replace('index.html', '')}static/${bookshelfId}.html`;
+        window.open(staticUrl, '_blank');
+    }
 }
 
 // Lazy Loading for Images
@@ -2433,18 +2666,50 @@ class LazyLoader {
     }
 }
 
+// Global utility functions
+function copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert('URLをクリップボードにコピーしました！');
+        }).catch(() => {
+            fallbackCopyToClipboard(text);
+        });
+    } else {
+        fallbackCopyToClipboard(text);
+    }
+}
+
+function fallbackCopyToClipboard(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    textArea.style.top = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+        document.execCommand('copy');
+        alert('URLをクリップボードにコピーしました！');
+    } catch (err) {
+        console.error('Failed to copy: ', err);
+        alert('コピーに失敗しました。手動でURLを選択してコピーしてください。');
+    }
+    document.body.removeChild(textArea);
+}
+
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
     window.bookshelf = new VirtualBookshelf();
     window.lazyLoader = new LazyLoader();
-    
+
     // Bookshelf management event listeners are handled in setupEventListeners
-    
+
     // Set up mutation observer to handle dynamically added images
     const mutationObserver = new MutationObserver(() => {
         window.lazyLoader.observe();
     });
-    
+
     mutationObserver.observe(document.getElementById('bookshelf'), {
         childList: true,
         subtree: true

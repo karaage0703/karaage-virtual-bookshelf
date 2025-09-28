@@ -19,7 +19,7 @@
 - 🔍 **検索・フィルター**: タイトル・著者・星評価での絞り込み
 - 📊 **読書統計**: 総蔵書数の表示
 - 🔗 **Amazon Associates**: 自動アフィリエイトリンク生成
-- 🌐 **公開・共有**: 本棚ごとの公開設定とメモ表示
+- 🌐 **公開・共有**: 本棚ごとの公開設定と静的ページ生成
 - 💾 **データエクスポート**: 設定・星評価・メモの永続化
 - 📥 **蔵書管理**: Kindleインポート、手動追加、削除機能
 - 🔄 **ハイライトファイル管理**: スクリプトベースでのハイライトインデックス生成
@@ -87,14 +87,19 @@
 ## 📁 プロジェクト構造
 
 ```
-virtual-bookshelf-template/
+virtual-bookshelf/
 ├── index.html              # メインページ
 ├── css/
 │   └── bookshelf.css      # スタイルシート
 ├── js/
 │   ├── bookshelf.js       # メイン機能
 │   ├── book-manager.js    # 蔵書CRUD管理
-│   └── highlights.js      # ハイライト表示
+│   ├── highlights.js      # ハイライト表示
+│   └── static-bookshelf-generator.js # 静的ページ生成
+├── templates/
+│   └── bookshelf-template.html # 静的ページテンプレート
+├── static/                 # 静的ページファイル（手動配置）
+│   └── bookshelf-*.html   # 生成された静的本棚ページ
 ├── data/
 │   ├── my_library.json    # メイン蔵書データ
 │   ├── user_data.json     # ユーザー設定・メモ・本棚設定
@@ -199,6 +204,36 @@ php -S localhost:8000
 2. **本の追加**: 詳細モーダルで本を複数の本棚に追加
 3. **公開設定**: 本棚ごとに公開・非公開を設定
 4. **並び替え**: ドラッグハンドル（⋮⋮）で本の順序を変更
+5. **静的ページ生成**: 公開本棚のSNS共有用静的HTMLページ作成
+
+### 静的ページ生成・SNS共有
+1. **公開設定**: 本棚編集時に「📤 この本棚を公開する」をチェック
+2. **静的ページ生成**: 本棚管理で「📤 共有ページ」ボタンをクリック
+3. **HTMLファイルダウンロード**: `bookshelf-{ID}.html`ファイルが自動ダウンロード
+4. **ファイル配置**: ダウンロードしたファイルを`static/`フォルダに配置
+5. **SNS共有**: Twitter/Facebook/LINEで直接共有、またはURLコピー
+6. **アクセス方法**:
+   - 本棚セレクターで公開本棚選択→「🌐 静的ページ」ボタン
+   - 本棚一覧カードの「🌐 静的ページ」ボタン
+
+#### 静的ページファイルの配置方法
+```bash
+# 1. ダウンロードされたHTMLファイルを確認
+ls ~/Downloads/bookshelf-*.html
+
+# 2. staticフォルダを作成（まだない場合）
+mkdir -p static
+
+# 3. HTMLファイルを配置
+cp ~/Downloads/bookshelf-*.html static/
+
+# 4. Gitにコミット・プッシュ
+git add static/
+git commit -m "Add static bookshelf pages"
+git push origin main
+```
+
+**注意**: GitHubページにファイルをプッシュ後、URLが有効になります（例: `https://yourusername.github.io/your-repo/static/bookshelf-12345.html`）
 
 ### 星評価システム
 1. **評価設定**: 詳細モーダルで本に1-5星の評価を設定

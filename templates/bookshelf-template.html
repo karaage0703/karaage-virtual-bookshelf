@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{BOOKSHELF_NAME}} - Virtual Bookshelf</title>
+    <meta name="description" content="{{BOOKSHELF_DESCRIPTION}}">
+
+    <!-- Open Graph for SNS sharing -->
+    <meta property="og:title" content="{{BOOKSHELF_NAME}} - Virtual Bookshelf">
+    <meta property="og:description" content="{{BOOKSHELF_DESCRIPTION}}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{BOOKSHELF_URL}}">
+    <meta property="og:image" content="{{BOOKSHELF_COVER_IMAGE}}">
+    <meta property="og:site_name" content="Virtual Bookshelf">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{BOOKSHELF_NAME}} - Virtual Bookshelf">
+    <meta name="twitter:description" content="{{BOOKSHELF_DESCRIPTION}}">
+    <meta name="twitter:image" content="{{BOOKSHELF_COVER_IMAGE}}">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+    <link rel="stylesheet" href="../css/bookshelf.css">
+    <style>
+        /* Static bookshelf specific styles */
+        .static-bookshelf {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .bookshelf-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .bookshelf-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .bookshelf-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .bookshelf-stat {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .static-book-item {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        .static-book-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .static-book-cover {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+
+        .static-book-info {
+            padding: 1rem;
+        }
+
+        .static-book-title {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .static-book-author {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .static-book-rating {
+            margin-top: 0.5rem;
+        }
+
+        .static-book-memo {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #555;
+            line-height: 1.4;
+            font-style: italic;
+        }
+
+        .static-book-memo a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .static-book-memo a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-info {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .share-btn:hover {
+            opacity: 0.8;
+        }
+
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267B2; }
+        .share-line { background: #00B900; }
+        .share-copy {
+            background: #343a40;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="static-bookshelf">
+        <header class="bookshelf-header">
+            <h1 class="bookshelf-title">{{BOOKSHELF_EMOJI}} {{BOOKSHELF_NAME}}</h1>
+            <p class="bookshelf-description">{{BOOKSHELF_DESCRIPTION}}</p>
+            <div class="bookshelf-meta">
+                <div class="bookshelf-stat">📚 {{TOTAL_BOOKS}}冊</div>
+                <div class="bookshelf-stat">📅 {{CREATED_DATE}}</div>
+                <div class="bookshelf-stat">👤 {{OWNER_NAME}}</div>
+            </div>
+        </header>
+
+        <main class="books-grid">
+            {{BOOKS_HTML}}
+        </main>
+
+        <footer class="footer-info">
+            <h3>📤 この本棚をシェア</h3>
+            <div class="share-buttons">
+                <a href="https://twitter.com/intent/tweet?text={{ENCODED_BOOKSHELF_NAME}}%20%23vbshelf%20{{ENCODED_URL}}"
+                   target="_blank" class="share-btn share-twitter">🐦 Twitter</a>
+                <button onclick="copyToClipboard('{{BOOKSHELF_NAME}} #vbshelf {{BOOKSHELF_URL}}')" class="share-btn share-copy">📋 テキストコピー</button>
+            </div>
+
+            <p style="margin-top: 2rem; color: #666;">
+                Powered by <a href="../index.html" style="color: #667eea;">Virtual Bookshelf</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('URLをクリップボードにコピーしました！');
+            }).catch(() => {
+                // フォールバック
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('URLをクリップボードにコピーしました！');
+            });
+        }
+    </script>
+</body>
+</html>
