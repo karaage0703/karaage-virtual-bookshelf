@@ -20,7 +20,7 @@ class StaticBookshelfGenerator {
                 throw new Error('指定された本棚が見つかりません');
             }
 
-            // 本棚に含まれる書籍を取得
+            // 本棚に含まれる書籍を取得（getBookshelfBooksWithUserDataではなく、getBookshelfBooksを使う）
             const books = this.getBookshelfBooks(bookshelfId);
 
             // HTMLテンプレートを取得
@@ -54,14 +54,35 @@ class StaticBookshelfGenerator {
      * 本棚の書籍を取得
      */
     getBookshelfBooks(bookshelfId) {
-        const bookshelf = this.userData.bookshelves?.find(b => b.id === bookshelfId);
+        // 最新のuserDataを取得
+        const latestUserData = window.bookshelf ? window.bookshelf.userData : this.userData;
+        
+        const bookshelf = latestUserData.bookshelves?.find(b => b.id === bookshelfId);
         if (!bookshelf || !bookshelf.books) return [];
 
         // 本棚の書籍順序に従って取得
-        return bookshelf.books
+        let books = bookshelf.books
             .map(bookId => this.bookManager.findBookByASIN(bookId))
             .filter(book => book !== undefined);
+
+        // カスタム順序がある場合は適用
+        const customOrder = latestUserData.bookOrder?.[bookshelfId];
+        if (customOrder && customOrder.length > 0) {
+            books.sort((a, b) => {
+                const aIndex = customOrder.indexOf(a.asin);
+                const bIndex = customOrder.indexOf(b.asin);
+                
+                if (aIndex === -1 && bIndex === -1) return 0; // Both not in custom order
+                if (aIndex === -1) return 1; // a not in custom order, put at end
+                if (bIndex === -1) return -1; // b not in custom order, put at end
+                return aIndex - bIndex; // Both in custom order, use custom order
+            });
+        }
+
+        return books;
     }
+
+
 
     /**
      * テンプレートファイルを読み込み
@@ -100,7 +121,7 @@ class StaticBookshelfGenerator {
             '{{BOOKSHELF_COVER_IMAGE}}': coverImage,
             '{{TOTAL_BOOKS}}': books.length,
             '{{CREATED_DATE}}': this.formatDate(bookshelf.createdDate || now),
-            '{{OWNER_NAME}}': options.ownerName || 'からあげ',
+
             '{{BOOKS_HTML}}': booksHtml,
             '{{ENCODED_URL}}': encodedUrl,
             '{{ENCODED_TITLE}}': encodedTitle,
