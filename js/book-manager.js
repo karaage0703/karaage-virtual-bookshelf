@@ -257,20 +257,120 @@ class BookManager {
     }
 
     /**
-     * Amazon Product Advertising API風のデータ取得（簡易版）
+     * ASIN から書籍情報を自動取得（複数APIの組み合わせ）
      */
     async fetchBookDataFromAmazon(asin) {
-        // 実際の実装では Amazon Product Advertising API を使用
-        // 現在は簡易的な実装
+        console.log(`書籍情報取得開始: ${asin}`);
+
+        try {
+            // Google Books APIで検索（実際に動作）
+            const googleBooksData = await this.fetchFromGoogleBooks(asin);
+            if (googleBooksData && googleBooksData.title && googleBooksData.title !== 'タイトル未取得') {
+                console.log('Google Books で取得成功:', googleBooksData);
+                return googleBooksData;
+            }
+        } catch (error) {
+            console.log('Google Books 検索失敗:', error.message);
+        }
+
+        // Google Books で見つからない場合はテンプレートを返す
+        console.log('自動取得失敗、テンプレートで代替');
+        return this.generateSmartBookData(asin);
+    }
+
+    /**
+     * Google Books APIから書籍情報を取得
+     */
+    async fetchFromGoogleBooks(asin) {
+        try {
+            console.log(`Google Books API検索: ${asin}`);
+
+            // ISBNとして検索
+            let url = `https://www.googleapis.com/books/v1/volumes?q=isbn:${asin}`;
+            let response = await fetch(url);
+            let data = await response.json();
+
+            console.log('Google Books ISBN検索結果:', data);
+
+            if (data.items && data.items.length > 0) {
+                const book = data.items[0].volumeInfo;
+                console.log('見つかった書籍:', book);
+
+                return {
+                    asin: asin,
+                    title: book.title || 'タイトル未取得',
+                    authors: book.authors ? book.authors.join(', ') : '著者未取得',
+                    acquiredTime: Date.now(),
+                    readStatus: 'UNKNOWN',
+                    productImage: book.imageLinks ?
+                        (book.imageLinks.large || book.imageLinks.medium || book.imageLinks.thumbnail) :
+                        `https://images-na.ssl-images-amazon.com/images/P/${asin}.01.L.jpg`
+                };
+            }
+
+            // ISBNで見つからない場合、一般検索を試行
+            url = `https://www.googleapis.com/books/v1/volumes?q=${asin}`;
+            response = await fetch(url);
+            data = await response.json();
+
+            console.log('Google Books 一般検索結果:', data);
+
+            if (data.items && data.items.length > 0) {
+                const book = data.items[0].volumeInfo;
+                console.log('一般検索で見つかった書籍:', book);
+
+                return {
+                    asin: asin,
+                    title: book.title || 'タイトル未取得',
+                    authors: book.authors ? book.authors.join(', ') : '著者未取得',
+                    acquiredTime: Date.now(),
+                    readStatus: 'UNKNOWN',
+                    productImage: book.imageLinks ?
+                        (book.imageLinks.large || book.imageLinks.medium || book.imageLinks.thumbnail) :
+                        `https://images-na.ssl-images-amazon.com/images/P/${asin}.01.L.jpg`
+                };
+            }
+
+            throw new Error('書籍が見つかりませんでした');
+
+        } catch (error) {
+            console.warn('Google Books API エラー:', error);
+            throw error;
+        }
+    }
+
+
+    /**
+     * スマートな書籍データを生成（実用的なアプローチ）
+     */
+    generateSmartBookData(asin) {
+        // ASIN形式で本の種類を推測し、より実用的な情報を提供
+        let title, authors;
+
+        if (asin.startsWith('B') && asin.length === 10) {
+            // Kindle本の場合
+            title = '';  // 空にして手動入力を促す
+            authors = '';
+        } else if (/^\d{9}[\dX]$/.test(asin)) {
+            // ISBN-10の場合
+            title = '';
+            authors = '';
+        } else {
+            // その他
+            title = '';
+            authors = '';
+        }
+
         return {
             asin: asin,
-            title: 'タイトル未取得',
-            authors: '著者未取得',
+            title: title,
+            authors: authors,
             acquiredTime: Date.now(),
             readStatus: 'UNKNOWN',
             productImage: `https://images-na.ssl-images-amazon.com/images/P/${asin}.01.L.jpg`
         };
     }
+
 
 
     /**

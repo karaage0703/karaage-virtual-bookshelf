@@ -289,6 +289,23 @@ class VirtualBookshelf {
             addManuallyBtn.addEventListener('click', () => this.addBookManually());
         }
 
+        // ASIN自動取得ボタン
+        const fetchBookInfoBtn = document.getElementById('fetch-book-info');
+        if (fetchBookInfoBtn) {
+            fetchBookInfoBtn.addEventListener('click', () => this.fetchBookInfoFromASIN());
+        }
+
+        // ASIN入力フィールドでEnterキー押下時の自動取得
+        const asinInput = document.getElementById('manual-asin');
+        if (asinInput) {
+            asinInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    this.fetchBookInfoFromASIN();
+                }
+            });
+        }
+
         // Clear library button
         document.getElementById('clear-library').addEventListener('click', () => {
             this.clearLibrary();
@@ -1870,9 +1887,11 @@ class VirtualBookshelf {
 
         const manualAuthors = document.getElementById('manual-authors');
         if (manualAuthors) manualAuthors.value = '';
-        
 
-        
+        // ASINステータスをリセット
+        const asinStatus = document.getElementById('asin-status');
+        if (asinStatus) asinStatus.style.display = 'none';
+
         // 結果表示をリセット
         const resultsDiv = document.getElementById('add-book-results');
         if (resultsDiv) {
@@ -1923,6 +1942,78 @@ class VirtualBookshelf {
         document.getElementById('manual-asin').readOnly = true;
         
         alert(`⚠️ 書籍情報の自動取得に失敗しました。\nASIN: ${asin}\n\n手動でタイトルと著者を入力してください。`);
+    }
+
+    /**
+     * ASINから書籍情報を自動取得してフォームに入力
+     */
+    async fetchBookInfoFromASIN() {
+        const asinInput = document.getElementById('manual-asin');
+        const titleInput = document.getElementById('manual-title');
+        const authorsInput = document.getElementById('manual-authors');
+        const statusDiv = document.getElementById('asin-status');
+        const fetchBtn = document.getElementById('fetch-book-info');
+
+        const asin = asinInput.value.trim();
+
+        if (!asin) {
+            this.showASINStatus('error', 'ASINを入力してください');
+            return;
+        }
+
+        if (!this.bookManager.isValidASIN(asin)) {
+            this.showASINStatus('error', '有効なASINフォーマットではありません（例: B012345678）');
+            return;
+        }
+
+        // ローディング状態を表示
+        this.showASINStatus('loading', '📥 書籍情報を取得中...');
+        fetchBtn.disabled = true;
+        fetchBtn.textContent = '取得中...';
+
+        try {
+            const bookData = await this.bookManager.fetchBookDataFromAmazon(asin);
+
+            console.log('取得した書籍データ:', bookData);
+
+            // フィールドに情報を設定
+            titleInput.value = bookData.title;
+            authorsInput.value = bookData.authors;
+
+            // 取得結果に応じてメッセージを表示
+            if (bookData.title && bookData.title !== 'タイトル未取得' && bookData.title !== '') {
+                this.showASINStatus('success', `✅ 自動取得成功: ${bookData.title}`);
+            } else {
+                this.showASINStatus('error', '❌ 情報取得できませんでした。手動で入力してください。');
+                // 自動取得失敗の場合、タイトルフィールドにフォーカス
+                titleInput.focus();
+            }
+
+        } catch (error) {
+            console.error('書籍情報取得エラー:', error);
+            this.showASINStatus('error', '❌ 取得に失敗しました。手動で入力してください。');
+        } finally {
+            // ボタンを元に戻す
+            fetchBtn.disabled = false;
+            fetchBtn.textContent = '📥 自動取得';
+        }
+    }
+
+    /**
+     * ASIN取得ステータスを表示
+     */
+    showASINStatus(type, message) {
+        const statusDiv = document.getElementById('asin-status');
+        statusDiv.className = `asin-status ${type}`;
+        statusDiv.textContent = message;
+        statusDiv.style.display = 'block';
+
+        // 成功またはエラーメッセージは5秒後に自動で隠す
+        if (type === 'success' || type === 'error') {
+            setTimeout(() => {
+                statusDiv.style.display = 'none';
+            }, 5000);
+        }
     }
 
     /**

@@ -551,6 +551,58 @@ body {
     text-decoration: none;
 }
 
+/* ASIN Input Container */
+.asin-input-container {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.asin-input-container input {
+    flex: 1;
+}
+
+.asin-input-container .btn {
+    white-space: nowrap;
+    min-width: 100px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: white;
+    background-color: #007bff;
+    border: 2px solid #007bff;
+    padding: 0.5rem 1rem;
+}
+
+.asin-input-container .btn:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.asin-status {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.asin-status.loading {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid #bbdefb;
+}
+
+.asin-status.success {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+}
+
+.asin-status.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+
 /* Pagination */
 .pagination {
     display: flex;

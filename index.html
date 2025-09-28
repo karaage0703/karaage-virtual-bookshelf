@@ -280,7 +280,11 @@
                         <h3>本の情報を入力</h3>
                         <div class="form-group">
                             <label for="manual-asin">ASIN</label>
-                            <input type="text" id="manual-asin" placeholder="B012345678" maxlength="10" />
+                            <div class="asin-input-container">
+                                <input type="text" id="manual-asin" placeholder="B012345678" maxlength="10" />
+                                <button type="button" id="fetch-book-info" class="btn btn-small btn-secondary">📥 自動取得</button>
+                            </div>
+                            <div class="asin-status" id="asin-status" style="display: none;"></div>
                         </div>
                         <div class="form-group">
                             <label for="manual-title">タイトル</label>
