@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>おすすめビジネス書 - Virtual Bookshelf</title>
+    <meta name="description" content="おすすめビジネス書の本棚です">
+
+    <!-- Open Graph for SNS sharing -->
+    <meta property="og:title" content="おすすめビジネス書 - Virtual Bookshelf">
+    <meta property="og:description" content="おすすめビジネス書の本棚です">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://karaage0703.github.io/karaage-virtual-bookshelf/static/bookshelf_1757120002170.html">
+    <meta property="og:image" content="https://images-na.ssl-images-amazon.com/images/P/B07W3TQ4RB.01.L.jpg">
+    <meta property="og:site_name" content="Virtual Bookshelf">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="おすすめビジネス書 - Virtual Bookshelf">
+    <meta name="twitter:description" content="おすすめビジネス書の本棚です">
+    <meta name="twitter:image" content="https://images-na.ssl-images-amazon.com/images/P/B07W3TQ4RB.01.L.jpg">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+    <link rel="stylesheet" href="../css/bookshelf.css">
+    <style>
+        /* Static bookshelf specific styles */
+        .static-bookshelf {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .bookshelf-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .bookshelf-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .bookshelf-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .bookshelf-stat {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .static-book-item {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        .static-book-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .static-book-cover {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+
+        .static-book-info {
+            padding: 1rem;
+        }
+
+        .static-book-title {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .static-book-author {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .static-book-rating {
+            margin-top: 0.5rem;
+        }
+
+        .static-book-memo {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #555;
+            line-height: 1.4;
+            font-style: italic;
+        }
+
+        .static-book-memo a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .static-book-memo a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-info {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .share-btn:hover {
+            opacity: 0.8;
+        }
+
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267B2; }
+        .share-line { background: #00B900; }
+        .share-copy {
+            background: #343a40;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="static-bookshelf">
+        <header class="bookshelf-header">
+            <h1 class="bookshelf-title">📚 おすすめビジネス書</h1>
+            <p class="bookshelf-description">おすすめビジネス書の本棚です</p>
+            <div class="bookshelf-meta">
+                <div class="bookshelf-stat">📚 36冊</div>
+                <div class="bookshelf-stat">📅 2025年9月30日</div>
+
+            </div>
+        </header>
+
+        <main class="books-grid">
+            
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B07W3TQ4RB?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B07W3TQ4RB.01.L.jpg"
+                             alt="岩田さん: 岩田聡はこんなことを話していた。 (ほぼ日ブックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">岩田さん: 岩田聡はこんなことを話していた。 (ほぼ日ブックス)</div>
+                        <div class="static-book-author">ほぼ日刊イトイ新聞</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo">任天堂の元社長、岩田さんの本
+
+<a href="https://karaage.hatenadiary.jp/entry/2019/09/25/073000" target="_blank" rel="noopener noreferrer">おとなもこどもも、おねーさんも読んでほしい「岩田さん 岩田聡はこんなことを話していた。」</a>
+
+<a href="https://karaage.hatenadiary.jp/entry/2025/05/05/073000" target="_blank" rel="noopener noreferrer">任天堂の宮本茂氏に学ぶ「複数の問題を一気に解決するアイデア」の重要性</a>
+
+<a href="https://type.jp/et/feature/26899/" target="_blank" rel="noopener noreferrer">任天堂元社長・岩田聡の仕事哲学に学ぶ。「ボトルネックを見極め、最善を尽くす」【データサイエンティスト・からあげ】</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B079VNN2FX?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B079VNN2FX.01.L.jpg"
+                             alt="自分の中に毒を持て&lt;新装版&gt;"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">自分の中に毒を持て&lt;新装版&gt;</div>
+                        <div class="static-book-author">岡本 太郎</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B079PPSQWN?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B079PPSQWN.01.L.jpg"
+                             alt="独創はひらめかない―「素人発想、玄人実行」の法則 (日本経済新聞出版)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">独創はひらめかない―「素人発想、玄人実行」の法則 (日本経済新聞出版)</div>
+                        <div class="static-book-author">金出武雄</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2021/04/23/073000" target="_blank" rel="noopener noreferrer">「素人発想、素人実行」から「素人発想、玄人実行」へ</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00B42SX70?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00B42SX70.01.L.jpg"
+                             alt="採用基準"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">採用基準</div>
+                        <div class="static-book-author">伊賀 泰代</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2024/08/26/073000" target="_blank" rel="noopener noreferrer">今年読んでよかった本【2024年版】</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0CNRK6QPT?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0CNRK6QPT.01.L.jpg"
+                             alt="お金が増えるノート術　貯まる・稼げる・殖える　３つのステップでお金の不安が消える！ (幻冬舎単行本)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">お金が増えるノート術　貯まる・稼げる・殖える　３つのステップでお金の不安が消える！ (幻冬舎単行本)</div>
+                        <div class="static-book-author">安田修</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0DQ81M5TF?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0DQ81M5TF.01.L.jpg"
+                             alt="＃100日チャレンジ 毎日連続100本アプリを作ったら人生が変わった"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">＃100日チャレンジ 毎日連続100本アプリを作ったら人生が変わった</div>
+                        <div class="static-book-author">大塚あみ</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B09SNYQSM4?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B09SNYQSM4.01.L.jpg"
+                             alt="自分を変えるノート術"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">自分を変えるノート術</div>
+                        <div class="static-book-author">安田 修</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B074FS2QLZ?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B074FS2QLZ.01.L.jpg"
+                             alt="世界№１プレゼン術"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">世界№１プレゼン術</div>
+                        <div class="static-book-author">澤 円</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2019/01/28/073000" target="_blank" rel="noopener noreferrer">澤円さんの「世界No.1プレゼン術」で突然数百人の前でプレゼンする事態を乗り切りました</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0DVBZ7MCK?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0DVBZ7MCK.01.L.jpg"
+                             alt="翻訳者の全技術 (星海社 e-SHINSHO)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">翻訳者の全技術 (星海社 e-SHINSHO)</div>
+                        <div class="static-book-author">山形浩生</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0BX3XHCQG?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0BX3XHCQG.01.L.jpg"
+                             alt="コンサルティング会社　完全サバイバルマニュアル (文春e-book)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">コンサルティング会社　完全サバイバルマニュアル (文春e-book)</div>
+                        <div class="static-book-author">メン獄</div>
+                        
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B084SP5PLQ?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B084SP5PLQ.01.L.jpg"
+                             alt="シン・ニホン AI×データ時代における日本の再生と人材育成 (NewsPicksパブリッシング)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">シン・ニホン AI×データ時代における日本の再生と人材育成 (NewsPicksパブリッシング)</div>
+                        <div class="static-book-author">安宅和人</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2020/04/08/073000" target="_blank" rel="noopener noreferrer">日本版ファクトフルネス「シン・ニホン」は沈みゆく日本を照らす光となるか？</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B07J28P6GN?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B07J28P6GN.01.L.jpg"
+                             alt="ハードウェアハッカー～新しいモノをつくる破壊と創造の冒険"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">ハードウェアハッカー～新しいモノをつくる破壊と創造の冒険</div>
+                        <div class="static-book-author">アンドリュー“バニー”ファン</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B01I3589FQ?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B01I3589FQ.01.L.jpg"
+                             alt="ゲーム界のトップに立った天才プログラマー　岩田聡の原点: 高校同期生26人の証言"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">ゲーム界のトップに立った天才プログラマー　岩田聡の原点: 高校同期生26人の証言</div>
+                        <div class="static-book-author">岩田聡の記録を残す会</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B01MYF4SD7?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B01MYF4SD7.01.L.jpg"
+                             alt="小説家になるな！: 職業作家のリアル、それでもなりたい人へ (トークメーカー新書)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">小説家になるな！: 職業作家のリアル、それでもなりたい人へ (トークメーカー新書)</div>
+                        <div class="static-book-author">至道流星, 架神恭介, 泉和良</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/4344033507?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/4344033507.01.L.jpg"
+                             alt="破天荒フェニックス"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">破天荒フェニックス</div>
+                        <div class="static-book-author">田中修治</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2019/08/16/073000" target="_blank" rel="noopener noreferrer">「破天荒フェニックス」読んでオンデーズ行ったら思わずメガネ2本作ってしまいました</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0183G2JZQ?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0183G2JZQ.01.L.jpg"
+                             alt="やなせたかし 明日をひらく言葉 PHP文庫"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">やなせたかし 明日をひらく言葉 PHP文庫</div>
+                        <div class="static-book-author">PHP研究所</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2024/08/26/073000" target="_blank" rel="noopener noreferrer">アンパンマンで知る「生きるよころびと続ける勇気」</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B08Q39PN6K?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B08Q39PN6K.01.L.jpg"
+                             alt="ゲンロン戦記　「知の観客」をつくる (中公新書ラクレ)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">ゲンロン戦記　「知の観客」をつくる (中公新書ラクレ)</div>
+                        <div class="static-book-author">東浩紀</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2024/08/26/073000" target="_blank" rel="noopener noreferrer">今年読んでよかった本【2024年版】</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0DB1LN8X6?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0DB1LN8X6.01.L.jpg"
+                             alt="なぜあの人は好きなことだけやって年収1000万円なのか？　異端の経営学者と学ぶ「そこそこ起業」 (集英社ノンフィクション)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">なぜあの人は好きなことだけやって年収1000万円なのか？　異端の経営学者と学ぶ「そこそこ起業」 (集英社ノンフィクション)</div>
+                        <div class="static-book-author">高橋勅徳</div>
+                        
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2024/08/19/073000" target="_blank" rel="noopener noreferrer">「なぜあの人は好きなことだけやって年収1000万円なのか？」を読んで起業について考える</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0D93Y6BSS?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0D93Y6BSS.01.L.jpg"
+                             alt="松岡まどか、起業します　ＡＩスタートアップ戦記"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">松岡まどか、起業します　ＡＩスタートアップ戦記</div>
+                        <div class="static-book-author">安野 貴博</div>
+                        <div class="static-book-rating">⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2024/08/19/073000" target="_blank" rel="noopener noreferrer">「なぜあの人は好きなことだけやって年収1000万円なのか？」を読んで起業について考える</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0BPY77S96?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0BPY77S96.01.L.jpg"
+                             alt="数理モデル思考で紐解くRULE DESIGN -組織と人の行動を科学する-"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">数理モデル思考で紐解くRULE DESIGN -組織と人の行動を科学する-</div>
+                        <div class="static-book-author">江崎貴裕</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2024/01/20/170350" target="_blank" rel="noopener noreferrer">法典からAIまで「RULE DESIGN」で学ぶルールの科学</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0BVM6W823?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0BVM6W823.01.L.jpg"
+                             alt="田宮模型の仕事 (文春文庫)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">田宮模型の仕事 (文春文庫)</div>
+                        <div class="static-book-author">田宮 俊作</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2022/02/14/073000" target="_blank" rel="noopener noreferrer">世界のTAMIYAを作った田宮俊作氏の自叙伝かつビジネス本「田宮模型の仕事」</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00APR9D7Y?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00APR9D7Y.01.L.jpg"
+                             alt="私とは何か　「個人」から「分人」へ (講談社現代新書)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">私とは何か　「個人」から「分人」へ (講談社現代新書)</div>
+                        <div class="static-book-author">平野啓一郎</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2021/09/10/073000" target="_blank" rel="noopener noreferrer">分人という考え方『私とは何か――「個人」から「分人」へ』書評</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00D6D1DV8?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00D6D1DV8.01.L.jpg"
+                             alt="任天堂“驚き”を生む方程式 (日本経済新聞出版)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">任天堂“驚き”を生む方程式 (日本経済新聞出版)</div>
+                        <div class="static-book-author">井上理</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2018/09/26/073000" target="_blank" rel="noopener noreferrer">任天堂 横井軍平さんの「枯れた技術の水平思考」とイノベーション</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00YTLRISI?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00YTLRISI.01.L.jpg"
+                             alt="任天堂ノスタルジー 横井軍平とその時代 (角川新書)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">任天堂ノスタルジー 横井軍平とその時代 (角川新書)</div>
+                        <div class="static-book-author">牧野 武文</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2018/09/26/073000" target="_blank" rel="noopener noreferrer">任天堂 横井軍平さんの「枯れた技術の水平思考」とイノベーション</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/4484881047?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/4484881047.01.L.jpg"
+                             alt="アイデアのつくり方"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">アイデアのつくり方</div>
+                        <div class="static-book-author">ジェームス W.ヤング</div>
+                        
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2020/02/21/073000" target="_blank" rel="noopener noreferrer">名著「アイデアのつくり方」はやっぱり名著だった</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B00E5XATVS?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B00E5XATVS.01.L.jpg"
+                             alt="思考の整理学 (ちくま文庫)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">思考の整理学 (ちくま文庫)</div>
+                        <div class="static-book-author">外山滋比古</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2020/02/21/073000" target="_blank" rel="noopener noreferrer">名著「アイデアのつくり方」はやっぱり名著だった</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B085SZLB2Q?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B085SZLB2Q.01.L.jpg"
+                             alt="Learn or Die 死ぬ気で学べ　プリファードネットワークスの挑戦"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">Learn or Die 死ぬ気で学べ　プリファードネットワークスの挑戦</div>
+                        <div class="static-book-author">西川 徹, 岡野原 大輔</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2020/04/15/073000" target="_blank" rel="noopener noreferrer">家庭用ロボットは実現するか？天才集団PFNの「Learn or Die」と夢想家集団の「ドラえもんを本気でつくる」を読んだ感想</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B08BTRPMYC?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B08BTRPMYC.01.L.jpg"
+                             alt="なぜ台湾は新型コロナウイルスを防げたのか (扶桑社ＢＯＯＫＳ新書)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">なぜ台湾は新型コロナウイルスを防げたのか (扶桑社ＢＯＯＫＳ新書)</div>
+                        <div class="static-book-author">野嶋剛</div>
+                        
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2020/08/07/073000" target="_blank" rel="noopener noreferrer">「なぜ台湾は新型コロナウイルスを防げたのか」で考える新型コロナの理想の対策</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B088LV7TV6?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B088LV7TV6.01.L.jpg"
+                             alt="ミライをつくろう！ VRで紡ぐバーチャル創世記"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">ミライをつくろう！ VRで紡ぐバーチャル創世記</div>
+                        <div class="static-book-author">GOROman, 西田 宗千佳</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B01ASX39NS?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B01ASX39NS.01.L.jpg"
+                             alt="人を動かす　文庫版"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">人を動かす　文庫版</div>
+                        <div class="static-book-author">Ｄ・カーネギー</div>
+                        <div class="static-book-rating">⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2021/06/16/073000" target="_blank" rel="noopener noreferrer">積ん読していた名著と名高いカーネギーの「人を動かす」をようやく読破しました、漫画で</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B014GUVMLA?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B014GUVMLA.01.L.jpg"
+                             alt="マンガで読み解く 人を動かす"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">マンガで読み解く 人を動かす</div>
+                        <div class="static-book-author">Ｄ・カーネギー, 歩川 友紀</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2021/06/16/073000" target="_blank" rel="noopener noreferrer">積ん読していた名著と名高いカーネギーの「人を動かす」をようやく読破しました、漫画で</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0F4W99P34?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0F4W99P34.01.L.jpg"
+                             alt="エンジニア育成現場の「失敗」集めてみた。【Kindle限定固定型】 42の失敗事例で学ぶマネジメントのうまい進めかた"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">エンジニア育成現場の「失敗」集めてみた。【Kindle限定固定型】 42の失敗事例で学ぶマネジメントのうまい進めかた</div>
+                        <div class="static-book-author">出石 聡史</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo">胸がキュッとなる</div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B08491KV9Z?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B08491KV9Z.01.L.jpg"
+                             alt="「自分だけの答え」が見つかる 13歳からのアート思考"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">「自分だけの答え」が見つかる 13歳からのアート思考</div>
+                        <div class="static-book-author">末永 幸歩</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B06W9JGBCR?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B06W9JGBCR.01.L.jpg"
+                             alt="考具 考具シリーズ"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">考具 考具シリーズ</div>
+                        <div class="static-book-author">加藤 昌治</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo">アイデアの出し方とか参考になるかも</div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0CM2YJ34N?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0CM2YJ34N.01.L.jpg"
+                             alt="生成AIで世界はこう変わる (SB新書)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">生成AIで世界はこう変わる (SB新書)</div>
+                        <div class="static-book-author">今井 翔太</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B009UVJQMS?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B009UVJQMS.01.L.jpg"
+                             alt="フリー　―＜無料＞からお金を生みだす新戦略"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">フリー　―＜無料＞からお金を生みだす新戦略</div>
+                        <div class="static-book-author">クリス・ アンダーソン</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+        </main>
+
+        <footer class="footer-info">
+            <h3>📤 この本棚をシェア</h3>
+            <div class="share-buttons">
+                <a href="https://twitter.com/intent/tweet?text=%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E6%9B%B8%20%23vbshelf%20https%3A%2F%2Fkaraage0703.github.io%2Fkaraage-virtual-bookshelf%2Fstatic%2Fbookshelf_1757120002170.html"
+                   target="_blank" class="share-btn share-twitter">🐦 Twitter</a>
+                <button onclick="copyToClipboard('おすすめビジネス書 #vbshelf https://karaage0703.github.io/karaage-virtual-bookshelf/static/bookshelf_1757120002170.html')" class="share-btn share-copy">📋 テキストコピー</button>
+            </div>
+
+            <p style="margin-top: 2rem; color: #666;">
+                Powered by <a href="../index.html" style="color: #667eea;">Virtual Bookshelf</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('URLをクリップボードにコピーしました！');
+            }).catch(() => {
+                // フォールバック
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('URLをクリップボードにコピーしました！');
+            });
+        }
+    </script>
+</body>
+</html>

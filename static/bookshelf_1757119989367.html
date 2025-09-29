@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>おすすめ技術書 - Virtual Bookshelf</title>
+    <meta name="description" content="おすすめの技術書">
+
+    <!-- Open Graph for SNS sharing -->
+    <meta property="og:title" content="おすすめ技術書 - Virtual Bookshelf">
+    <meta property="og:description" content="おすすめの技術書">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://karaage0703.github.io/karaage-virtual-bookshelf/static/bookshelf_1757119989367.html">
+    <meta property="og:image" content="https://images-na.ssl-images-amazon.com/images/P/B0FKSG95HV.01.L.jpg">
+    <meta property="og:site_name" content="Virtual Bookshelf">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="おすすめ技術書 - Virtual Bookshelf">
+    <meta name="twitter:description" content="おすすめの技術書">
+    <meta name="twitter:image" content="https://images-na.ssl-images-amazon.com/images/P/B0FKSG95HV.01.L.jpg">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
+    <link rel="stylesheet" href="../css/bookshelf.css">
+    <style>
+        /* Static bookshelf specific styles */
+        .static-bookshelf {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .bookshelf-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .bookshelf-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .bookshelf-meta {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .bookshelf-stat {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .static-book-item {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        .static-book-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+        }
+
+        .static-book-cover {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+
+        .static-book-info {
+            padding: 1rem;
+        }
+
+        .static-book-title {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .static-book-author {
+            color: #666;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .static-book-rating {
+            margin-top: 0.5rem;
+        }
+
+        .static-book-memo {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+            color: #555;
+            line-height: 1.4;
+            font-style: italic;
+        }
+
+        .static-book-memo a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .static-book-memo a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-info {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .share-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .share-btn:hover {
+            opacity: 0.8;
+        }
+
+        .share-twitter { background: #1da1f2; }
+        .share-facebook { background: #4267B2; }
+        .share-line { background: #00B900; }
+        .share-copy {
+            background: #343a40;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="static-bookshelf">
+        <header class="bookshelf-header">
+            <h1 class="bookshelf-title">📚 おすすめ技術書</h1>
+            <p class="bookshelf-description">おすすめの技術書</p>
+            <div class="bookshelf-meta">
+                <div class="bookshelf-stat">📚 14冊</div>
+                <div class="bookshelf-stat">📅 2025年9月30日</div>
+
+            </div>
+        </header>
+
+        <main class="books-grid">
+            
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0FKSG95HV?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0FKSG95HV.01.L.jpg"
+                             alt="先輩データサイエンティストからの指南書 -実務で生き抜くためのエンジニアリングスキル"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">先輩データサイエンティストからの指南書 -実務で生き抜くためのエンジニアリングスキル</div>
+                        <div class="static-book-author">浅野 純季, 木村 真也, 田中 冬馬, 武藤 克大, 栁 泉穂</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/4873117585?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/4873117585.01.L.jpg"
+                             alt="ゼロから作るDeep Learning"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">ゼロから作るDeep Learning</div>
+                        <div class="static-book-author">斎藤康毅</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2020/05/27/073000" target="_blank" rel="noopener noreferrer">ゼロから作るDeep LearningシリーズはGoogle Colaboratoryで写経して学習するのがおすすめ</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0CK827QHL?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0CK827QHL.01.L.jpg"
+                             alt="Obsidianで“育てる”最強ノート術 —— あらゆる情報をつなげて整理しよう"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">Obsidianで“育てる”最強ノート術 —— あらゆる情報をつなげて整理しよう</div>
+                        <div class="static-book-author">増井 敏克</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0CB25TNF2?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0CB25TNF2.01.L.jpg"
+                             alt="大規模言語モデルは新たな知能か――ChatGPTが変えた世界 (岩波科学ライブラリー)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">大規模言語モデルは新たな知能か――ChatGPTが変えた世界 (岩波科学ライブラリー)</div>
+                        <div class="static-book-author">岡野原 大輔</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2023/06/29/073000" target="_blank" rel="noopener noreferrer">書評: 「大規模言語モデルは新たな知能か」- AIと「理解」の新たな地平</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B08Z3MNR9J?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B08Z3MNR9J.01.L.jpg"
+                             alt="ゼロからのOS自作入門"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">ゼロからのOS自作入門</div>
+                        <div class="static-book-author">内田公太</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2021/04/02/073000" target="_blank" rel="noopener noreferrer">「ゼロからのOS自作入門」で自作OSにハマる</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0DSXYFVRN?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0DSXYFVRN.01.L.jpg"
+                             alt="目指せメダリスト！Kaggle実験管理術 着実にコンペで成果を出すためのノウハウ"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">目指せメダリスト！Kaggle実験管理術 着実にコンペで成果を出すためのノウハウ</div>
+                        <div class="static-book-author">髙橋 正憲, 篠田 裕之</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0CW1B581M?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0CW1B581M.01.L.jpg"
+                             alt="まんが版 こんにちはマイコン（１） (てんとう虫コミックス)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">まんが版 こんにちはマイコン（１） (てんとう虫コミックス)</div>
+                        <div class="static-book-author">すがやみつる</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2024/05/10/073000" target="_blank" rel="noopener noreferrer">こんにちはマイコンに感動してYouTube LiveでBASICのライブコーディングを配信しました</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B09Q8L37DQ?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B09Q8L37DQ.01.L.jpg"
+                             alt="Code as Creative Medium［コード・アズ・クリエイティブ・メディウム］　創造的なプログラミング教育のための実践ガイドブック"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">Code as Creative Medium［コード・アズ・クリエイティブ・メディウム］　創造的なプログラミング教育のための実践ガイドブック</div>
+                        <div class="static-book-author">ゴラン・レヴィン, テガ・ブレイン</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2022/05/23/073000" target="_blank" rel="noopener noreferrer">クリエイティブコーディングの発想を広げる本「CODE AS CREATIVE MEDIUM」を読んでみた</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/4873119065?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/4873119065.01.L.jpg"
+                             alt="フレームワーク編"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">フレームワーク編</div>
+                        <div class="static-book-author">斎藤康毅</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2020/05/27/073000" target="_blank" rel="noopener noreferrer">ゼロから作るDeep LearningシリーズはGoogle Colaboratoryで写経して学習するのがおすすめ</a></div>
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0FJLL7D1L?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0FJLL7D1L.01.L.jpg"
+                             alt="原論文から解き明かす生成AI"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">原論文から解き明かす生成AI</div>
+                        <div class="static-book-author">菊田 遥平</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B0BT7GBF5L?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B0BT7GBF5L.01.L.jpg"
+                             alt="評価指標入門〜データサイエンスとビジネスをつなぐ架け橋"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">評価指標入門〜データサイエンスとビジネスをつなぐ架け橋</div>
+                        <div class="static-book-author">高柳 慎一, 長田 怜士</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B09TB3HSJF?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B09TB3HSJF.01.L.jpg"
+                             alt="ALIFE｜人工生命　―より生命的なAIへ"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">ALIFE｜人工生命　―より生命的なAIへ</div>
+                        <div class="static-book-author">岡 瑞起</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/B09JNWM6KL?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/B09JNWM6KL.01.L.jpg"
+                             alt="ディープラーニング　学習する機械　ヤン・ルカン、人工知能を語る (ＫＳ科学一般書)"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">ディープラーニング　学習する機械　ヤン・ルカン、人工知能を語る (ＫＳ科学一般書)</div>
+                        <div class="static-book-author">ヤン・ルカン</div>
+                        
+                        
+                    </div>
+                </div>
+            
+
+                <div class="static-book-item">
+                    <a href="https://www.amazon.co.jp/dp/4873118360?tag=vbookshelf-22" target="_blank" rel="noopener noreferrer">
+                        <img class="static-book-cover"
+                             src="https://images-na.ssl-images-amazon.com/images/P/4873118360.01.L.jpg"
+                             alt="ゼロから作るDeep Learning 2"
+                             loading="lazy">
+                    </a>
+                    <div class="static-book-info">
+                        <div class="static-book-title">ゼロから作るDeep Learning 2</div>
+                        <div class="static-book-author">斎藤康毅</div>
+                        <div class="static-book-rating">⭐⭐⭐⭐</div>
+                        <div class="static-book-memo"><a href="https://karaage.hatenadiary.jp/entry/2020/05/27/073000" target="_blank" rel="noopener noreferrer">ゼロから作るDeep LearningシリーズはGoogle Colaboratoryで写経して学習するのがおすすめ</a></div>
+                    </div>
+                </div>
+            
+        </main>
+
+        <footer class="footer-info">
+            <h3>📤 この本棚をシェア</h3>
+            <div class="share-buttons">
+                <a href="https://twitter.com/intent/tweet?text=%E3%81%8A%E3%81%99%E3%81%99%E3%82%81%E6%8A%80%E8%A1%93%E6%9B%B8%20%23vbshelf%20https%3A%2F%2Fkaraage0703.github.io%2Fkaraage-virtual-bookshelf%2Fstatic%2Fbookshelf_1757119989367.html"
+                   target="_blank" class="share-btn share-twitter">🐦 Twitter</a>
+                <button onclick="copyToClipboard('おすすめ技術書 #vbshelf https://karaage0703.github.io/karaage-virtual-bookshelf/static/bookshelf_1757119989367.html')" class="share-btn share-copy">📋 テキストコピー</button>
+            </div>
+
+            <p style="margin-top: 2rem; color: #666;">
+                Powered by <a href="../index.html" style="color: #667eea;">Virtual Bookshelf</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('URLをクリップボードにコピーしました！');
+            }).catch(() => {
+                // フォールバック
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('URLをクリップボードにコピーしました！');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,5 +1,5 @@
 {
-  "exportDate": "2025-09-28T14:57:34.321Z",
+  "exportDate": "2025-09-29T15:28:07.836Z",
   "books": {
     "4065412382": {
       "title": "PythonではじめるMCP開発入門 (KS情報科学専門書)",
@@ -174,8 +174,8 @@
       "productImage": "https://m.media-amazon.com/images/I/519qY7RJbnL.jpg",
       "source": "kindle_import",
       "addedDate": 1757074943224,
-      "memo": "",
-      "rating": 0
+      "memo": "全然知らなかった武将の話ですが、面白いです。",
+      "rating": 4
     },
     "B0CNRK6QPT": {
       "title": "お金が増えるノート術　貯まる・稼げる・殖える　３つのステップでお金の不安が消える！ (幻冬舎単行本)",
@@ -26472,6 +26472,39 @@
       "memo": "",
       "rating": 0,
       "updatedAsin": "B09L8175PF"
+    },
+    "4873117585": {
+      "title": "ゼロから作るDeep Learning",
+      "authors": "斎藤康毅",
+      "acquiredTime": 1590537600000,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/4873117585.01.L.jpg",
+      "source": "manual_add",
+      "addedDate": 1759159043568,
+      "memo": "[ゼロから作るDeep LearningシリーズはGoogle Colaboratoryで写経して学習するのがおすすめ](https://karaage.hatenadiary.jp/entry/2020/05/27/073000)",
+      "rating": 5
+    },
+    "4873118360": {
+      "title": "ゼロから作るDeep Learning 2",
+      "authors": "斎藤康毅",
+      "acquiredTime": 1590537600000,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/4873118360.01.L.jpg",
+      "source": "manual_add",
+      "addedDate": 1759159099269,
+      "memo": "[ゼロから作るDeep LearningシリーズはGoogle Colaboratoryで写経して学習するのがおすすめ](https://karaage.hatenadiary.jp/entry/2020/05/27/073000)",
+      "rating": 4
+    },
+    "4873119065": {
+      "title": "フレームワーク編",
+      "authors": "斎藤康毅",
+      "acquiredTime": 1590537600000,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/4873119065.01.L.jpg",
+      "source": "manual_add",
+      "addedDate": 1759159113321,
+      "memo": "[ゼロから作るDeep LearningシリーズはGoogle Colaboratoryで写経して学習するのがおすすめ](https://karaage.hatenadiary.jp/entry/2020/05/27/073000)",
+      "rating": 5
     }
   },
   "bookshelves": [
@@ -26579,7 +26612,8 @@
         "B078GL51L2",
         "B073R6HCX9",
         "B06X191J7Q",
-        "B009HOCALW"
+        "B009HOCALW",
+        "B0C65GNHCX"
       ],
       "createdAt": "2025-09-06T00:53:51.680Z",
       "isPublic": true,
@@ -26733,7 +26767,14 @@
         "B0CM2YJ34N",
         "B009UVJQMS"
       ],
-      "createdAt": "2025-09-06T00:53:22.170Z"
+      "createdAt": "2025-09-06T00:53:22.170Z",
+      "isPublic": true,
+      "lastUpdated": "2025-09-29T15:27:57.338Z",
+      "staticPageInfo": {
+        "filename": "bookshelf_1757120002170.html",
+        "lastGenerated": "2025-09-29T15:27:58.612Z",
+        "url": "https://karaage0703.github.io/karaage-virtual-bookshelf/static/bookshelf_1757120002170.html"
+      }
     },
     {
       "id": "bookshelf_1757120082278",
@@ -26795,7 +26836,10 @@
         "B079PPSQWN",
         "B009IXHOJU",
         "B073PSGZZV",
-        "B014GUVMLA"
+        "B014GUVMLA",
+        "4873117585",
+        "4873118360",
+        "4873119065"
       ],
       "createdAt": "2025-09-06T00:54:42.278Z"
     },
@@ -26820,7 +26864,14 @@
         "B0CD79BB5C",
         "B07J1L1V41"
       ],
-      "createdAt": "2025-09-06T01:27:45.159Z"
+      "createdAt": "2025-09-06T01:27:45.159Z",
+      "isPublic": true,
+      "lastUpdated": "2025-09-29T15:27:51.732Z",
+      "staticPageInfo": {
+        "filename": "bookshelf_1757122065159.html",
+        "lastGenerated": "2025-09-29T15:27:52.624Z",
+        "url": "https://karaage0703.github.io/karaage-virtual-bookshelf/static/bookshelf_1757122065159.html"
+      }
     },
     {
       "id": "bookshelf_1757119989367",
@@ -26838,9 +26889,19 @@
         "B0FJLL7D1L",
         "B0BT7GBF5L",
         "B09TB3HSJF",
-        "B09JNWM6KL"
+        "B09JNWM6KL",
+        "4873117585",
+        "4873118360",
+        "4873119065"
       ],
-      "createdAt": "2025-09-06T00:53:09.367Z"
+      "createdAt": "2025-09-06T00:53:09.367Z",
+      "isPublic": true,
+      "lastUpdated": "2025-09-29T15:27:22.673Z",
+      "staticPageInfo": {
+        "filename": "bookshelf_1757119989367.html",
+        "lastGenerated": "2025-09-29T15:27:25.674Z",
+        "url": "https://karaage0703.github.io/karaage-virtual-bookshelf/static/bookshelf_1757119989367.html"
+      }
     },
     {
       "id": "bookshelf_1757151044846",
@@ -27169,7 +27230,10 @@
       "B0DBH95SGW",
       "B08FBQPF6L",
       "B0FHPWB4KS",
-      "B08XQ7LWKD"
+      "B08XQ7LWKD",
+      "B0BC8HZZZN",
+      "B01FRVHITM",
+      "B07J1L1V41"
     ],
     "bookshelf_1757151118669": [
       "B0F5WTM2TH",
@@ -27185,16 +27249,19 @@
       "B0CBRC8RC3",
       "B00B8EX7YI",
       "B01N6HD4O4",
-      "B00BEPF4VK"
+      "B00BEPF4VK",
+      "B00YV447N2"
     ],
     "bookshelf_1757119989367": [
       "B0FKSG95HV",
+      "4873117585",
       "B0CK827QHL",
       "B0CB25TNF2",
-      "B0DSXYFVRN",
       "B08Z3MNR9J",
+      "B0DSXYFVRN",
       "B0CW1B581M",
-      "B09Q8L37DQ"
+      "B09Q8L37DQ",
+      "4873119065"
     ],
     "bookshelf_1757120082278": [
       "4065412382",
@@ -27361,8 +27428,8 @@
     ]
   },
   "stats": {
-    "totalBooks": 2406,
-    "notesCount": 210
+    "totalBooks": 2409,
+    "notesCount": 214
   },
   "version": "2.0"
 }
