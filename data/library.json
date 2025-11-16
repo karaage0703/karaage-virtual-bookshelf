@@ -1,5 +1,5 @@
 {
-  "exportDate": "2025-09-29T15:28:07.836Z",
+  "exportDate": "2025-11-16T16:03:19.724Z",
   "books": {
     "4065412382": {
       "title": "PythonではじめるMCP開発入門 (KS情報科学専門書)",
@@ -26505,6 +26505,226 @@
       "addedDate": 1759159113321,
       "memo": "[ゼロから作るDeep LearningシリーズはGoogle Colaboratoryで写経して学習するのがおすすめ](https://karaage.hatenadiary.jp/entry/2020/05/27/073000)",
       "rating": 5
+    },
+    "B00LE2OPZY": {
+      "title": "瑠璃宮夢幻古物店 ： 1 (アクションコミックス)",
+      "authors": "逢坂八代",
+      "acquiredTime": 1763293448869,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51Xyf6jf2OL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "",
+      "rating": 0
+    },
+    "B07JXYT3LN": {
+      "title": "じしょへん　（1） (ＢＲＩＤＧＥ　ＣＯＭＩＣＳ)",
+      "authors": "久木 ゆづる",
+      "acquiredTime": 1763265792245,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://m.media-amazon.com/images/I/519Wp2hMdzL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "",
+      "rating": 0
+    },
+    "B0BDZXX9WC": {
+      "title": "チャリっこ (バンブーコミックス)",
+      "authors": "大塚志郎",
+      "acquiredTime": 1763265680291,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51XHLjP8WDL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "",
+      "rating": 0
+    },
+    "B0F31WK82Y": {
+      "title": "怪獣を解剖する 下 (ビームコミックス)",
+      "authors": "サイトウ マド",
+      "acquiredTime": 1763134864328,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/519WJFwc4UL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "",
+      "rating": 0
+    },
+    "B0F31W9Y4F": {
+      "title": "怪獣を解剖する 上 (ビームコミックス)",
+      "authors": "サイトウ マド",
+      "acquiredTime": 1762829072415,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51ymiG9y3eL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "良かった",
+      "rating": 5
+    },
+    "B08WPMGW4K": {
+      "title": "童の神 ： 1 (アクションコミックス)",
+      "authors": "深谷陽, 今村翔吾",
+      "acquiredTime": 1762560000000,
+      "readStatus": "READ",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/B08WPMGW4K.01.L.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "酒呑童子伝説を下敷きに描かれた漫画。\n\n安倍晴明に金太郎と、歴史上の有名キャラクターが多く出てきます。酒呑童子とか金太郎、名前は聞くのですが、全然知らなかったのでこの漫画をきっかけに興味持ちました。漫画は、今まで知らなかったのが不思議なくらい面白いです。",
+      "rating": 5
+    },
+    "B0BWHFLVQ6": {
+      "title": "こえる大峠さん　１ (角川コミックス・エース)",
+      "authors": "根雪 れい",
+      "acquiredTime": 1762558694031,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51n5Dc+XaML.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "",
+      "rating": 0
+    },
+    "B0FTZ13CFM": {
+      "title": "締切と闘え！ (ちくまプリマー新書)",
+      "authors": "島本和彦",
+      "acquiredTime": 1762473600000,
+      "readStatus": "READ",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/B0FTZ13CFM.01.L.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "熱いですw",
+      "rating": 4
+    },
+    "B073TT2JJ7": {
+      "title": "へんなものみっけ！（１） (ビッグコミックス)",
+      "authors": "早良朋",
+      "acquiredTime": 1762300800000,
+      "readStatus": "READ",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/B073TT2JJ7.01.L.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "博物館がテーマの珍しい漫画。ユニークなキャラクターが多くて楽しいです。",
+      "rating": 4
+    },
+    "B0FNW6HRJX": {
+      "title": "ドラゴンクエスト4コママンガ劇場　ニセ勇者本 (デジタル版ガンガンコミックス)",
+      "authors": "柴田亜美",
+      "acquiredTime": 1761868800000,
+      "readStatus": "READ",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/B0FNW6HRJX.01.L.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "懐かしい漫画です",
+      "rating": 4
+    },
+    "B0B82667RV": {
+      "title": "40歳からラジコンできるかな？　断言しようラジコンはとてつもなく面白い！　TYPE-S (チャンピオンREDコミックス)",
+      "authors": "阿部秀司",
+      "acquiredTime": 1761778731181,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51sZKPEMcuL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "",
+      "rating": 0
+    },
+    "B0FWJBNRN2": {
+      "title": "『シティーハンター』40周年記念ガイド　シティーハンター深掘BOOK (角川SSC)",
+      "authors": "ＫＡＤＯＫＡＷＡ",
+      "acquiredTime": 1761708432660,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51FEWXqAWxL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "",
+      "rating": 0
+    },
+    "B0F994RNHL": {
+      "title": "ボツ　『少年ジャンプ』伝説の編集長の“嫌われる”仕事術",
+      "authors": "鳥嶋和彦",
+      "acquiredTime": 1760486400000,
+      "readStatus": "READ",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/B0F994RNHL.01.L.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "編集者とは、仕事とは何かという鳥嶋さんの哲学が分かる本。\nやっぱり凄い人ですね。",
+      "rating": 5
+    },
+    "B0FRQCFPK5": {
+      "title": "カーニハンのUNIX回顧録",
+      "authors": "ブライアン・カーニハン",
+      "acquiredTime": 1760140800000,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/B0FRQCFPK5.01.L.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "",
+      "rating": 4
+    },
+    "B0FN2XCQC3": {
+      "title": "ミニマルインフルエンサー主義 夢を叶えるのにフォロワー数は関係ない。",
+      "authors": "中島侑子",
+      "acquiredTime": 1760173953059,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51bbv8KC7SL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "",
+      "rating": 0
+    },
+    "B0FH69QNDV": {
+      "title": "NAVI (マンガの金字塔)",
+      "authors": "新谷 かおる",
+      "acquiredTime": 1760166630766,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/51comszzfRL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "",
+      "rating": 0
+    },
+    "B0F5Q4R5TK": {
+      "title": "君のクイズ (朝日文庫)",
+      "authors": "小川　哲",
+      "acquiredTime": 1759968000000,
+      "readStatus": "READ",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/B0F5Q4R5TK.01.L.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "一言も読み上げられていない問題をなぜ回答できたのか？というところから始まるストーリー。\n面白かったです。",
+      "rating": 4
+    },
+    "B0D69MJT6T": {
+      "title": "年収300万円で心の大富豪 (角川書店単行本)",
+      "authors": "サバンナ 八木 真澄",
+      "acquiredTime": 1759881600000,
+      "readStatus": "READ",
+      "productImage": "https://images-na.ssl-images-amazon.com/images/P/B0D69MJT6T.01.L.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "最近、サバンナ八木さんのファンになりました。一つの生き方、考え方として参考になります。\nサバンナ八木さんのYouTubeとか音声配信とセットで楽しむのが良い本です。",
+      "rating": 4
+    },
+    "B00BCY592C": {
+      "title": "アド・アストラ　―スキピオとハンニバル― 1 (ヤングジャンプコミックスDIGITAL)",
+      "authors": "カガノミハチ",
+      "acquiredTime": 1759856992801,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://m.media-amazon.com/images/I/515HwLy0KiL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "",
+      "rating": 0
+    },
+    "B084H423SL": {
+      "title": "フェラーリと鉄瓶 一本の線から生まれる「価値あるものづくり」 (PHP文庫)",
+      "authors": "奥山 清行",
+      "acquiredTime": 1759540569050,
+      "readStatus": "READ",
+      "productImage": "https://m.media-amazon.com/images/I/4113epodPJL.jpg",
+      "source": "kindle_import",
+      "addedDate": 1763308282643,
+      "memo": "",
+      "rating": 0
     }
   },
   "bookshelves": [
@@ -26613,7 +26833,11 @@
         "B073R6HCX9",
         "B06X191J7Q",
         "B009HOCALW",
-        "B0C65GNHCX"
+        "B0C65GNHCX",
+        "B0F31W9Y4F",
+        "B08WPMGW4K",
+        "B073TT2JJ7",
+        "B0FNW6HRJX"
       ],
       "createdAt": "2025-09-06T00:53:51.680Z",
       "isPublic": true,
@@ -26712,7 +26936,11 @@
         "B01NGTCARO",
         "B073R6HCX9",
         "B01FRVHITM",
-        "B06X191J7Q"
+        "B06X191J7Q",
+        "B0F31W9Y4F",
+        "B08WPMGW4K",
+        "B0F994RNHL",
+        "B0FRQCFPK5"
       ],
       "createdAt": "2025-09-06T13:24:20.966Z",
       "isPublic": true,
@@ -26765,7 +26993,10 @@
         "B08491KV9Z",
         "B06W9JGBCR",
         "B0CM2YJ34N",
-        "B009UVJQMS"
+        "B009UVJQMS",
+        "B0FTZ13CFM",
+        "B0F994RNHL",
+        "B0D69MJT6T"
       ],
       "createdAt": "2025-09-06T00:53:22.170Z",
       "isPublic": true,
@@ -26862,7 +27093,8 @@
         "B0CZBY35S3",
         "B01FRVHITM",
         "B0CD79BB5C",
-        "B07J1L1V41"
+        "B07J1L1V41",
+        "B0F5Q4R5TK"
       ],
       "createdAt": "2025-09-06T01:27:45.159Z",
       "isPublic": true,
@@ -26892,7 +27124,8 @@
         "B09JNWM6KL",
         "4873117585",
         "4873118360",
-        "4873119065"
+        "4873119065",
+        "B0FRQCFPK5"
       ],
       "createdAt": "2025-09-06T00:53:09.367Z",
       "isPublic": true,
@@ -26955,7 +27188,8 @@
         "B0CQC6KXV2",
         "B015FPHY1W",
         "B00HFNJ61E",
-        "B00QV8GYKA"
+        "B00QV8GYKA",
+        "B08WPMGW4K"
       ],
       "createdAt": "2025-09-06T09:31:58.669Z"
     },
@@ -27025,7 +27259,8 @@
         "B08491KV9Z",
         "B0D3G62CVF",
         "B0CXRC4WF9",
-        "B01IQL9YGU"
+        "B01IQL9YGU",
+        "B0D69MJT6T"
       ],
       "createdAt": "2025-09-06T09:57:32.162Z"
     },
@@ -27428,8 +27663,8 @@
     ]
   },
   "stats": {
-    "totalBooks": 2409,
-    "notesCount": 214
+    "totalBooks": 2429,
+    "notesCount": 223
   },
   "version": "2.0"
 }
