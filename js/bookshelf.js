@@ -307,7 +307,7 @@ class VirtualBookshelf {
         }
 
         // ASIN入力フィールドでEnterキー押下時の自動取得
-        const asinInput = document.getElementById('manual-asin');
+        const asinInput = document.getElementById('manual-isbn');
         if (asinInput) {
             asinInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
@@ -1981,7 +1981,7 @@ class VirtualBookshelf {
         const amazonUrlInput = document.getElementById('amazon-url-input');
         if (amazonUrlInput) amazonUrlInput.value = '';
         
-        const manualAsin = document.getElementById('manual-asin');
+        const manualAsin = document.getElementById('manual-isbn');
         if (manualAsin) manualAsin.value = '';
 
         const manualTitle = document.getElementById('manual-title');
@@ -2040,8 +2040,8 @@ class VirtualBookshelf {
         // 自動取得に失敗した場合、手動入力フォームにASINを設定
         document.getElementById('manual-title').value = '';
         document.getElementById('manual-authors').value = '';
-        document.getElementById('manual-asin').value = asin;
-        document.getElementById('manual-asin').readOnly = true;
+        document.getElementById('manual-isbn').value = asin;
+        document.getElementById('manual-isbn').readOnly = true;
         
         alert(`⚠️ 書籍情報の自動取得に失敗しました。\nASIN: ${asin}\n\n手動でタイトルと著者を入力してください。`);
     }
@@ -2050,7 +2050,7 @@ class VirtualBookshelf {
      * ASINから書籍情報を自動取得してフォームに入力
      */
     async fetchBookInfoFromASIN() {
-        const asinInput = document.getElementById('manual-asin');
+        const asinInput = document.getElementById('manual-isbn');
         const titleInput = document.getElementById('manual-title');
         const authorsInput = document.getElementById('manual-authors');
         const statusDiv = document.getElementById('asin-status');
@@ -2122,7 +2122,7 @@ class VirtualBookshelf {
      * 手動入力で書籍を追加
      */
     async addBookManually() {
-        const asin = document.getElementById('manual-asin').value.trim();
+        const asin = document.getElementById('manual-isbn').value.trim();
         const title = document.getElementById('manual-title').value.trim();
         const authors = document.getElementById('manual-authors').value.trim();
 
