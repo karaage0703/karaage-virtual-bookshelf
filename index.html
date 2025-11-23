@@ -315,10 +315,11 @@
                 <div class="add-book-options">
                     <div class="add-option">
                         <h3>本の情報を入力</h3>
+                        <-- TODO:idもISBN用に変更 -->
                         <div class="form-group">
                             <label for="manual-asin">ISBN</label>
                             <div class="asin-input-container">
-                                <input type="text" id="manual-asin" placeholder="B012345678" maxlength="10" />
+                                <input type="text" id="manual-asin" placeholder="4から始まる10桁の数字" maxlength="10" />
                                 <button type="button" id="fetch-book-info" class="btn btn-small btn-secondary">📥 自動取得</button>
                             </div>
                             <div class="asin-status" id="asin-status" style="display: none;"></div>
