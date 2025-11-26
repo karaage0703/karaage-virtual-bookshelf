@@ -803,8 +803,8 @@ class VirtualBookshelf {
                             </div>
                             <p style="margin: 0 0 0.5rem 0; color: #7f8c8d;"><strong>著者:</strong> ${book.authors}</p>
                             <p style="margin: 0 0 0.5rem 0; color: #7f8c8d;"><strong>購入日:</strong> ${new Date(book.acquiredTime).toLocaleDateString('ja-JP')}</p>
-                            <p style="margin: 0 0 0.5rem 0; color: #7f8c8d;"><strong>ASIN:</strong> ${book.asin}</p>
-                            ${book.updatedAsin ? `<p style="margin: 0 0 0.5rem 0; color: #7f8c8d;"><strong>変更後ASIN:</strong> ${book.updatedAsin}</p>` : ''}
+                            <p style="margin: 0 0 0.5rem 0; color: #7f8c8d;"><strong>商品コード:</strong> ${book.asin}</p>
+                            ${book.updatedAsin ? `<p style="margin: 0 0 0.5rem 0; color: #7f8c8d;"><strong>変更後商品コード:</strong> ${book.updatedAsin}</p>` : ''}
                         </div>
                         <div class="book-edit-section" ${!isEditMode ? 'style="display: none;"' : ''}>
                             <div class="edit-field">
@@ -820,14 +820,14 @@ class VirtualBookshelf {
                                 <input type="date" class="edit-acquired-time" data-asin="${book.asin}" value="${new Date(book.acquiredTime).toISOString().split('T')[0]}" />
                             </div>
                             <div class="edit-field">
-                                <label>🔖 オリジナルASIN</label>
+                                <label>🔖 オリジナル商品コード</label>
                                 <input type="text" class="edit-original-asin" data-asin="${book.asin}" value="${book.asin}" maxlength="10" pattern="[A-Z0-9]{10}" />
-                                <small class="field-help">※ 元のASIN（通常は変更不要）</small>
+                                <small class="field-help">※ 元の商品コード（通常は変更不要）</small>
                             </div>
                             <div class="edit-field">
-                                <label>🔗 変更後ASIN（オプション）</label>
-                                <input type="text" class="edit-updated-asin" data-asin="${book.asin}" value="${book.updatedAsin || ''}" placeholder="新しいASINがある場合のみ入力" maxlength="10" pattern="[A-Z0-9]{10}" />
-                                <small class="field-help">※ Amazonで商品のASINが変更された場合の新しいASINを入力</small>
+                                <label>🔗 変更後商品コード（オプション）</label>
+                                <input type="text" class="edit-updated-asin" data-asin="${book.asin}" value="${book.updatedAsin || ''}" placeholder="新しい商品コードがある場合のみ入力" maxlength="10" pattern="[A-Z0-9]{10}" />
+                                <small class="field-help">※ Amazonで商品コードが変更された場合の新しいコードを入力</small>
                             </div>
                             <div class="edit-actions" style="margin-top: 1rem; display: flex; gap: 0.5rem;">
                                 <button class="btn btn-small save-book-changes" data-asin="${book.asin}">💾 変更を保存</button>
@@ -1717,23 +1717,23 @@ class VirtualBookshelf {
             return;
         }
 
-        // オリジナルASINの妥当性チェック
+        // オリジナル商品コードの妥当性チェック
         if (!newOriginalAsin || !this.bookManager.isValidASIN(newOriginalAsin)) {
-            alert('🔖 オリジナルASINは10桁の英数字で入力してください（例: B07ABC1234）');
+            alert('🔖 オリジナル商品コードは10桁の英数字で入力してください（例: B07ABC1234 または 4798121967）');
             return;
         }
 
-        // 変更後ASINの妥当性チェック
+        // 変更後商品コードの妥当性チェック
         if (newUpdatedAsin && !this.bookManager.isValidASIN(newUpdatedAsin)) {
-            alert('🔗 変更後ASINは10桁の英数字で入力してください（例: B07ABC1234）');
+            alert('🔗 変更後商品コードは10桁の英数字で入力してください（例: B07ABC1234 または 4798121967）');
             return;
         }
 
-        // オリジナルASINが変更された場合の重複チェック
+        // オリジナル商品コードが変更された場合の重複チェック
         if (newOriginalAsin !== asin) {
             const existingBook = this.books.find(book => book.asin === newOriginalAsin);
             if (existingBook) {
-                alert('🔖 このオリジナルASINは既に使用されています');
+                alert('🔖 この商品コードは既に使用されています');
                 return;
             }
         }
@@ -2059,12 +2059,12 @@ class VirtualBookshelf {
         const asin = asinInput.value.trim();
 
         if (!asin) {
-            this.showASINStatus('error', 'ASINを入力してください');
+            this.showASINStatus('error', '商品コード（ASIN/ISBN-10）を入力してください');
             return;
         }
 
         if (!this.bookManager.isValidASIN(asin)) {
-            this.showASINStatus('error', '有効なASINフォーマットではありません（例: B012345678）');
+            this.showASINStatus('error', '有効なフォーマットではありません（例: B012345678 または 4798121967）');
             return;
         }
 
@@ -2127,7 +2127,7 @@ class VirtualBookshelf {
         const authors = document.getElementById('manual-authors').value.trim();
 
         if (!asin) {
-            alert('📝 ASINを入力してください');
+            alert('📝 商品コード（ASIN/ISBN-10）を入力してください');
             return;
         }
 
@@ -2170,7 +2170,7 @@ class VirtualBookshelf {
                 <div class="added-book-info">
                     <p><strong>タイトル:</strong> ${book.title}</p>
                     <p><strong>著者:</strong> ${book.authors}</p>
-                    <p><strong>ASIN:</strong> ${book.asin}</p>
+                    <p><strong>商品コード:</strong> ${book.asin}</p>
                 </div>
             </div>
         `;
