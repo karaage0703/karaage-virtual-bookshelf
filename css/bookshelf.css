@@ -1810,3 +1810,263 @@ body {
     border-color: #5a6268;
     color: white;
 }
+
+/* ===========================================
+   シリーズグループ化表示スタイル
+   =========================================== */
+
+/* シリーズ要素 */
+.series-item {
+    position: relative;
+}
+
+.series-cover-container {
+    position: relative;
+}
+
+/* シリーズバッジ */
+.series-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+}
+
+/* シリーズ進捗表示 */
+.series-progress {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 4px;
+}
+
+/* シリーズ詳細リンク */
+.series-detail-link {
+    cursor: pointer;
+}
+
+/* シリーズモーダル */
+.series-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.series-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.series-modal {
+    background: white;
+    border-radius: 12px;
+    max-width: 800px;
+    width: 90%;
+    max-height: 85vh;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+}
+
+.series-modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.series-modal-title {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+}
+
+.series-modal-author {
+    color: #666;
+    margin-top: 0.25rem;
+}
+
+.series-modal-progress {
+    background: #f0f0f0;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.series-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #999;
+    padding: 0.5rem;
+    line-height: 1;
+}
+
+.series-modal-close:hover {
+    color: #333;
+}
+
+/* シリーズモーダル アクション */
+.series-modal-actions {
+    padding: 1rem 1.5rem;
+    background: #f8f9fa;
+    border-bottom: 1px solid #eee;
+}
+
+.series-bookshelf-add {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.series-bookshelf-add select {
+    flex: 1;
+    min-width: 150px;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.series-bookshelf-add button {
+    padding: 0.5rem 1rem;
+    white-space: nowrap;
+}
+
+.series-modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    flex: 1;
+}
+
+/* シリーズ巻リスト */
+.series-volumes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.series-volume-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.series-volume-item:hover {
+    background: #e9ecef;
+    transform: translateX(4px);
+}
+
+.series-volume-cover {
+    width: 60px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.series-volume-cover-placeholder {
+    width: 60px;
+    height: 90px;
+    background: #ddd;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.series-volume-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.series-volume-number {
+    font-weight: bold;
+    color: var(--secondary-color);
+    font-size: 0.85rem;
+}
+
+.series-volume-title {
+    font-size: 1rem;
+    margin: 0.25rem 0;
+    color: #333;
+}
+
+.series-volume-status {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.series-volume-status.read {
+    color: #27ae60;
+}
+
+.series-volume-icons {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-left: auto;
+}
+
+.series-volume-icon {
+    font-size: 1rem;
+}
+
+/* リスト表示でのシリーズ */
+.bookshelf.view-list .series-item {
+    display: flex;
+    align-items: center;
+}
+
+.bookshelf.view-list .series-badge {
+    position: static;
+    margin-left: auto;
+}
+
+/* シリーズグループ化チェックボックス */
+.series-grouping-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+.series-grouping-toggle input {
+    cursor: pointer;
+}
+
+.series-grouping-toggle label {
+    cursor: pointer;
+    font-size: 0.9rem;
+}

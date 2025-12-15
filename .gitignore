@@ -47,3 +47,8 @@ backup/
 node_modules/
 
 .serena/
+
+# Claude documents
+.claude/
+.kiro/
+CLAUDE.md
