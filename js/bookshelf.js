@@ -1522,7 +1522,7 @@ class VirtualBookshelf {
             theme: 'light',
             booksPerPage: 50,
             showImagesInOverview: true,
-            enableSeriesGrouping: false
+            enableSeriesGrouping: true
         };
     }
 
