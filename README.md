@@ -72,8 +72,37 @@
 
 ### 5. カスタマイズ
 
+#### デフォルト設定 (data/config.json)
+
+アプリケーションのデフォルト設定を`data/config.json`で指定できます。サイドバーの「⚙️ 設定エクスポート」ボタンで現在の設定をエクスポートすることもできます。
+
+| 設定項目 | 説明 | 値 |
+|---------|------|-----|
+| `affiliateId` | Amazon AssociatesのアフィリエイトID | 文字列（例: `"your-id-22"`） |
+| `defaultView` | デフォルトの表示モード | `"covers"`: 表紙表示、`"list"`: リスト表示 |
+| `coverSize` | 表紙サイズ | `"small"`: 小、`"medium"`: 中、`"large"`: 大 |
+| `booksPerPage` | 1ページあたりの表示数 | `25`, `50`, `100`, `200`, `"all"` |
+| `enableSeriesGrouping` | シリーズグループ化 | `true`: 有効、`false`: 無効 |
+| `showImagesInOverview` | 概要での画像表示 | `true`: 表示、`false`: 非表示 |
+| `sortOrder` | 並び順 | `"custom"`: カスタム順、`"acquiredTime"`: 購入日、`"title"`: タイトル、`"authors"`: 著者 |
+| `sortDirection` | 並び方向 | `"asc"`: 昇順、`"desc"`: 降順 |
+
+**設定例:**
+```json
+{
+  "affiliateId": "your-affiliate-id",
+  "defaultView": "covers",
+  "coverSize": "medium",
+  "booksPerPage": 50,
+  "enableSeriesGrouping": true,
+  "showImagesInOverview": true,
+  "sortOrder": "acquiredTime",
+  "sortDirection": "desc"
+}
+```
+
 #### 基本設定
-- **アフィリエイトID**: `data/user_data.json`の`settings.affiliateId`を変更
+- **アフィリエイトID**: `data/config.json`の`affiliateId`を変更
 - **本棚の作成**: デフォルトの本棚を編集、新しい本棚を追加
 - **カラーテーマ**: CSS変数でカスタマイズ
 
