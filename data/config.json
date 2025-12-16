@@ -1,3 +1,10 @@
 {
-  "affiliateId": "vbookshelf-22"
+  "affiliateId": "vbookshelf-22",
+  "defaultView": "covers",
+  "coverSize": "medium",
+  "booksPerPage": 100,
+  "enableSeriesGrouping": true,
+  "showImagesInOverview": true,
+  "sortOrder": "custom",
+  "sortDirection": "desc"
 }

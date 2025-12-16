@@ -167,6 +167,15 @@ class VirtualBookshelf {
             seriesGroupingCheckbox.checked = this.enableSeriesGrouping;
         }
 
+        // Load sort settings
+        if (this.userData.settings.sortOrder) {
+            this.sortOrder = this.userData.settings.sortOrder;
+            document.getElementById('sort-order').value = this.sortOrder;
+        }
+        if (this.userData.settings.sortDirection) {
+            this.sortDirection = this.userData.settings.sortDirection;
+        }
+
         this.applyFilters();
     }
 
@@ -234,6 +243,14 @@ class VirtualBookshelf {
         document.getElementById('export-unified').addEventListener('click', () => {
             this.exportUnifiedData();
         });
+
+        // Settings export button
+        const exportSettingsBtn = document.getElementById('export-settings');
+        if (exportSettingsBtn) {
+            exportSettingsBtn.addEventListener('click', () => {
+                this.exportDefaultSettings();
+            });
+        }
 
         // Bookshelf management
         const manageBookshelves = document.getElementById('manage-bookshelves');
@@ -2713,6 +2730,78 @@ class VirtualBookshelf {
         URL.revokeObjectURL(url);
         
         alert('📦 library.json をエクスポートしました！');
+    }
+
+    /**
+     * エクスポート可能な設定項目のホワイトリスト
+     */
+    static EXPORTABLE_SETTINGS = [
+        'defaultView',
+        'coverSize',
+        'booksPerPage',
+        'enableSeriesGrouping',
+        'showImagesInOverview',
+        'sortOrder',
+        'sortDirection'
+    ];
+
+    /**
+     * エクスポート用の設定オブジェクトを生成
+     * @returns {Object} フィルタリングされた設定オブジェクト
+     */
+    buildExportableSettings() {
+        if (!this.userData || !this.userData.settings) {
+            console.error('設定データが存在しません');
+            return {};
+        }
+
+        const exportSettings = {};
+        VirtualBookshelf.EXPORTABLE_SETTINGS.forEach(key => {
+            if (this.userData.settings[key] !== undefined) {
+                exportSettings[key] = this.userData.settings[key];
+            }
+        });
+
+        return exportSettings;
+    }
+
+    /**
+     * デフォルト設定をconfig.json形式でエクスポート
+     */
+    exportDefaultSettings() {
+        console.log('⚙️ 設定エクスポート開始...');
+
+        try {
+            // 設定データの存在確認
+            if (!this.userData || !this.userData.settings) {
+                throw new Error('設定データが初期化されていません');
+            }
+
+            // エクスポート用設定を生成
+            const exportSettings = this.buildExportableSettings();
+
+            console.log('📋 エクスポート設定:', exportSettings);
+
+            // JSON文字列に変換（UTF-8、2スペースインデント）
+            const jsonString = JSON.stringify(exportSettings, null, 2);
+
+            // Blobを作成してダウンロード
+            const blob = new Blob([jsonString], { type: 'application/json;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'config.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            console.log('✅ 設定エクスポート完了');
+            alert('⚙️ config.json をエクスポートしました！\nこのファイルをdata/config.jsonとして配置すると、デフォルト設定として適用されます。');
+        } catch (error) {
+            console.error('設定エクスポートエラー:', error);
+            alert('設定のエクスポートに失敗しました: ' + error.message);
+        }
     }
 
     /**
