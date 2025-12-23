@@ -367,6 +367,14 @@ class VirtualBookshelf {
             this.clearLibrary();
         });
 
+        // Sync from server button
+        const syncFromServerBtn = document.getElementById('sync-from-server');
+        if (syncFromServerBtn) {
+            syncFromServerBtn.addEventListener('click', () => {
+                this.syncFromServer();
+            });
+        }
+
         // Static share modal
         const staticShareModalClose = document.getElementById('static-share-modal-close');
         if (staticShareModalClose) {
@@ -2801,6 +2809,124 @@ class VirtualBookshelf {
         } catch (error) {
             console.error('設定エクスポートエラー:', error);
             alert('設定のエクスポートに失敗しました: ' + error.message);
+        }
+    }
+
+    /**
+     * library.json のデータをローカルに適用
+     * ローカルストレージを上書きしてサーバーデータを反映
+     */
+    async syncFromServer() {
+        const confirmMessage = `🔄 サーバーデータを適用しますか？
+
+この操作により以下が行われます：
+• library.json の内容でローカルデータを上書き
+• 現在のブラウザに保存されている変更は失われます
+
+別の端末で編集・エクスポートしたデータを
+このブラウザに反映する場合に使用してください。`;
+
+        if (!confirm(confirmMessage)) {
+            return;
+        }
+
+        try {
+            console.log('🔄 サーバーからデータを同期中...');
+
+            // library.json を読み込み
+            const libraryResponse = await fetch('data/library.json', {
+                cache: 'no-store' // キャッシュを無視して最新を取得
+            });
+
+            if (!libraryResponse.ok) {
+                throw new Error('library.json の読み込みに失敗しました');
+            }
+
+            const text = await libraryResponse.text();
+            if (!text.trim()) {
+                throw new Error('library.json が空です');
+            }
+
+            const libraryData = JSON.parse(text);
+            console.log('📥 library.json を読み込みました:', libraryData);
+
+            // BookManager のデータを更新
+            if (libraryData.books) {
+                this.bookManager.library = {
+                    books: Object.entries(libraryData.books).map(([asin, book]) => ({
+                        title: book.title,
+                        authors: book.authors,
+                        acquiredTime: book.acquiredTime,
+                        readStatus: book.readStatus,
+                        asin: asin,
+                        productImage: book.productImage,
+                        source: book.source,
+                        addedDate: book.addedDate,
+                        ...(book.memo && { memo: book.memo }),
+                        ...(book.rating && { rating: book.rating }),
+                        ...(book.updatedAsin && { updatedAsin: book.updatedAsin })
+                    })),
+                    metadata: {
+                        totalBooks: libraryData.stats?.totalBooks || Object.keys(libraryData.books).length,
+                        manuallyAdded: 0,
+                        importedFromKindle: Object.keys(libraryData.books).length,
+                        lastImportDate: libraryData.exportDate
+                    }
+                };
+                // BookManager の localStorage を更新
+                await this.bookManager.saveLibrary();
+            }
+
+            // userData を更新
+            this.userData = {
+                exportDate: libraryData.exportDate || new Date().toISOString(),
+                bookshelves: libraryData.bookshelves || [],
+                notes: {},
+                settings: { ...this.userData.settings, ...(libraryData.settings || {}) },
+                bookOrder: libraryData.bookOrder || {},
+                stats: libraryData.stats || { totalBooks: 0, notesCount: 0 },
+                version: libraryData.version || '2.0'
+            };
+
+            // 書籍データから notes を再構築
+            if (libraryData.books) {
+                Object.keys(libraryData.books).forEach(asin => {
+                    const book = libraryData.books[asin];
+                    if (book.memo || book.rating) {
+                        this.userData.notes[asin] = {
+                            memo: book.memo || '',
+                            rating: book.rating || 0
+                        };
+                    }
+                });
+            }
+
+            // userData の localStorage を更新
+            this.saveUserData();
+
+            // 表示を更新
+            this.books = this.bookManager.getAllBooks();
+
+            // シリーズ情報を再構築
+            if (this.seriesManager) {
+                const { seriesGroups, bookToSeriesMap } = this.seriesManager.detectAndGroupSeries(this.books);
+                this.seriesGroups = seriesGroups;
+                this.bookToSeriesMap = bookToSeriesMap;
+            }
+
+            // UI を更新
+            this.updateBookshelfSelector();
+            this.applyFilters();
+            this.updateStats();
+            this.renderBookshelfOverview();
+
+            console.log('✅ サーバーデータの適用が完了しました');
+            alert('✅ サーバーデータを適用しました！\n\n' +
+                  `📚 ${this.books.length}冊の書籍データを読み込みました。`);
+
+        } catch (error) {
+            console.error('❌ データ適用エラー:', error);
+            alert('❌ サーバーデータの適用に失敗しました:\n' + error.message);
         }
     }
 
