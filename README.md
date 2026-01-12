@@ -13,7 +13,7 @@
 - 📖 **2つの表示モード**: 表紙表示・リスト表示
 - 📚 **複数本棚管理**: テーマ別本棚の作成・キュレーション
 - ⭐ **5星評価システム**: 1-5星による本の評価管理・フィルタリング
-- 🎯 **ハイライト表示**: ASINベースでKindleのマーカー情報を自動読み込み
+- 🎯 **ハイライト表示**: bookIdベースでKindleのマーカー情報を自動読み込み
 - 📝 **個人メモ**: 本ごとのレビューとおすすめ文
 
 - 🔍 **検索・フィルター**: タイトル・著者・星評価での絞り込み
@@ -21,9 +21,10 @@
 - 🔗 **Amazon Associates**: 自動アフィリエイトリンク生成
 - 🌐 **公開・共有**: 本棚ごとの公開設定と静的ページ生成
 - 💾 **データエクスポート**: 設定・星評価・メモの永続化
-- 📥 **蔵書管理**: Kindleインポート、手動追加、削除機能
+- 📥 **蔵書管理**: Kindleインポート、手動追加、Google Books追加、削除機能
 - 🔄 **ハイライトファイル管理**: スクリプトベースでのハイライトインデックス生成
 - 🔀 **並び替え機能**: ドラッグ&ドロップによる本の順序変更・保存
+- 📗 **複数ストア対応**: Amazon/KindleとGoogle Play Booksの両方に対応
 
 ## 🚀 使い始めるには
 
@@ -61,12 +62,19 @@
 2. Kindle Cloud Readerで蔵書データをJSONファイルとしてエクスポート
 3. ブラウザで「📥 Kindleインポート」ボタンをクリックしてインポート
 
-**方法2: 手動で本を追加**
+**方法2: 手動で本を追加（Amazon/Kindle）**
 1. 「➕ 手動追加」ボタンをクリック
-2. ASIN、タイトル、著者を入力
-3. 購入日と読書状況を設定
+2. 「Amazon/Kindle」タブを選択
+3. ASIN、タイトル、著者を入力
+4. 購入日と読書状況を設定
 
-**方法3: データファイルを直接編集**
+**方法3: Google Play Booksの本を追加**
+1. 「➕ 手動追加」ボタンをクリック
+2. 「Google Play Books」タブを選択
+3. ボリュームIDを入力（Google BooksのURLの`?id=`以降の文字列、例: `-DFzEAAAQBAJ`）
+4. 「自動取得」ボタンで書籍情報を取得、または手動でタイトル・著者を入力
+
+**方法4: データファイルを直接編集**
 1. `data/library.json` を編集（後述のデータフォーマット参照）
 
 ### 5. カスタマイズ
@@ -121,8 +129,9 @@ virtual-bookshelf/
 │   └── bookshelf.css      # スタイルシート
 ├── js/
 │   ├── bookshelf.js       # メイン機能
-│   ├── book-manager.js    # 蔵書CRUD管理
+│   ├── book-manager.js    # 蔵書CRUD管理（Amazon/Google Books対応）
 │   ├── highlights.js      # ハイライト表示
+│   ├── series-manager.js  # 漫画シリーズ検出・グループ化
 │   └── static-bookshelf-generator.js # 静的ページ生成
 ├── templates/
 │   └── bookshelf-template.html # 静的ページテンプレート
@@ -160,17 +169,32 @@ php -S localhost:8000
 ## 💾 データフォーマット
 
 ### 蔵書データ (data/library.json)
+
+書籍の識別子として汎用的な`bookId`を使用しています。Amazon/Kindleの場合はASIN、Google Booksの場合はボリュームIDがbookIdになります。
+
 ```json
 {
+  "formatVersion": 2,
   "exportDate": "2025-11-16T16:03:19.724Z",
   "books": {
     "B0XXXXXXXXX": {
-      "title": "書籍タイトル",
+      "bookId": "B0XXXXXXXXX",
+      "title": "Kindle書籍タイトル",
       "authors": "著者名",
       "acquiredTime": 1756899555435,
       "readStatus": "READ|UNKNOWN",
       "productImage": "https://m.media-amazon.com/images/I/...",
-      "source": "kindle_import|manual_add",
+      "source": "kindle_import",
+      "addedDate": 1756899555435
+    },
+    "-DFzEAAAQBAJ": {
+      "bookId": "-DFzEAAAQBAJ",
+      "title": "Google Books書籍タイトル",
+      "authors": "著者名",
+      "acquiredTime": 1756899555435,
+      "readStatus": "UNKNOWN",
+      "productImage": "https://books.google.com/...",
+      "source": "google_books",
       "addedDate": 1756899555435
     }
   },
@@ -185,7 +209,7 @@ php -S localhost:8000
       "id": "tech-books",
       "name": "💻 技術書",
       "description": "プログラミング・技術関連の本",
-      "books": ["B0XXXXXXXXX"],
+      "books": ["B0XXXXXXXXX", "-DFzEAAAQBAJ"],
       "isPublic": true,
       "color": "#3498db"
     }
@@ -205,11 +229,19 @@ php -S localhost:8000
     "booksPerPage": 50
   },
   "bookOrder": {
-    "all": ["B0XXXXXXXXX", "B0YYYYYYYYY"],
+    "all": ["B0XXXXXXXXX", "-DFzEAAAQBAJ"],
     "tech-books": ["B0XXXXXXXXX"]
   }
 }
 ```
+
+### sourceの値
+
+| source | 説明 | bookIdの形式 | リンク先 |
+|--------|------|-------------|----------|
+| `kindle_import` | Kindleからインポート | ASIN（例: `B00XXXXX`） | Amazon |
+| `manual_add` | 手動追加（Amazon） | ASIN | Amazon |
+| `google_books` | Google Books追加 | ボリュームID（例: `-DFzEAAAQBAJ`） | Google Books |
 
 ## 🎨 使い方
 

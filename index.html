@@ -322,14 +322,21 @@
                 <h2>➕ 手動で本を追加</h2>
             </div>
             <div class="modal-body">
+                <!-- ソース選択タブ -->
+                <div class="source-tabs">
+                    <button class="source-tab active" data-source="amazon" id="tab-amazon">Amazon/Kindle</button>
+                    <button class="source-tab" data-source="google" id="tab-google">Google Play Books</button>
+                </div>
+
                 <div class="add-book-options">
-                    <div class="add-option">
-                        <h3>本の情報を入力</h3>
+                    <!-- Amazon/Kindle入力フォーム -->
+                    <div class="add-option source-form" id="amazon-form">
+                        <h3>Amazon/Kindleの本を追加</h3>
                         <div class="form-group">
                             <label for="manual-asin">商品コード（ASIN/ISBN-10）</label>
                             <div class="asin-input-container">
                                 <input type="text" id="manual-asin" placeholder="B012345678 または 4798121967" maxlength="10" />
-                                <button type="button" id="fetch-book-info" class="btn btn-small btn-secondary">📥 自動取得</button>
+                                <button type="button" id="fetch-book-info" class="btn btn-small btn-secondary">自動取得</button>
                             </div>
                             <div class="asin-status" id="asin-status" style="display: none;"></div>
                         </div>
@@ -343,6 +350,33 @@
                         </div>
 
                         <button id="add-manually" class="btn btn-primary">手動追加</button>
+                    </div>
+
+                    <!-- Google Play Books入力フォーム -->
+                    <div class="add-option source-form hidden" id="google-form">
+                        <h3>Google Play Booksの本を追加</h3>
+                        <div class="form-group">
+                            <label for="google-volume-id">ボリュームID</label>
+                            <div class="asin-input-container">
+                                <input type="text" id="google-volume-id"
+                                       placeholder="例: -DFzEAAAQBAJ"
+                                       pattern="[A-Za-z0-9_-]{5,20}"
+                                       title="ボリュームIDは英数字、ハイフン、アンダースコアで5〜20文字です" />
+                                <button type="button" id="fetch-google-book-info" class="btn btn-small btn-secondary">自動取得</button>
+                            </div>
+                            <small class="form-hint">Google BooksのURLの<code>?id=</code>以降の文字列（URLではなくIDのみ入力）</small>
+                            <div class="google-status" id="google-status" style="display: none;"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="google-title">タイトル</label>
+                            <input type="text" id="google-title" placeholder="書籍タイトル" />
+                        </div>
+                        <div class="form-group">
+                            <label for="google-authors">著者</label>
+                            <input type="text" id="google-authors" placeholder="著者名" />
+                        </div>
+
+                        <button id="add-from-google" class="btn btn-primary">追加</button>
                     </div>
                 </div>
                 <div id="add-book-results" class="add-results" style="display: none;">

@@ -100,7 +100,7 @@ class SeriesManager {
 
                 // 各本からシリーズへのマッピングを作成
                 seriesData.volumes.forEach(({ book }) => {
-                    this.bookToSeriesMap.set(book.asin, seriesId);
+                    this.bookToSeriesMap.set(book.bookId, seriesId);
                 });
             }
         });
@@ -326,14 +326,23 @@ class SeriesManager {
     }
 
     /**
-     * 本のASINからシリーズ情報を取得
-     * @param {string} asin - 本のASIN
+     * 本のbookIdからシリーズ情報を取得
+     * @param {string} bookId - 本のbookId
      * @returns {SeriesInfo|null}
      */
-    getSeriesByBookAsin(asin) {
-        const seriesId = this.bookToSeriesMap.get(asin);
+    getSeriesByBookId(bookId) {
+        const seriesId = this.bookToSeriesMap.get(bookId);
         if (!seriesId) return null;
         return this.getSeriesById(seriesId);
+    }
+
+    /**
+     * 後方互換性: getSeriesByBookAsin のエイリアス
+     * @param {string} bookId - 本のbookId (旧ASIN)
+     * @returns {SeriesInfo|null}
+     */
+    getSeriesByBookAsin(bookId) {
+        return this.getSeriesByBookId(bookId);
     }
 
     /**

@@ -69,8 +69,8 @@ class StaticBookshelfGenerator {
         const customOrder = latestUserData.bookOrder?.[bookshelfId];
         if (customOrder && customOrder.length > 0) {
             books.sort((a, b) => {
-                const aIndex = customOrder.indexOf(a.asin);
-                const bIndex = customOrder.indexOf(b.asin);
+                const aIndex = customOrder.indexOf(a.bookId);
+                const bIndex = customOrder.indexOf(b.bookId);
                 
                 if (aIndex === -1 && bIndex === -1) return 0; // Both not in custom order
                 if (aIndex === -1) return 1; // a not in custom order, put at end
@@ -141,17 +141,18 @@ class StaticBookshelfGenerator {
      */
     generateBooksHtml(books) {
         return books.map(book => {
-            const userNote = this.userData.notes?.[book.asin];
+            const userNote = this.userData.notes?.[book.bookId];
             const rating = userNote?.rating || 0;
             const memo = userNote?.memo || '';
-            const amazonUrl = this.bookManager.getAmazonUrl(book, this.userData.settings?.affiliateId);
+            const bookUrlInfo = this.bookManager.getBookUrl(book, this.userData.settings?.affiliateId);
+            const bookUrl = bookUrlInfo?.url || '#';
 
             // マークダウンリンクをHTMLに変換
             const memoHtml = memo ? this.convertMarkdownLinksToHtml(memo) : '';
 
             return `
                 <div class="static-book-item">
-                    <a href="${amazonUrl}" target="_blank" rel="noopener noreferrer">
+                    <a href="${bookUrl}" target="_blank" rel="noopener noreferrer">
                         <img class="static-book-cover"
                              src="${this.escapeHtml(this.bookManager.getProductImageUrl(book))}"
                              alt="${this.escapeHtml(book.title)}"
