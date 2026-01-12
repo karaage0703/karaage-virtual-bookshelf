@@ -6,16 +6,16 @@ class HighlightsManager {
     }
 
     async loadHighlightsForBook(book) {
-        const cacheKey = book.asin;
-        
+        const cacheKey = book.bookId;
+
         if (this.highlightsCache.has(cacheKey)) {
             return this.highlightsCache.get(cacheKey);
         }
 
         try {
-            // Use ASIN-based lookup from highlights index
-            const fileName = await this.getHighlightFileByASIN(book.asin);
-            
+            // Use bookId-based lookup from highlights index
+            const fileName = await this.getHighlightFileByBookId(book.bookId);
+
             if (fileName) {
                 // ASCIIファイル名フォルダから読み込み（GitHub Pages対応）
                 const response = await fetch(`data/HighlightsASCII/${fileName}`);
@@ -26,11 +26,11 @@ class HighlightsManager {
                     return highlights;
                 }
             }
-            
+
             // No highlights found
             this.highlightsCache.set(cacheKey, []);
             return [];
-            
+
         } catch (error) {
             console.error('ハイライト読み込みエラー:', error);
             this.highlightsCache.set(cacheKey, []);
@@ -39,12 +39,12 @@ class HighlightsManager {
     }
 
 
-    async getHighlightFileByASIN(asin) {
+    async getHighlightFileByBookId(bookId) {
         try {
             const response = await fetch(`data/highlights-index.json?t=${Date.now()}`);
             if (response.ok) {
                 const index = await response.json();
-                return index[asin] || null;
+                return index[bookId] || null;
             }
             return null;
         } catch (error) {
@@ -52,17 +52,23 @@ class HighlightsManager {
         }
     }
 
-    extractASINFromMarkdown(markdownText) {
-        // Extract ASIN from YAML frontmatter
+    extractBookIdFromMarkdown(markdownText) {
+        // Extract bookId (ASIN) from YAML frontmatter
         const yamlMatch = markdownText.match(/---\s*\n([\s\S]*?)\n---/);
         if (yamlMatch) {
             const yamlContent = yamlMatch[1];
+            // asinフィールドを探す（後方互換性）
             const asinMatch = yamlContent.match(/asin:\s*([A-Z0-9]+)/);
             if (asinMatch) {
                 return asinMatch[1];
             }
+            // bookIdフィールドも探す
+            const bookIdMatch = yamlContent.match(/bookId:\s*([^\s]+)/);
+            if (bookIdMatch) {
+                return bookIdMatch[1];
+            }
         }
-        
+
         // Also try to extract from markdown content
         const asinInContent = markdownText.match(/ASIN:\s*([A-Z0-9]+)/);
         return asinInContent ? asinInContent[1] : null;
@@ -70,16 +76,16 @@ class HighlightsManager {
 
     parseMarkdownHighlights(markdownText) {
         const highlights = [];
-        
+
         // Find the Highlights section - capture everything after ## Highlights
         const highlightsSectionMatch = markdownText.match(/## Highlights\s*\n([\s\S]*)/);
-        
+
         if (highlightsSectionMatch) {
             const highlightsContent = highlightsSectionMatch[1];
-            
+
             // Split by --- separators and find highlight patterns
             const sections = highlightsContent.split(/\n---\n/);
-            
+
             const highlightMatches = [];
             sections.forEach((section) => {
                 const trimmed = section.trim();
@@ -87,16 +93,16 @@ class HighlightsManager {
                     highlightMatches.push(trimmed);
                 }
             });
-            
+
             if (highlightMatches && highlightMatches.length > 0) {
                 for (let i = 0; i < highlightMatches.length; i++) {
                     const match = highlightMatches[i];
-                    
+
                     const locationMatch = match.match(/(.+?)\s*—\s*location:\s*\[(\d+)\]/s);
                     if (locationMatch) {
                         const text = locationMatch[1].trim();
                         const location = locationMatch[2];
-                        
+
                         if (text.length > 10) {
                             highlights.push({
                                 text: text,
@@ -116,7 +122,7 @@ class HighlightsManager {
             container.textContent = '';
             const noHighlights = document.createElement('p');
             noHighlights.className = 'no-highlights';
-            noHighlights.textContent = '📖 この本にはハイライトがありません';
+            noHighlights.textContent = 'この本にはハイライトがありません';
             container.appendChild(noHighlights);
             return;
         }
@@ -124,7 +130,7 @@ class HighlightsManager {
         const highlightCount = highlights.length;
         let highlightsHTML = `
             <div class="highlights-header">
-                <span class="highlights-count">🎯 ${highlightCount}個のハイライト</span>
+                <span class="highlights-count">${highlightCount}個のハイライト</span>
                 <button class="btn btn-small toggle-highlights">全て表示</button>
             </div>
         `;
@@ -138,7 +144,7 @@ class HighlightsManager {
             highlightsHTML += `
                 <div class="highlight-item" data-index="${index}">
                     <div class="highlight-text">"${this.escapeHtml(highlight.text)}"</div>
-                    ${highlight.note ? `<div class="highlight-note">📝 ${this.escapeHtml(highlight.note)}</div>` : ''}
+                    ${highlight.note ? `<div class="highlight-note">${this.escapeHtml(highlight.note)}</div>` : ''}
                     ${highlight.location ? `<div class="highlight-location">${this.escapeHtml(highlight.location)}</div>` : ''}
                 </div>
             `;
@@ -151,7 +157,7 @@ class HighlightsManager {
                 highlightsHTML += `
                     <div class="highlight-item" data-index="${index + 3}">
                         <div class="highlight-text">"${this.escapeHtml(highlight.text)}"</div>
-                        ${highlight.note ? `<div class="highlight-note">📝 ${this.escapeHtml(highlight.note)}</div>` : ''}
+                        ${highlight.note ? `<div class="highlight-note">${this.escapeHtml(highlight.note)}</div>` : ''}
                         ${highlight.location ? `<div class="highlight-location">${this.escapeHtml(highlight.location)}</div>` : ''}
                     </div>
                 `;
@@ -172,7 +178,7 @@ class HighlightsManager {
             toggleBtn.addEventListener('click', () => {
                 const hiddenList = container.querySelector('.highlights-list.hidden');
                 const isVisible = hiddenList.style.display !== 'none';
-                
+
                 hiddenList.style.display = isVisible ? 'none' : 'block';
                 toggleBtn.textContent = isVisible ? '全て表示' : '一部のみ表示';
             });
@@ -189,14 +195,14 @@ class HighlightsManager {
 
     async searchInHighlights(query) {
         const results = [];
-        
+
         for (const book of this.bookshelf.books) {
             const highlights = await this.loadHighlightsForBook(book);
-            const matchingHighlights = highlights.filter(highlight => 
+            const matchingHighlights = highlights.filter(highlight =>
                 highlight.text.toLowerCase().includes(query.toLowerCase()) ||
                 (highlight.note && highlight.note.toLowerCase().includes(query.toLowerCase()))
             );
-            
+
             if (matchingHighlights.length > 0) {
                 results.push({
                     book: book,
@@ -204,7 +210,7 @@ class HighlightsManager {
                 });
             }
         }
-        
+
         return results;
     }
 
@@ -222,7 +228,7 @@ class HighlightsManager {
                     book: {
                         title: book.title,
                         authors: book.authors,
-                        asin: book.asin
+                        bookId: book.bookId
                     },
                     highlightCount: highlights.length,
                     highlights: highlights
@@ -258,28 +264,6 @@ class HighlightsManager {
                     .reduce((sum, highlights) => sum + highlights.length, 0) / this.highlightsCache.size : 0
         };
     }
-
-    
-    extractASINFromMarkdown(content) {
-        // YAMLフロントマターからASINを抽出
-        const yamlMatch = content.match(/^---\n([\s\S]*?)\n---/);
-        if (yamlMatch) {
-            const yamlContent = yamlMatch[1];
-            const asinMatch = yamlContent.match(/asin:\s*([A-Z0-9]{10})/i);
-            if (asinMatch) {
-                return asinMatch[1];
-            }
-        }
-        
-        // メタデータセクションからASINを抽出（バックアップ）
-        const metaMatch = content.match(/\* ASIN:\s*([A-Z0-9]{10})/i);
-        if (metaMatch) {
-            return metaMatch[1];
-        }
-        
-        return null;
-    }
-    
 }
 
 // HighlightsManager is now initialized directly in bookshelf.js after bookshelf is ready
